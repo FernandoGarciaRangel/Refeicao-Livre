@@ -21,9 +21,10 @@ tipo de alimento. Monte um prato e veja o total de calorias como percentual do s
 |---|---:|---|---|
 | McDonald's | 165 | Cardápio oficial, tabela por produto | 08/2026 |
 | Burger King | 107 | PDF oficial (ZAMP S.A.) | 29/05/2026 |
+| KFC | 54 | Tabela oficial no site, com peso da porção | 08/2026 |
 | Madero | 101 | PDF oficial bilíngue | 05/2026 |
 
-**373 itens** no total.
+**427 itens** no total.
 
 Acrescentar uma rede é criar um JSON — veja **[ATUALIZAR-CARDAPIO.md](ATUALIZAR-CARDAPIO.md)**.
 

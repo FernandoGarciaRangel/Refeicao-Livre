@@ -7,7 +7,7 @@
     "atualizadoEm": "2026-05-29"
   },
   "verificadoEm": "2026-08-28",
-  "observacoes": "Valores por porção, extraídos da tabela nutricional oficial (ZAMP S.A.). O PDF mistura duas bases de valor diário de referência (RDC 429/2020 e RDC 360/2003), o que altera só os percentuais, não os valores absolutos usados aqui. Três células do original não fecham com o próprio %VD impresso: em \"Batata Furiosa – individual\" (gordura 23 g) e \"Mega Stacker Rodeio 2.0\" (sódio 2.232 mg) o valor absoluto confere com a conta de calorias e foi mantido; em \"Cheddar Duplo Crispy\" (sódio) e \"Chicken Jr.\" (gordura saturada) o número impresso é impossível e ficou nulo, em vez de estimado. Açúcares só constam onde vêm alinhados na linha do item no PDF.",
+  "observacoes": "Valores por porção, extraídos da tabela nutricional oficial (ZAMP S.A.). O PDF mistura duas bases de valor diário de referência (RDC 429/2020 e RDC 360/2003), o que altera só os percentuais, não os valores absolutos usados aqui. Três células do original não fecham com o próprio %VD impresso: em \"Batata Furiosa – individual\" (gordura 23 g) e \"Mega Stacker Rodeio 2.0\" (sódio 2.232 mg) o valor absoluto confere com a conta de calorias e foi mantido; em \"Cheddar Duplo Crispy\" (sódio) e \"Chicken Jr.\" (gordura saturada) o número impresso é impossível e ficou nulo, em vez de estimado. Açúcares só constam onde vêm alinhados na linha do item no PDF. Em \"Molho Grogu\" o peso publicado (26 g) é impossível: os 65 g de gordura do próprio item não cabem nele, embora os nutrientes fechem com o %VD impresso. O peso ficou como \"1 porção\" em vez de repetir o número errado; os valores nutricionais vão como publicados.",
   "categorias": [
     {
       "slug": "hamburgueres",
@@ -697,7 +697,7 @@
         },
         {
           "nome": "Molho Grogu",
-          "porcao": "26 g",
+          "porcao": "1 porção",
           "kcal": 603,
           "carb": 3,
           "acucar": 1,

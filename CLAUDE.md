@@ -38,7 +38,16 @@ Toda decisão de arquitetura deste repo sai daí:
 
 O procedimento completo — de onde baixar cada fonte, o formato do item, o que o
 validador cobra — está em **[ATUALIZAR-CARDAPIO.md](ATUALIZAR-CARDAPIO.md)**.
-**Leia antes de tocar em qualquer JSON.**
+**Leia antes de tocar em qualquer JSON.** Ele é a fonte única dessas regras; as
+skills abaixo apontam para ele em vez de repeti-las, de propósito.
+
+Há duas skills em `.claude/skills/` para os dois fluxos, e elas guardam o que é
+exclusivo de cada um:
+
+| Skill | Quando | O que ela sabe que o resto não diz |
+|---|---|---|
+| `adicionar-rede` | incluir uma rede que ainda não existe | o **portão de compatibilidade**: antes de extrair, checar se a fonte é oficial, por porção, extraível e corrente — foi o que faltou no caso do Bob's |
+| `atualizar-cardapio` | reconferir uma rede já cadastrada | que os JSON **não** são saída crua de extrator: sobrescrever apaga em silêncio os `null` e `alerta` decididos à mão |
 
 **Ao mexer neste app, não introduza nada que quebre isso.** Concretamente: nada
 de mover cardápio para dentro do HTML, nada de etapa de build, nada de banco de
@@ -72,6 +81,13 @@ plausíveis. O que denunciou foi a conta de Atwater
 
 E foi ele de novo que pegou o sódio do McDonald's multiplicado por 100, quando
 reaproveitei no site o parser de números escrito para o PDF do BK.
+
+A terceira checagem, a de massa, nasceu ao acrescentar o KFC e achou de primeira
+**um defeito que já estava publicado havia dias**: o `Molho Grogu` do BK, com 65 g
+de gordura numa porção declarada de 26 g. Atwater não via, porque a relação entre
+calorias e macros fechava — o furo estava no peso, que nenhuma checagem olhava.
+Quando acrescentar uma regra ao validador, rode-a contra **todo** o dado
+existente antes de comemorar: o alvo pode estar no que você já publicou.
 
 A lição para a próxima rede: **a plausibilidade de um número não é evidência de
 que ele é o número certo.** O que amarra um valor à sua coluna é o `%VD` impresso
@@ -118,6 +134,12 @@ Estão em `observacoes` de cada rede, mas vale saber que existem antes de
   absoluto confere com a conta de calorias e foi mantido; em duas o número é
   impossível (sódio de 3 mg marcado como 6% do VD; 45 g de saturada num sanduíche
   com 21 g de gordura total) e o campo ficou `null`.
+- **KFC**: os `%VD` impressos são inconsistentes em vários itens (11 g de gordura
+  marcados como 6% do VD), então **ali o `%VD` não serve de conferência** — a
+  checagem foi a conta de calorias, que fecha em 52 dos 54 itens. Os dois que não
+  fecham (Molho Chipotle e Molho Secreto) levam `alerta`. A rede não publica
+  açúcares. Um peso de porção era impossível (46 g num sanduíche com 104 g de
+  macros) e virou `"1 porção"`.
 - **Madero**: o PDF repete o **mesmo bloco nutricional** em pratos diferentes — o
   trio `154 / 416 kcal / 20%` serve o Penne, o Ravioli e a salada de
   acompanhamento. E traz uma anotação interna, "Rever calculo", ao lado do Mini
