@@ -37,7 +37,16 @@ Toda decisão de arquitetura deste repo sai daí:
 
 O procedimento completo — de onde baixar cada fonte, o formato do item, o que o
 validador cobra — está em **[ATUALIZAR-CARDAPIO.md](ATUALIZAR-CARDAPIO.md)**.
-**Leia antes de tocar em qualquer JSON.**
+**Leia antes de tocar em qualquer JSON.** Ele é a fonte única dessas regras; as
+skills abaixo apontam para ele em vez de repeti-las, de propósito.
+
+Há duas skills em `.claude/skills/` para os dois fluxos, e elas guardam o que é
+exclusivo de cada um:
+
+| Skill | Quando | O que ela sabe que o resto não diz |
+|---|---|---|
+| `adicionar-rede` | incluir uma rede que ainda não existe | o **portão de compatibilidade**: antes de extrair, checar se a fonte é oficial, por porção, extraível e corrente — foi o que faltou no caso do Bob's |
+| `atualizar-cardapio` | reconferir uma rede já cadastrada | que os JSON **não** são saída crua de extrator: sobrescrever apaga em silêncio os `null` e `alerta` decididos à mão |
 
 **Ao mexer neste app, não introduza nada que quebre isso.** Concretamente: nada
 de mover cardápio para dentro do HTML, nada de etapa de build, nada de banco de
