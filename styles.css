@@ -155,6 +155,8 @@ body {
   color: inherit;
   text-align: left;
   font: inherit;
+  /* o card é um <a>: sem isto o nome da rede e a descrição saem sublinhados */
+  text-decoration: none;
   cursor: pointer;
   transition: border-color 0.15s, transform 0.15s;
 }
