@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Fernando Garcia Rangel">
+<meta name="description" content="Cardápio das maiores redes de fast food com a tabela nutricional oficial de cada uma. Monte a refeição e veja o total de calorias.">
+<meta name="theme-color" content="#09090b">
+<meta property="og:title" content="Refeição Livre">
+<meta property="og:description" content="O cardápio do seu dia livre, com os números oficiais.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://refeicao-livre.vercel.app/">
+<meta name="twitter:card" content="summary">
+<title>Refeição Livre</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23f97316'/><path d='M8 9h16M8 9c0 6 3 8 8 8s8-2 8-8M16 17v6M11 23h10' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+<!-- Antes do CSS: evita o flash de tema errado ao recarregar. -->
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('refeicaolivre_theme');
+      if (t === 'light' || t === 'dark') {
+        document.documentElement.dataset.theme = t;
+        var m = document.querySelector('meta[name="theme-color"]');
+        if (m) m.content = t === 'light' ? '#fafafa' : '#09090b';
+      }
+    } catch (e) { /* localStorage indisponível — segue no tema escuro */ }
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="bg-glow" aria-hidden="true"></div>
+
+<div class="wrap">
+  <div class="page-bar">
+    <a href="https://apps-hub-beta.vercel.app" class="btn-back" aria-label="Voltar para o portal de apps">← Apps</a>
+    <button type="button" class="theme-toggle" id="btnTheme" aria-pressed="false" title="Alternar tema claro ou escuro">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M20.5 13.5A8 8 0 0 1 10.5 3.5a8.5 8.5 0 1 0 10 10Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      </svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M12 3v2.2M12 18.8V21M4.2 12H2M22 12h-2.2M6.3 6.3 4.8 4.8M19.2 19.2l-1.5-1.5M17.7 6.3l1.5-1.5M4.8 19.2l1.5-1.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <header class="intro">
+    <p class="eyebrow">Guia nutricional</p>
+    <h1>Refeição Livre</h1>
+    <p class="lede">O cardápio do seu dia livre, com os números oficiais de cada rede.</p>
+  </header>
+
+  <!-- Tela 1 — redes -->
+  <main id="telaRedes" class="tela">
+    <nav class="menu" id="listaRedes" aria-label="Restaurantes disponíveis"></nav>
+    <p class="vazio" id="redesVazio" hidden></p>
+  </main>
+
+  <!-- Tela 2 — cardápio de uma rede -->
+  <main id="telaCardapio" class="tela" hidden>
+    <div class="rede-topo">
+      <button type="button" class="btn-voltar" id="btnVoltar">← Restaurantes</button>
+      <div class="rede-id">
+        <span class="rede-badge" id="redeBadge" aria-hidden="true"></span>
+        <div>
+          <h2 id="redeNome"></h2>
+          <p class="rede-meta" id="redeMeta"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="busca-linha">
+      <div class="input-row">
+        <svg class="busca-icone" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <input type="search" id="busca" placeholder="Buscar no cardápio" aria-label="Buscar item no cardápio" autocomplete="off">
+      </div>
+      <button type="button" class="btn-ordem" id="btnOrdem" aria-label="Alternar ordenação">A–Z</button>
+    </div>
+
+    <nav class="chips" id="chips" aria-label="Tipos de alimento"></nav>
+
+    <div id="cardapio"></div>
+    <p class="vazio" id="cardapioVazio" hidden>Nenhum item encontrado.</p>
+
+    <footer class="fonte" id="fonte"></footer>
+  </main>
+
+  <p class="aviso-file" id="avisoFile" hidden>
+    Este app lê os cardápios de arquivos JSON e por isso precisa de um servidor —
+    abrir o <code>index.html</code> direto do disco não funciona.
+    Rode <code>npx serve . -l 8082</code> na pasta do projeto e acesse
+    <code>http://localhost:8082</code>.
+  </p>
+
+  <footer class="rodape">
+    <p>
+      Valores compilados das tabelas nutricionais oficiais de cada rede, com a fonte e a data
+      de verificação indicadas em cada cardápio. Marcas e nomes de produtos pertencem aos
+      respectivos titulares; este app não tem afiliação nem patrocínio de nenhuma delas.
+      Os cardápios mudam com frequência e o valor informado no restaurante prevalece.
+      A informação é de referência e não substitui orientação nutricional profissional.
+    </p>
+    <p class="rodape-autor"><a href="https://github.com/fernandogarciarangel" target="_blank" rel="noopener noreferrer">github.com/fernandogarciarangel</a></p>
+  </footer>
+</div>
+
+<!-- Barra da refeição montada -->
+<div class="prato-barra" id="pratoBarra" hidden>
+  <button type="button" class="prato-resumo" id="btnPrato" aria-expanded="false" aria-controls="pratoPainel">
+    <span class="prato-contagem" id="pratoContagem">0 itens</span>
+    <span class="prato-kcal" id="pratoKcal">0 kcal</span>
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 15l6-6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</div>
+
+<div class="prato-scrim" id="pratoScrim" hidden></div>
+<section class="prato-painel" id="pratoPainel" role="dialog" aria-modal="true" aria-labelledby="pratoTitulo" hidden>
+  <div class="prato-cabecalho">
+    <h2 id="pratoTitulo">Sua refeição livre</h2>
+    <button type="button" class="btn-fechar" id="btnFecharPrato" aria-label="Fechar">×</button>
+  </div>
+  <ul class="prato-lista" id="pratoLista"></ul>
+  <div class="prato-totais" id="pratoTotais"></div>
+  <div class="gasto">
+    <label for="gastoDiario">Seu gasto diário</label>
+    <div class="gasto-linha">
+      <div class="input-row">
+        <input type="number" id="gastoDiario" inputmode="numeric" min="500" max="8000" step="10" placeholder="2000">
+        <span class="unit">kcal</span>
+      </div>
+      <a class="btn-link" href="https://calculadora-tmb-five.vercel.app/" target="_blank" rel="noopener noreferrer">calcular na TMB</a>
+    </div>
+    <p class="gasto-resultado" id="gastoResultado"></p>
+  </div>
+  <button type="button" class="btn-secondary btn-limpar" id="btnLimpar">Limpar refeição</button>
+</section>
+
+<script src="app.js"></script>
+<script>
+  // Em dev, o btn-back aponta para o hub local em vez de producao.
+  (function () {
+    var h = location.hostname;
+    if (h !== 'localhost' && h !== '127.0.0.1') return;
+    var el = document.querySelectorAll('.btn-back');
+    for (var i = 0; i < el.length; i++) el[i].href = 'http://localhost:8080/';
+  })();
+</script>
+</body>
+</html>

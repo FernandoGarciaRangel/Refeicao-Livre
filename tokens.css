@@ -1,0 +1,59 @@
+/* Sistema de design "Preto & Laranja" — tokens compartilhados.
+   Fonte da verdade: DESIGN-SYSTEM.md, no repo Apps-Hub.
+   Os três apps (Apps-Hub, Calculadora TMB, WeightChartS) carregam uma cópia
+   idêntica deste arquivo. Ao mudar um valor, mude nos três. */
+
+:root {
+  /* superfícies */
+  --bg: #09090b;
+  --surface: #161618;
+  --surface-2: #1d1d21;
+  --border: #27272a;
+  --border-hover: rgba(249, 115, 22, 0.45);
+
+  /* texto */
+  --text: #f4f4f5;
+  --text-dim: #a1a1aa;
+  --text-faint: #71717a;
+
+  /* acento — --accent é preenchimento, --accent-text é texto (ver §2 da spec) */
+  --accent: #f97316;
+  --accent-soft: #fb923c;
+  --accent-dim: #c2410c;
+  --accent-text: #f97316;
+  --on-accent: #09090b;
+  --accent-tint: rgba(249, 115, 22, 0.12);
+  --accent-glow: rgba(249, 115, 22, 0.18);
+
+  /* forma */
+  --radius: 1rem;
+  --radius-sm: 0.625rem;
+  --radius-xs: 0.5rem;
+
+  /* tipografia */
+  --font-display: 'Syne', system-ui, sans-serif;
+  --font-body: 'Nunito', system-ui, sans-serif;
+  --step--1: 0.8125rem;
+  --step-0: 0.9375rem;
+  --step-1: 1.0625rem;
+  --step-2: 1.375rem;
+  --step-3: 1.875rem;
+  /* mínimo 1.95rem: 2.25rem não cabia numa coluna de 33rem a 375px de viewport */
+  --step-4: clamp(1.95rem, 7vw, 2.9rem);
+}
+
+:root[data-theme="light"] {
+  --bg: #fafafa;
+  --surface: rgba(255, 255, 255, 0.75);
+  --surface-2: #f4f4f5;
+  --border: #e4e4e7;
+
+  --text: #18181b;
+  --text-dim: #52525b;
+  --text-faint: #71717a;
+
+  /* #f97316 sobre #fafafa dá 2,7:1 e reprova AA — orange-700 dá 5,0:1 */
+  --accent-text: #c2410c;
+  --accent-tint: rgba(249, 115, 22, 0.06);
+  --accent-glow: rgba(249, 115, 22, 0.10);
+}

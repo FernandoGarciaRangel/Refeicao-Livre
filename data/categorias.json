@@ -1,0 +1,17 @@
+[
+  { "slug": "hamburgueres",    "nome": "Hambúrgueres" },
+  { "slug": "frango",          "nome": "Frango" },
+  { "slug": "carnes",          "nome": "Carnes" },
+  { "slug": "peixes",          "nome": "Peixes" },
+  { "slug": "massas",          "nome": "Massas" },
+  { "slug": "entradas",        "nome": "Entradas" },
+  { "slug": "saladas",         "nome": "Saladas" },
+  { "slug": "matinais",        "nome": "Matinais e padaria" },
+  { "slug": "acompanhamentos", "nome": "Acompanhamentos" },
+  { "slug": "molhos",          "nome": "Molhos" },
+  { "slug": "combos",          "nome": "Combos" },
+  { "slug": "bebidas",         "nome": "Bebidas" },
+  { "slug": "shakes",          "nome": "Shakes" },
+  { "slug": "cafe",            "nome": "Café" },
+  { "slug": "sobremesas",      "nome": "Sobremesas" }
+]
