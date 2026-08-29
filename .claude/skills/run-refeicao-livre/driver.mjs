@@ -640,6 +640,25 @@ async function cmdSmoke() {
       await page.eval("[...document.querySelectorAll('.entry-title')].map(e => e.innerText)"),
       ["McDonald's", 'Burger King', 'KFC', 'Madero'],
     );
+    // A logo do badge vem de data/index.json e mora em assets/. É o mesmo
+    // descuido que deixa um data/*.json fora do commit: o deploy fica verde e o
+    // badge cai calado na inicial. Aqui isso vira falha.
+    await page.waitFor("[...document.querySelectorAll('#listaRedes .rede-logo')].every(i => i.complete)");
+    c.is(
+      'logos das redes carregaram',
+      await page.eval(`(async () => {
+        const idx = await (await fetch('data/index.json')).json();
+        const imgs = [...document.querySelectorAll('#listaRedes .rede-logo')];
+        const ruins = [];
+        for (const r of idx.redes.filter(r => r.logo)) {
+          const img = imgs.find(i => i.getAttribute('src') === r.logo);
+          if (!img) { ruins.push(r.slug + ': badge sem <img> (caiu na inicial)'); continue; }
+          if (!img.naturalWidth) ruins.push(r.slug + ': ' + r.logo + ' não decodificou');
+        }
+        return ruins;
+      })()`),
+      [],
+    );
     P('   ' + (await page.shot('01-redes.png')));
 
     P('2. os JSON de data/ respondem e são válidos');

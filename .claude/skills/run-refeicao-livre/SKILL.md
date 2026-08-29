@@ -33,8 +33,8 @@ Files (x86), LocalAppData, Edge e caminhos de Linux); se estiver noutro lugar,
 
 ### Smoke test end-to-end
 
-21 checagens: carrega a lista de redes, confere que todo JSON de `data/`
-responde e faz parse, mede o `h1` em três larguras, abre um cardápio por URL,
+22 checagens: carrega a lista de redes, confere que as logos dos badges
+carregaram de verdade, que todo JSON de `data/` responde e faz parse, mede o `h1` em três larguras, abre um cardápio por URL,
 confere a busca, o detalhe com os macros, a refeição somada **entre redes**, o
 percentual do gasto diário, o tema claro e o console limpo. Gera 3 screenshots
 em `.claude-shots/`.
@@ -43,7 +43,7 @@ em `.claude-shots/`.
 node .claude/skills/run-refeicao-livre/driver.mjs smoke
 ```
 
-Saída atual: `OK: 21/21 checagens passaram`.
+Saída atual: `OK: 22/22 checagens passaram`.
 
 Os números de referência estão conferidos contra a fonte oficial — se mudar um
 cardápio, é aqui que quebra primeiro, **de propósito**:

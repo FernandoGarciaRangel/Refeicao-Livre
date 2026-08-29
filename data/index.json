@@ -1,8 +1,7 @@
 {
   "redes": [
-    { "slug": "mcdonalds", "nome": "McDonald's", "cor": "#a8620b", "inicial": "M" },
-    { "slug": "burger-king", "nome": "Burger King", "cor": "#d62300", "inicial": "BK" },
-    { "slug": "kfc", "nome": "KFC", "cor": "#a3132b", "inicial": "KFC" },
-    { "slug": "madero", "nome": "Madero", "cor": "#8b1a1a", "inicial": "MD" }
+    { "slug": "mcdonalds", "nome": "McDonald's", "cor": "#a8620b", "inicial": "M", "logo": "assets/logos/mcdonalds.svg" },
+    { "slug": "burger-king", "nome": "Burger King", "cor": "#d62300", "inicial": "BK", "logo": "assets/logos/burger-king.svg" },
+    { "slug": "madero", "nome": "Madero", "cor": "#8b1a1a", "inicial": "MD", "logo": "assets/logos/madero.svg" }
   ]
 }

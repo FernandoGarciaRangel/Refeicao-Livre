@@ -176,6 +176,15 @@ body {
   /* a cor vem do dado (data/index.json), não do CSS */
 }
 
+/* A logo também vem do dado. As artes são monocromáticas em branco, para
+   assentar sobre a cor da marca do mesmo jeito que a inicial assentava. */
+.rede-logo {
+  display: block;
+  width: 64%;
+  height: 64%;
+  object-fit: contain;
+}
+
 .entry-body { flex: 1 1 auto; min-width: 0; }
 .entry-title { display: block; font-family: var(--font-display); font-weight: 700; font-size: var(--step-1); }
 .entry-desc { display: block; color: var(--text-dim); font-size: var(--step--1); }

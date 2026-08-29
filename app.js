@@ -97,6 +97,29 @@
     });
   }
 
+  // ---------- badge da rede ----------
+
+  // A logo quando o dado traz uma, a inicial quando não. Os dois caminhos
+  // existem de propósito: acrescentar uma rede continua sendo criar o JSON e
+  // uma linha no index.json, com ou sem arte pronta.
+  function pintaBadge(el, rede) {
+    var inicial = rede.inicial || rede.nome.slice(0, 1);
+    el.style.background = rede.cor;
+    el.textContent = '';
+    if (!rede.logo) { el.textContent = inicial; return; }
+
+    var img = document.createElement('img');
+    img.className = 'rede-logo';
+    img.src = rede.logo;
+    img.alt = '';
+    // logo que não carrega (arquivo fora do git add, por exemplo) não pode
+    // deixar o badge vazio — cai de volta na inicial
+    img.addEventListener('error', function () {
+      el.textContent = inicial;
+    });
+    el.appendChild(img);
+  }
+
   // ---------- tela 1: redes ----------
 
   function pintaRedes() {
@@ -109,9 +132,8 @@
 
       var badge = document.createElement('span');
       badge.className = 'rede-badge';
-      badge.style.background = rede.cor;
-      badge.textContent = rede.inicial || rede.nome.slice(0, 1);
       badge.setAttribute('aria-hidden', 'true');
+      pintaBadge(badge, rede);
 
       var corpo = document.createElement('span');
       corpo.className = 'entry-body';
@@ -263,9 +285,7 @@
     if (!dados) return;
 
     $('redeNome').textContent = dados.nome;
-    var badge = $('redeBadge');
-    badge.style.background = rede.cor;
-    badge.textContent = rede.inicial || rede.nome.slice(0, 1);
+    pintaBadge($('redeBadge'), rede);
 
     var total = dados.categorias.reduce(function (s, c) { return s + c.itens.length; }, 0);
     $('redeMeta').textContent = total + ' itens · verificado em ' + dataBr(dados.verificadoEm);
