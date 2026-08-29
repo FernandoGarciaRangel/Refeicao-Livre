@@ -60,6 +60,19 @@
     return iso;
   }
 
+  // Os nomes oficiais trazem símbolos que ninguém digita ("WHOPPER® Jr.",
+  // "Big King™") e acentos. Normaliza os dois lados da busca para que
+  // "whopper jr" ache "WHOPPER® Jr." e "acucar" ache "Açúcar".
+  function normaliza(s) {
+    return String(s)
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[̀-ͯ]/g, '')
+      .replace(/[®™©]/g, '')
+      .replace(/[^a-z0-9]+/g, ' ')
+      .trim();
+  }
+
   function nomeCategoria(slug) {
     for (var i = 0; i < estado.categorias.length; i++) {
       if (estado.categorias[i].slug === slug) return estado.categorias[i].nome;
@@ -126,12 +139,12 @@
   // ---------- tela 2: cardápio ----------
 
   function itensVisiveis(dados) {
-    var termo = estado.busca.trim().toLowerCase();
+    var termo = normaliza(estado.busca);
     var grupos = [];
     dados.categorias.forEach(function (cat) {
       if (estado.catAtual && cat.slug !== estado.catAtual) return;
       var itens = cat.itens.filter(function (it) {
-        return !termo || it.nome.toLowerCase().indexOf(termo) !== -1;
+        return !termo || normaliza(it.nome).indexOf(termo) !== -1;
       });
       if (!itens.length) return;
       itens = itens.slice();
@@ -486,6 +499,12 @@
     var rede = estado.redes.filter(function (r) { return r.slug === redeSlug; })[0];
     if (!rede) { vaiPara(null); return; }
 
+    // Trocar de rede zera a busca: o termo da rede anterior filtraria o cardápio
+    // novo e ele abriria vazio, sem que nada na tela explicasse por quê.
+    if (!estado.redeAtual || estado.redeAtual.slug !== rede.slug) {
+      estado.busca = '';
+      $('busca').value = '';
+    }
     estado.redeAtual = rede;
     estado.catAtual = catSlug;
     estado.expandido = null;

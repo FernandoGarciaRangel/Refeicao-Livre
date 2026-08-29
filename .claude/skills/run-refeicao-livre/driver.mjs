@@ -624,112 +624,144 @@ async function cmdShot() {
   await close();
 }
 
-// ------------------------------------------------------------------ smoke Hub
+// -------------------------------------------------------- smoke Refeição Livre
 
 async function cmdSmoke() {
   const c = checker();
   const { page, close } = await launch({});
   try {
-    P('1. carrega a página');
+    P('1. carrega a lista de redes');
     await page.goto('/');
-    c.is('title', await page.eval('document.title'), 'Apps — Fernando Garcia Rangel');
+    await page.waitFor("document.querySelectorAll('.entry').length > 0");
+    c.is('title', await page.eval('document.title'), 'Refeição Livre');
     c.is('tema inicial', await page.eval('document.documentElement.dataset.theme'), 'dark');
-    P('   ' + (await page.shot('01-escuro.png', { full: true })));
-
-    P('2. os dois links de saída');
     c.is(
-      'entradas',
-      await page.eval(
-        "[...document.querySelectorAll('.entry')].map(a => a.querySelector('.entry-title').innerText + ' -> ' + a.href)",
-      ),
-      [
-        'WeightChartS -> https://weight-charts.vercel.app/',
-        'Calculadora TMB -> https://calculadora-tmb-five.vercel.app/',
-      ],
+      'redes no portal',
+      await page.eval("[...document.querySelectorAll('.entry-title')].map(e => e.innerText)"),
+      ["McDonald's", 'Burger King', 'Madero'],
     );
+    P('   ' + (await page.shot('01-redes.png')));
+
+    P('2. os JSON de data/ respondem e são válidos');
     c.is(
-      'target/rel nos links',
-      await page.eval(
-        "[...document.querySelectorAll('.entry')].every(a => a.target === '_blank' && a.rel.includes('noopener'))",
-      ),
-      true,
+      'arquivos de dados',
+      await page.eval(`(async () => {
+        const idx = await (await fetch('data/index.json')).json();
+        const alvos = ['data/index.json', 'data/categorias.json',
+          ...idx.redes.map(r => 'data/' + r.slug + '.json')];
+        const ruins = [];
+        for (const u of alvos) {
+          try { const r = await fetch(u); if (!r.ok) { ruins.push(u + ':' + r.status); continue; } await r.json(); }
+          catch (e) { ruins.push(u + ':' + e.message); }
+        }
+        return ruins;
+      })()`),
+      [],
     );
 
     P('3. o h1 com background-clip:text cabe na caixa (senão trunca invisível)');
-    for (const [w, h] of [
-      [420, 900],
-      [390, 844],
-      [360, 780],
-      [320, 700],
-    ]) {
+    // Mede o texto com um Range, não por scrollWidth: com fill transparente o
+    // excedente some sem scrollbar, e scrollWidth === clientWidth não detecta.
+    for (const [w, h] of [[320, 700], [360, 700], [430, 900]]) {
       await page.viewport(w, h);
-      await page.settle(120);
-      const fit = await page.textFit('.intro h1');
-      c.ok(
-        `h1 cabe em ${w}px`,
-        fit.folga >= 0,
-        `texto ${fit.textW}px em caixa de ${fit.boxW}px (fonte ${fit.fontSize}px, folga ${fit.folga}px, ratio ${fit.ratio}x)`,
-      );
+      const f = await page.textFit('.intro h1');
+      c.ok(`h1 cabe em ${w}px`, f.folga >= 0, `texto ${f.textW} / caixa ${f.boxW} (folga ${f.folga})`);
     }
-    await page.viewport(320, 700);
-    P('   ' + (await page.shot('02-estreito-320.png')));
     await page.viewport(420, 900);
 
-    P('4. o h1 é de fato transparente (é por isso que o overflow some calado)');
+    P('4. o cardápio de uma rede abre por URL e agrupa por tipo de alimento');
+    await page.goto('/#/burger-king');
+    await page.waitFor("document.querySelectorAll('.item-topo').length > 0");
     c.is(
-      'color transparente',
-      await page.eval(
-        "getComputedStyle(document.querySelector('.intro h1')).webkitTextFillColor",
-      ),
-      'rgba(0, 0, 0, 0)',
+      'itens do Burger King',
+      await page.eval("document.querySelectorAll('.item-topo').length"),
+      107,
+    );
+    c.ok(
+      'chips de categoria',
+      (await page.eval("[...document.querySelectorAll('.chip')].map(e => e.innerText)")).includes('Tudo'),
     );
     c.is(
-      'scrollWidth não detecta overflow',
-      await page.eval(
-        "(() => { const h = document.querySelector('.intro h1'); return h.scrollWidth === h.clientWidth; })()",
-      ),
-      true,
+      'toda categoria usada tem nome em categorias.json',
+      await page.eval(`(async () => {
+        const cats = await (await fetch('data/categorias.json')).json();
+        const nomes = cats.map(c => c.nome);
+        // textContent, não innerText: .grupo-titulo tem text-transform:uppercase
+        // e o innerText devolveria o texto já transformado.
+        return [...document.querySelectorAll('.grupo-titulo')]
+          .map(e => e.textContent.trim()).filter(n => !nomes.includes(n));
+      })()`),
+      [],
     );
 
-    P('5. o botão de tema vive numa page-bar própria, fora da linha do h1');
+    P('5. a busca filtra por nome');
+    await page.fill('#busca', 'whopper');
+    const achados = await page.eval("[...document.querySelectorAll('.item-nome')].map(e => e.innerText)");
+    c.ok(
+      'busca "whopper"',
+      achados.length > 0 && achados.every((n) => /whopper/i.test(n)),
+      achados.length + ' itens',
+    );
+    await page.fill('#busca', '');
+
+    P('6. o detalhe mostra os macros, com — no que a fonte não publica');
+    await page.goto('/#/burger-king/frango');
+    await page.waitFor("document.querySelectorAll('.item-topo').length > 0");
+    await page.fill('#busca', 'chicken jr');
+    await page.click('.item-topo');
+    const macros = await page.eval("[...document.querySelectorAll('.macro dd')].map(e => e.innerText)");
+    c.ok('macros no detalhe', macros.length === 7, macros.join(' | '));
+    // "Chicken Jr." tem gordura saturada nula: o PDF do BK publica valor impossível
+    c.ok('campo sem fonte aparece como —', macros.includes('—'), 'esperado em gordura saturada');
+
+    P('7. a refeição soma entre redes e persiste');
+    await page.goto('/#/mcdonalds');
+    await page.waitFor('document.getElementById("redeNome").textContent.startsWith("McDonald")');
+    await page.fill('#busca', 'big mac');
+    await page.click('.lista li:first-child .btn-add');
+    await page.goto('/#/burger-king');
+    await page.waitFor('document.getElementById("redeNome").textContent === "Burger King"');
+    await page.fill('#busca', 'whopper jr');
+    await page.click('.lista li:first-child .btn-add');
+    const soma = JSON.parse(await page.eval('JSON.stringify(window.refeicaoLivre.somaPrato().soma)'));
+    c.is('soma do prato (Big Mac 524 + Whopper Jr. 388)', soma.kcal, 912);
     c.is(
-      'botão fora do header .intro',
-      await page.eval("!document.querySelector('.intro')?.contains(document.getElementById('btnTheme'))"),
-      true,
+      'prato guardado no localStorage',
+      await page.eval("JSON.parse(localStorage.getItem('refeicaolivre_prato') || '[]').length"),
+      2,
     );
 
-    P('6. tema alterna nos dois sentidos e persiste');
-    await page.click('#btnTheme');
-    c.is('claro: data-theme', await page.eval('document.documentElement.dataset.theme'), 'light');
-    c.is('claro: localStorage', await page.eval("localStorage.getItem('appshub_theme')"), 'light');
+    P('8. o total vira percentual do gasto diário');
+    await page.click('#btnPrato');
+    await page.fill('#gastoDiario', '2400');
     c.is(
-      'claro: aria-pressed',
-      await page.eval("document.getElementById('btnTheme').getAttribute('aria-pressed')"),
-      'true',
+      '912 kcal em 2400',
+      await page.eval("document.getElementById('gastoResultado').innerText"),
+      'Esta refeição é 38% do seu gasto diário de 2.400 kcal.',
     );
-    c.is(
-      'claro: meta theme-color',
-      await page.eval("document.querySelector('meta[name=\\\"theme-color\\\"]').content"),
-      '#fafafa',
+    P('   ' + (await page.shot('02-prato.png')));
+
+    P('9. tema claro: laranja como texto usa --accent-text');
+    await page.eval("window.refeicaoLivre.aplicaTema('light')");
+    await page.eval(
+      "(() => { const s = document.createElement('style'); s.textContent = '*{transition:none!important}'; document.head.appendChild(s); return 1; })()",
     );
-    P('   ' + (await page.shot('03-claro.png', { full: true })));
-
-    await page.click('#btnTheme');
-    c.is('volta ao escuro', await page.eval('document.documentElement.dataset.theme'), 'dark');
-    c.is('escuro: localStorage', await page.eval("localStorage.getItem('appshub_theme')"), 'dark');
-
-    P('7. laranja como texto usa --accent-text (contraste no tema claro)');
-    await page.click('#btnTheme');
-    await page.settle(120);
+    c.is('tema', await page.eval('document.documentElement.dataset.theme'), 'light');
     c.is(
       'eyebrow no tema claro',
       await page.eval("getComputedStyle(document.querySelector('.eyebrow')).color"),
       'rgb(194, 65, 12)', // #c2410c
     );
-
-    P('8. todo asset local referenciado responde 200');
     c.is(
-      'css/ícones locais',
+      'meta theme-color',
+      await page.eval("document.querySelector('meta[name=theme-color]').content"),
+      '#fafafa',
+    );
+    P('   ' + (await page.shot('03-claro.png')));
+
+    P('10. todo CSS local referenciado responde 200');
+    c.is(
+      'css local',
       await page.eval(`(async () => {
         const urls = [...document.querySelectorAll('link[rel=stylesheet]')]
           .map(l => l.href).filter(u => u.startsWith(location.origin));
@@ -743,7 +775,7 @@ async function cmdSmoke() {
       [],
     );
 
-    P('9. nenhuma exceção não capturada');
+    P('11. nenhuma exceção não capturada');
     c.is('erros do console', page.errors, []);
   } finally {
     await close();
