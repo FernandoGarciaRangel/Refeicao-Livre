@@ -34,10 +34,10 @@ Files (x86), LocalAppData, Edge e caminhos de Linux); se estiver noutro lugar,
 ### Smoke test end-to-end
 
 22 checagens: carrega a lista de redes, confere que as logos dos badges
-carregaram de verdade, que todo JSON de `data/` responde e faz parse, mede o `h1` em três larguras, abre um cardápio por URL,
-confere a busca, o detalhe com os macros, a refeição somada **entre redes**, o
-percentual do gasto diário, o tema claro e o console limpo. Gera 3 screenshots
-em `.claude-shots/`.
+carregaram de verdade, que todo JSON de `data/` responde e faz parse, mede o `h1`
+em três larguras, abre um cardápio por URL, confere a busca, o detalhe com os
+macros, a refeição somada **entre redes**, o percentual do gasto diário, o tema
+claro e o console limpo. Gera 3 screenshots em `.claude-shots/`.
 
 ```bash
 node .claude/skills/run-refeicao-livre/driver.mjs smoke
@@ -53,7 +53,7 @@ cardápio, é aqui que quebra primeiro, **de propósito**:
 | itens do Burger King | 107 |
 | Big Mac + WHOPPER® Jr. | `524 + 388 = 912` kcal |
 | 912 kcal sobre 2.400 | "38% do seu gasto diário" |
-| redes no portal | `["McDonald's", "Burger King", "Madero"]` |
+| redes no portal | `["McDonald's", "Burger King", "KFC", "Madero", "Bob's"]` |
 
 Quebrou depois de atualizar cardápio? Confira o número novo contra a fonte e
 **atualize o smoke** — não relaxe a asserção.
