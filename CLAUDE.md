@@ -81,6 +81,13 @@ plausíveis. O que denunciou foi a conta de Atwater
 E foi ele de novo que pegou o sódio do McDonald's multiplicado por 100, quando
 reaproveitei no site o parser de números escrito para o PDF do BK.
 
+A terceira checagem, a de massa, nasceu ao acrescentar o KFC e achou de primeira
+**um defeito que já estava publicado havia dias**: o `Molho Grogu` do BK, com 65 g
+de gordura numa porção declarada de 26 g. Atwater não via, porque a relação entre
+calorias e macros fechava — o furo estava no peso, que nenhuma checagem olhava.
+Quando acrescentar uma regra ao validador, rode-a contra **todo** o dado
+existente antes de comemorar: o alvo pode estar no que você já publicou.
+
 A lição para a próxima rede: **a plausibilidade de um número não é evidência de
 que ele é o número certo.** O que amarra um valor à sua coluna é o `%VD` impresso
 ao lado dele — proteína 32 g com "63%" só fecha contra o VD de 50 g da RDC
@@ -126,6 +133,12 @@ Estão em `observacoes` de cada rede, mas vale saber que existem antes de
   absoluto confere com a conta de calorias e foi mantido; em duas o número é
   impossível (sódio de 3 mg marcado como 6% do VD; 45 g de saturada num sanduíche
   com 21 g de gordura total) e o campo ficou `null`.
+- **KFC**: os `%VD` impressos são inconsistentes em vários itens (11 g de gordura
+  marcados como 6% do VD), então **ali o `%VD` não serve de conferência** — a
+  checagem foi a conta de calorias, que fecha em 52 dos 54 itens. Os dois que não
+  fecham (Molho Chipotle e Molho Secreto) levam `alerta`. A rede não publica
+  açúcares. Um peso de porção era impossível (46 g num sanduíche com 104 g de
+  macros) e virou `"1 porção"`.
 - **Madero**: o PDF repete o **mesmo bloco nutricional** em pratos diferentes — o
   trio `154 / 416 kcal / 20%` serve o Penne, o Ravioli e a salada de
   acompanhamento. E traz uma anotação interna, "Rever calculo", ao lado do Mini

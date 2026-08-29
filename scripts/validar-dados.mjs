@@ -123,6 +123,18 @@ for (const rede of indice?.redes ?? []) {
         else erro(msg);
       }
 
+      // Os macros são massa: somados, não cabem numa porção menor que eles.
+      // Pega peso de porção errado, que a conta de Atwater não vê — ela só olha a
+      // relação entre calorias e macros, que continua fechando com o peso errado.
+      const gramas = /^([\d.,]+)\s*g$/.exec((item.porcao ?? '').trim());
+      if (gramas) {
+        const peso = Number(gramas[1].replace(',', '.'));
+        const massa = ['carb', 'prot', 'gord'].reduce((s, c) => s + (item[c] ?? 0), 0);
+        if (peso > 0 && massa > peso * 1.05) {
+          erro(`${onde}: os macros somam ${massa.toFixed(1)} g e a porção declarada é ${peso} g`);
+        }
+      }
+
       // Conferência de Atwater: 4 kcal/g de carboidrato e proteína, 9 kcal/g de gordura.
       // É aviso, não erro — fibra, poliois e arredondamento da fonte afastam o resultado.
       if ([item.kcal, item.carb, item.prot, item.gord].every((v) => typeof v === 'number')) {

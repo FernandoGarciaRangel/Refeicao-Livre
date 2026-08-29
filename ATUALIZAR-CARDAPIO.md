@@ -21,6 +21,7 @@ O validador sai com erro se algo não fecha. **Rode sempre antes de commitar** �
 | Rede | Onde está a tabela | Formato |
 |---|---|---|
 | McDonald's | `https://www.mcdonalds.com.br/cardapio` | Site, uma tabela por produto |
+| KFC | `https://www.kfc.com.br/nutritional-information` | Site, 7 tabelas HTML por categoria |
 | Burger King | `https://bk-media.burgerking.com.br/TABELA_NUTRICIONAL_BK.pdf` | PDF, uma página, duas colunas |
 | Madero | `https://restaurantemadero.com.br/assets/site/arquivos/Tabela_Nutricional_Alergenicos.pdf` | PDF, 10 páginas, texto corrido bilíngue |
 
@@ -89,6 +90,7 @@ Erros (derrubam a execução):
 - valores fora de faixa (kcal 0–3000, sódio 0–6000 mg, macros 0–500 g)
 - nome repetido dentro da mesma categoria
 - gordura saturada maior que a gordura total; açúcares mais de 1 g acima dos carboidratos
+- **macros que não cabem na porção**: `carb + prot + gord` em gramas acima do peso declarado
 - `verificadoEm` fora de `AAAA-MM-DD`
 
 Avisos (não derrubam, mas confira um a um):
@@ -96,6 +98,8 @@ Avisos (não derrubam, mas confira um a um):
 - calorias declaradas que não fecham com `4·carb + 4·prot + 9·gord` por mais de 20%
 
 Esse último é o pega-erro-de-digitação, e vale levá-lo a sério: foi ele que apontou que a tabela do Madero imprime os pares "por 100 g" e "por unidade de consumo" em **ordem trocada** em parte dos pratos — um erro que passaria despercebido em qualquer conferência visual.
+
+A checagem de massa é mais nova e pega o que a de Atwater não vê. Atwater só olha a relação entre calorias e macros, que continua fechando mesmo com o peso errado; a de massa compara os macros com o peso declarado. Ao entrar, ela achou de primeira dois pesos impossíveis — um deles (`Molho Grogu`, do BK) já estava publicado havia dias: 65 g de gordura numa porção de 26 g. Nos dois casos o peso virou `"1 porção"` e os nutrientes ficaram como publicados, porque só o peso estava furado.
 
 ## Duas armadilhas ao mexer nos dados
 
@@ -106,7 +110,7 @@ Esse último é o pega-erro-de-digitação, e vale levá-lo a sério: foi ele qu
 Depois do deploy, confirme que cada arquivo respondeu:
 
 ```bash
-for f in index categorias mcdonalds burger-king madero; do
+for f in index categorias mcdonalds burger-king kfc madero; do
   printf "%-14s" "$f"
   curl -s -o /dev/null -w "%{http_code}\n" "https://refeicao-livre.vercel.app/data/$f.json?v=$RANDOM"
 done

@@ -1,0 +1,698 @@
+{
+  "slug": "kfc",
+  "nome": "KFC",
+  "fonte": {
+    "url": "https://www.kfc.com.br/nutritional-information",
+    "tipo": "Tabela oficial",
+    "atualizadoEm": "2026-08"
+  },
+  "verificadoEm": "2026-08-29",
+  "observacoes": "Valores por porção, lidos da tabela nutricional oficial do KFC Brasil, que publica o peso de cada porção — coisa que McDonald's e Madero não fazem. A rede não publica açúcares. A página não traz carimbo de data ou versão, então \"atualizadoEm\" registra o mês da consulta, não uma data da própria rede. Os percentuais de VD impressos ao lado dos valores são inconsistentes em vários itens (arroz grande com 11 g de gordura marcados como 6% do VD) e por isso não foram usados como conferência; a checagem aqui foi a conta de calorias contra os macros, que fecha em 52 dos 54 itens. Os dois que não fecham levam o campo \"alerta\". Os sanduíches, todos de frango, ficam em \"Hambúrgueres e sanduíches\" para não se misturarem com as peças do balde, que estão em \"Frango\". Em \"Double Crunch Onion Lovers\" o peso publicado (46 g) é impossível: os macros do próprio item somam 104 g. Os valores nutricionais fecham entre si e vão como publicados; o peso ficou como \"1 porção\".",
+  "categorias": [
+    {
+      "slug": "hamburgueres",
+      "itens": [
+        {
+          "nome": "Coronel Jr",
+          "porcao": "160 g",
+          "kcal": 419.5,
+          "carb": 34,
+          "acucar": null,
+          "prot": 14.6,
+          "gord": 25,
+          "gordSat": 4.6,
+          "fibra": 1.1,
+          "sodio": 687.5
+        },
+        {
+          "nome": "Crunch Salad",
+          "porcao": "242 g",
+          "kcal": 594.7,
+          "carb": 44.5,
+          "acucar": null,
+          "prot": 24.9,
+          "gord": 35.7,
+          "gordSat": 8.5,
+          "fibra": 2,
+          "sodio": 689.9
+        },
+        {
+          "nome": "Double Crunch",
+          "porcao": "236 g",
+          "kcal": 605,
+          "carb": 43,
+          "acucar": null,
+          "prot": 35,
+          "gord": 32,
+          "gordSat": 9.2,
+          "fibra": 2.4,
+          "sodio": 1907
+        },
+        {
+          "nome": "Double Crunch Bacon",
+          "porcao": "264 g",
+          "kcal": 641,
+          "carb": 43,
+          "acucar": null,
+          "prot": 35,
+          "gord": 36,
+          "gordSat": 10,
+          "fibra": 2.4,
+          "sodio": 1907
+        },
+        {
+          "nome": "Double Crunch Cheddar",
+          "porcao": "191 g",
+          "kcal": 529,
+          "carb": 41.5,
+          "acucar": null,
+          "prot": 22.5,
+          "gord": 30,
+          "gordSat": 8.3,
+          "fibra": 2.3,
+          "sodio": 978
+        },
+        {
+          "nome": "Double Crunch Onion Lovers",
+          "porcao": "1 porção",
+          "kcal": 597.9,
+          "carb": 51.8,
+          "acucar": null,
+          "prot": 21.1,
+          "gord": 31.1,
+          "gordSat": 9.5,
+          "fibra": 1.7,
+          "sodio": 1755
+        },
+        {
+          "nome": "Kentucky Chicken BBO",
+          "porcao": "350 g",
+          "kcal": 1022.5,
+          "carb": 75,
+          "acucar": null,
+          "prot": 37.5,
+          "gord": 80.1,
+          "gordSat": 16,
+          "fibra": 3,
+          "sodio": 1460
+        },
+        {
+          "nome": "Kentucky Chicken Deluxe",
+          "porcao": "302 g",
+          "kcal": 846.5,
+          "carb": 73.8,
+          "acucar": null,
+          "prot": 31.2,
+          "gord": 47.8,
+          "gordSat": 9.6,
+          "fibra": 2.9,
+          "sodio": 1045.9
+        },
+        {
+          "nome": "Kentucky Onion",
+          "porcao": "271 g",
+          "kcal": 694,
+          "carb": 58.3,
+          "acucar": null,
+          "prot": 27.6,
+          "gord": 39.9,
+          "gordSat": 11.4,
+          "fibra": 2.7,
+          "sodio": 1044
+        }
+      ]
+    },
+    {
+      "slug": "frango",
+      "itens": [
+        {
+          "nome": "Asa Crocante",
+          "porcao": "75 g",
+          "kcal": 238,
+          "carb": 13,
+          "acucar": null,
+          "prot": 17,
+          "gord": 13,
+          "gordSat": 6.2,
+          "fibra": 0,
+          "sodio": 358
+        },
+        {
+          "nome": "Coxa Crocante",
+          "porcao": "82 g",
+          "kcal": 237,
+          "carb": 8.8,
+          "acucar": null,
+          "prot": 17,
+          "gord": 15,
+          "gordSat": 5.7,
+          "fibra": 0,
+          "sodio": 321
+        },
+        {
+          "nome": "Filé de Peito Crocante (140 g)",
+          "porcao": "140 g",
+          "kcal": 317,
+          "carb": 14.4,
+          "acucar": null,
+          "prot": 21,
+          "gord": 20,
+          "gordSat": 5,
+          "fibra": 0.5,
+          "sodio": 285
+        },
+        {
+          "nome": "Filé de Peito Crocante (70 g)",
+          "porcao": "70 g",
+          "kcal": 158.5,
+          "carb": 7.2,
+          "acucar": null,
+          "prot": 10.5,
+          "gord": 10,
+          "gordSat": 2.5,
+          "fibra": 0.3,
+          "sodio": 142.5
+        },
+        {
+          "nome": "Peito Central Crocante",
+          "porcao": "118 g",
+          "kcal": 309,
+          "carb": 13,
+          "acucar": null,
+          "prot": 27,
+          "gord": 17,
+          "gordSat": 4.5,
+          "fibra": 0,
+          "sodio": 512
+        },
+        {
+          "nome": "Peito Lateral Receita Crocante",
+          "porcao": "167 g",
+          "kcal": 549,
+          "carb": 23,
+          "acucar": null,
+          "prot": 33,
+          "gord": 36,
+          "gordSat": 8.7,
+          "fibra": 0,
+          "sodio": 805
+        },
+        {
+          "nome": "Sobrecoxa Crocante",
+          "porcao": "136 g",
+          "kcal": 468,
+          "carb": 20,
+          "acucar": null,
+          "prot": 23,
+          "gord": 33,
+          "gordSat": 11,
+          "fibra": 0,
+          "sodio": 649
+        },
+        {
+          "nome": "Tirinha Crocante",
+          "porcao": "76 g",
+          "kcal": 179,
+          "carb": 9.1,
+          "acucar": null,
+          "prot": 14,
+          "gord": 9.7,
+          "gordSat": 3.2,
+          "fibra": 0,
+          "sodio": 678
+        }
+      ]
+    },
+    {
+      "slug": "acompanhamentos",
+      "itens": [
+        {
+          "nome": "Arroz grande",
+          "porcao": "220 g",
+          "kcal": 337,
+          "carb": 68,
+          "acucar": null,
+          "prot": 6.4,
+          "gord": 11,
+          "gordSat": 1,
+          "fibra": 1.5,
+          "sodio": 1192
+        },
+        {
+          "nome": "Arroz Pequeno",
+          "porcao": "115 g",
+          "kcal": 175,
+          "carb": 36,
+          "acucar": null,
+          "prot": 3.3,
+          "gord": 2,
+          "gordSat": 0.5,
+          "fibra": 0.8,
+          "sodio": 623
+        },
+        {
+          "nome": "Batata Grande",
+          "porcao": "115 g",
+          "kcal": 320,
+          "carb": 41,
+          "acucar": null,
+          "prot": 4.9,
+          "gord": 15,
+          "gordSat": 4.5,
+          "fibra": 1.6,
+          "sodio": 325
+        },
+        {
+          "nome": "Batata Média",
+          "porcao": "85 g",
+          "kcal": 236,
+          "carb": 30,
+          "acucar": null,
+          "prot": 3.7,
+          "gord": 11,
+          "gordSat": 3.3,
+          "fibra": 1.2,
+          "sodio": 240
+        },
+        {
+          "nome": "Batata Pequena",
+          "porcao": "65 g",
+          "kcal": 181,
+          "carb": 23,
+          "acucar": null,
+          "prot": 2.8,
+          "gord": 8.6,
+          "gordSat": 2.5,
+          "fibra": 0.9,
+          "sodio": 184
+        },
+        {
+          "nome": "Feijão Grande",
+          "porcao": "335 g",
+          "kcal": 405,
+          "carb": 74,
+          "acucar": null,
+          "prot": 24.5,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 20.8,
+          "sodio": 1575
+        },
+        {
+          "nome": "Feijão Pequeno",
+          "porcao": "175 g",
+          "kcal": 211,
+          "carb": 39,
+          "acucar": null,
+          "prot": 12.8,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 10.9,
+          "sodio": 823
+        },
+        {
+          "nome": "Purê Grande",
+          "porcao": "350 g",
+          "kcal": 250,
+          "carb": 51.5,
+          "acucar": null,
+          "prot": 4.2,
+          "gord": 2.9,
+          "gordSat": 0.9,
+          "fibra": 3.6,
+          "sodio": 1557.9
+        },
+        {
+          "nome": "Purê Pequeno",
+          "porcao": "175 g",
+          "kcal": 125,
+          "carb": 25.7,
+          "acucar": null,
+          "prot": 2.1,
+          "gord": 1.5,
+          "gordSat": 0.5,
+          "fibra": 1.8,
+          "sodio": 779
+        },
+        {
+          "nome": "Salada KFC Grande",
+          "porcao": "300 g",
+          "kcal": 278,
+          "carb": 44,
+          "acucar": null,
+          "prot": 3,
+          "gord": 10,
+          "gordSat": 4.5,
+          "fibra": 4.5,
+          "sodio": 1062
+        },
+        {
+          "nome": "Salada KFC Pequena",
+          "porcao": "140 g",
+          "kcal": 130,
+          "carb": 20,
+          "acucar": null,
+          "prot": 1.4,
+          "gord": 4.8,
+          "gordSat": 2.1,
+          "fibra": 2.1,
+          "sodio": 496
+        }
+      ]
+    },
+    {
+      "slug": "molhos",
+      "itens": [
+        {
+          "nome": "Molho Baconese",
+          "porcao": "120 g",
+          "kcal": 40,
+          "carb": 9,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 0
+        },
+        {
+          "nome": "Molho Barbecue",
+          "porcao": "35 g",
+          "kcal": 35,
+          "carb": 8.1,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 301
+        },
+        {
+          "nome": "Molho Chipotle",
+          "porcao": "35 g",
+          "kcal": 102,
+          "carb": 3,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 315,
+          "alerta": "Os números publicados pela rede não fecham entre si — confira no restaurante."
+        },
+        {
+          "nome": "Molho Coronel (120 g)",
+          "porcao": "120 g",
+          "kcal": 582,
+          "carb": 6,
+          "acucar": null,
+          "prot": 0,
+          "gord": 63,
+          "gordSat": 9,
+          "fibra": 0,
+          "sodio": 1384
+        },
+        {
+          "nome": "Molho Coronel (35 g)",
+          "porcao": "35 g",
+          "kcal": 194,
+          "carb": 2,
+          "acucar": null,
+          "prot": 0,
+          "gord": 21,
+          "gordSat": 3,
+          "fibra": 0,
+          "sodio": 420
+        },
+        {
+          "nome": "Molho Honey Mustard",
+          "porcao": "35 g",
+          "kcal": 110,
+          "carb": 8.7,
+          "acucar": null,
+          "prot": 0,
+          "gord": 8.3,
+          "gordSat": 1.3,
+          "fibra": 0,
+          "sodio": 297
+        },
+        {
+          "nome": "Molho Maionese Cebola",
+          "porcao": "120 g",
+          "kcal": 40,
+          "carb": 1.7,
+          "acucar": null,
+          "prot": 0.1,
+          "gord": 3.6,
+          "gordSat": 0.6,
+          "fibra": 0,
+          "sodio": 70
+        },
+        {
+          "nome": "Molho Maionese Temperada (120 g)",
+          "porcao": "120 g",
+          "kcal": 375,
+          "carb": 6,
+          "acucar": null,
+          "prot": 0,
+          "gord": 39,
+          "gordSat": 6,
+          "fibra": 0,
+          "sodio": 867
+        },
+        {
+          "nome": "Molho Maionese Temperada (35 g)",
+          "porcao": "35 g",
+          "kcal": 125,
+          "carb": 2,
+          "acucar": null,
+          "prot": 0,
+          "gord": 13,
+          "gordSat": 2,
+          "fibra": 0,
+          "sodio": 289
+        },
+        {
+          "nome": "Molho Secreto",
+          "porcao": "120 g",
+          "kcal": 330,
+          "carb": 26.1,
+          "acucar": null,
+          "prot": 0,
+          "gord": 74.7,
+          "gordSat": 3.9,
+          "fibra": 0,
+          "sodio": 891,
+          "alerta": "Os números publicados pela rede não fecham entre si — confira no restaurante."
+        },
+        {
+          "nome": "Molho Thai Sweet Chilli",
+          "porcao": "35 g",
+          "kcal": 80,
+          "carb": 20,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 397
+        }
+      ]
+    },
+    {
+      "slug": "bebidas",
+      "itens": [
+        {
+          "nome": "Coca-Cola 400mL",
+          "porcao": "400 ml",
+          "kcal": 168,
+          "carb": 42.7,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 20
+        },
+        {
+          "nome": "Coca-Cola 700mL",
+          "porcao": "700 ml",
+          "kcal": 294,
+          "carb": 74.7,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 35
+        },
+        {
+          "nome": "Coca-Cola Zero 400mL",
+          "porcao": "400 ml",
+          "kcal": 0,
+          "carb": 0,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 56
+        },
+        {
+          "nome": "Coca-Cola Zero 700mL",
+          "porcao": "700 ml",
+          "kcal": 0,
+          "carb": 0,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 98
+        },
+        {
+          "nome": "Fanta Guaraná 400mL",
+          "porcao": "400 ml",
+          "kcal": 166,
+          "carb": 41.3,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 31
+        },
+        {
+          "nome": "Fanta Guaraná 700mL",
+          "porcao": "700 ml",
+          "kcal": 290,
+          "carb": 72.3,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 54
+        },
+        {
+          "nome": "Fanta Laranja 400mL",
+          "porcao": "400 ml",
+          "kcal": 166,
+          "carb": 41.3,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 31
+        },
+        {
+          "nome": "Fanta Laranja 700mL",
+          "porcao": "700 ml",
+          "kcal": 208,
+          "carb": 52,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 220
+        },
+        {
+          "nome": "Sprite 400mL",
+          "porcao": "400 ml",
+          "kcal": 168,
+          "carb": 42.7,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 20
+        },
+        {
+          "nome": "Sprite 700mL",
+          "porcao": "700 ml",
+          "kcal": 294,
+          "carb": 74.7,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 35
+        }
+      ]
+    },
+    {
+      "slug": "shakes",
+      "itens": [
+        {
+          "nome": "Milk Shake Chocolate",
+          "porcao": "400 g",
+          "kcal": 464.2,
+          "carb": 75,
+          "acucar": null,
+          "prot": 7.7,
+          "gord": 14,
+          "gordSat": 5.9,
+          "fibra": 0.5,
+          "sodio": 189.7
+        },
+        {
+          "nome": "Milk Shake Crocante",
+          "porcao": "400 g",
+          "kcal": 539.6,
+          "carb": 92,
+          "acucar": null,
+          "prot": 9.3,
+          "gord": 14.1,
+          "gordSat": 4.6,
+          "fibra": 2,
+          "sodio": 307.2
+        }
+      ]
+    },
+    {
+      "slug": "sobremesas",
+      "itens": [
+        {
+          "nome": "Casquinha Baunilha",
+          "porcao": "107 g",
+          "kcal": 160,
+          "carb": 27,
+          "acucar": null,
+          "prot": 2,
+          "gord": 4.7,
+          "gordSat": 1.5,
+          "fibra": 0,
+          "sodio": 123
+        },
+        {
+          "nome": "Sundae Chocolate",
+          "porcao": "180 g",
+          "kcal": 394,
+          "carb": 63,
+          "acucar": null,
+          "prot": 5.6,
+          "gord": 12.6,
+          "gordSat": 4.2,
+          "fibra": 0.4,
+          "sodio": 133
+        },
+        {
+          "nome": "Sundae Ovomaltine",
+          "porcao": "134 g",
+          "kcal": 313.5,
+          "carb": 43,
+          "acucar": null,
+          "prot": 4.9,
+          "gord": 13,
+          "gordSat": 3.6,
+          "fibra": 0.1,
+          "sodio": 113.4
+        }
+      ]
+    }
+  ]
+}

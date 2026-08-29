@@ -80,11 +80,16 @@ sobre o stream: fontes com tabela de caracteres própria devolvem lixo.
 Os dois erros desta série passaram por conferência visual sem levantar suspeita.
 Não confie em "os valores parecem plausíveis".
 
-- **O `%VD` impresso ao lado do número é a melhor conferência que existe.** Ele
-  amarra o valor à coluna: proteína 32 g com "63%" só fecha contra o VD de 50 g
-  da RDC 429/2020. Foi assim que se confirmou o mapeamento das 12 colunas do BK e
-  se descobriu que o Madero imprime os pares "por 100 g" e "por unidade" em ordem
-  **trocada** em parte dos pratos.
+- **O `%VD` impresso ao lado do número é a melhor conferência — quando a rede o
+  calcula direito.** Ele amarra o valor à coluna: proteína 32 g com "63%" só
+  fecha contra o VD de 50 g da RDC 429/2020. Foi assim que se confirmou o
+  mapeamento das 12 colunas do BK e se descobriu que o Madero imprime os pares
+  "por 100 g" e "por unidade" em ordem **trocada** em parte dos pratos.
+
+  **Antes de confiar nele, teste-o em três ou quatro linhas que você já sabe
+  estarem certas.** No KFC ele não passa nesse teste: 11 g de gordura marcados
+  como 6% do VD, 58,3 g de carboidrato como 35%. Numa fonte assim o `%VD` não
+  serve de conferência e a única checagem que resta é a conta de calorias.
 - **Aceite as duas bases de VD.** O PDF do BK mistura RDC 429/2020 (proteína
   50 g, sódio 2.000 mg) com linhas herdadas da RDC 360/2003 (proteína 75 g, sódio
   2.400 mg). Um verificador que assuma uma base só gera enxurrada de falso
@@ -96,6 +101,12 @@ Não confie em "os valores parecem plausíveis".
 - **A conta de Atwater é o desempate.** `4·carb + 4·prot + 9·gord` contra as kcal
   declaradas resolve qual de dois candidatos é o valor certo, e denuncia
   transcrição errada.
+- **O peso da porção precisa de checagem própria.** Atwater olha só a relação
+  entre calorias e macros, e ela continua fechando com o peso errado — foi assim
+  que um sanduíche do KFC com 104 g de macros passou declarando 46 g de porção. O
+  validador agora cobra isso (`carb + prot + gord` não cabe numa porção menor),
+  mas repare no número enquanto extrai: peso muito fora dos irmãos da mesma
+  categoria é sinal.
 
 ## Passo 3 — mapear para o vocabulário de categorias
 

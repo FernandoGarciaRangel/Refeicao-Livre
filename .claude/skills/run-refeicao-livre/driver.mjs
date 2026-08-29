@@ -638,7 +638,7 @@ async function cmdSmoke() {
     c.is(
       'redes no portal',
       await page.eval("[...document.querySelectorAll('.entry-title')].map(e => e.innerText)"),
-      ["McDonald's", 'Burger King', 'Madero'],
+      ["McDonald's", 'Burger King', 'KFC', 'Madero'],
     );
     P('   ' + (await page.shot('01-redes.png')));
 
