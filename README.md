@@ -38,6 +38,7 @@ tokens.css    tokens do sistema "Preto & Laranja" (cópia idêntica nos apps do 
 styles.css    componentes
 app.js        estado, rotas por hash, refeição montada
 data/         index.json, categorias.json e um arquivo por rede
+assets/logos/ a logo de cada rede, branca, referenciada pelo index.json
 scripts/      validar-dados.mjs
 ```
 

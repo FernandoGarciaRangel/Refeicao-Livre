@@ -25,8 +25,9 @@ Toda decisão de arquitetura deste repo sai daí:
 - **Não há build.** Nada compila, nada gera bundle, não existe passo entre editar
   o JSON e ver na tela. Salvou, recarregou, está lá.
 - **Acrescentar uma rede inteira é criar um arquivo.** `data/<slug>.json` mais uma
-  linha em `data/index.json`. A cor da marca e a inicial do badge vêm do dado,
-  não do CSS — por isso não existe stylesheet a editar quando entra uma rede.
+  linha em `data/index.json`. A cor da marca, a logo e a inicial do badge vêm do
+  dado, não do CSS — por isso não existe stylesheet a editar quando entra uma
+  rede.
 - **O vocabulário de categorias é compartilhado.** `data/categorias.json` define
   os tipos de alimento; as redes só referenciam slugs. "Bebidas" é a mesma coisa
   nas três, e uma categoria nova entra num lugar só.
@@ -144,6 +145,18 @@ As cores de marca das redes vivem em `data/index.json` como **dado**, não em CS
 — é o que permite acrescentar uma rede sem tocar no stylesheet. Fora isso, nenhum
 hex solto além dos tokens locais no topo do `styles.css`.
 
+O mesmo vale para a logo do badge: o campo `logo` aponta para
+`assets/logos/<slug>.svg`, e quando ele não existe o badge cai na `inicial`.
+Manter os dois caminhos é o que impede que entrar uma rede passe a depender de
+ter arte pronta. As artes são **brancas por dentro do arquivo** — via `<img>` o
+SVG não herda o `color` da página, então `currentColor` ali não pinta nada. O
+formato exigido está em `ATUALIZAR-CARDAPIO.md`.
+
+Num badge de 46 px, **símbolo funciona e wordmark não**. O Madero é só a palavra
+em serifa: o badge dele usa o **M** recortado do wordmark oficial e vetorizado,
+não uma letra redesenhada — mesma razão que vale para os números, de não
+inventar o que a fonte não deu.
+
 Duas regras do sistema que este app tem mais chance de furar, porque ambas caem
 no número em destaque:
 
@@ -171,7 +184,7 @@ token-sonda, não confiar em `shotfull` com `<canvas>`). A regra é a mesma:
 
 ```bash
 node scripts/validar-dados.mjs                              # os JSON
-node .claude/skills/run-refeicao-livre/driver.mjs smoke      # a tela (21 checagens)
+node .claude/skills/run-refeicao-livre/driver.mjs smoke      # a tela (22 checagens)
 ```
 
 As duas suítes cobrem coisas diferentes e as duas importam: o validador olha o
@@ -214,9 +227,11 @@ usa um `Range`; é o que o passo 3 do smoke faz, em 320, 360 e 430 px.
 `vercel.json` é cópia do hub: `cleanUrls: true` e cabeçalhos de segurança. Duas
 conferências depois de qualquer deploy que acrescente arquivo:
 
-- **`data/*.json` são muitos e nascem não rastreados.** Se o `index.json` subir
-  citando uma rede cujo arquivo ficou fora do `git add`, o build fica verde e a
-  rede some sem erro. O `for` com `curl` está no `ATUALIZAR-CARDAPIO.md`.
+- **`data/*.json` e `assets/logos/*` são muitos e nascem não rastreados.** Se o
+  `index.json` subir citando uma rede cujo arquivo ficou fora do `git add`, o
+  build fica verde e a rede some sem erro; se for a logo que ficou de fora, o
+  badge cai calado na inicial. O `for` com `curl` está no
+  `ATUALIZAR-CARDAPIO.md`.
 - **Case sensitivity.** NTFS ignora, o Linux da Vercel não. Confira letra por
   letra.
 

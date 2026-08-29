@@ -64,6 +64,18 @@ for (const rede of indice?.redes ?? []) {
   if (!/^#[0-9a-f]{6}$/i.test(rede.cor ?? '')) erro(`index.json: ${rede.slug} precisa de "cor" em hex de 6 dígitos`);
   arquivosDeRede.add(`${rede.slug}.json`);
 
+  // "logo" é opcional — sem ela o badge usa a inicial. Mas se estiver
+  // declarada, o arquivo precisa existir: uma logo que não carrega só aparece
+  // na tela, e o mesmo descuido que deixa um data/*.json fora do commit deixa
+  // a arte de fora também.
+  if (rede.logo !== undefined) {
+    if (typeof rede.logo !== 'string' || !/^assets\/logos\/[a-z0-9-]+\.(svg|png)$/.test(rede.logo)) {
+      erro(`index.json: ${rede.slug} tem "logo" fora do padrão assets/logos/<nome>.svg`);
+    } else if (!fs.existsSync(path.join(RAIZ, rede.logo))) {
+      erro(`index.json: ${rede.slug} aponta para ${rede.logo}, que não existe`);
+    }
+  }
+
   const dados = leJson(`${rede.slug}.json`);
   if (!dados) continue;
 

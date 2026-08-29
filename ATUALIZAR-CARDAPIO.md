@@ -75,16 +75,30 @@ Um zero mentiroso entra na soma da refeição e produz um total errado com cara 
 
 1. Crie `data/<slug>.json` no mesmo formato (veja `burger-king.json`).
 2. Acrescente a entrada em `data/index.json` com `slug`, `nome`, `cor` (hex de 6 dígitos) e `inicial`.
-3. Use só os slugs de categoria que existem em `data/categorias.json` — se precisar de um tipo novo, acrescente lá primeiro.
-4. Rode o validador.
+3. Opcionalmente, ponha a logo em `assets/logos/<slug>.svg` e aponte o campo `logo` para ela (veja abaixo). Sem esse campo o badge usa a `inicial`, e está tudo certo.
+4. Use só os slugs de categoria que existem em `data/categorias.json` — se precisar de um tipo novo, acrescente lá primeiro.
+5. Rode o validador.
 
 O `slug` do arquivo, o nome do arquivo e o `slug` de dentro do JSON precisam ser os três iguais.
+
+### A logo do badge
+
+O badge é um quadrado na cor da marca. Dentro dele vai a logo quando o campo `logo` existe, e a `inicial` quando não — os dois caminhos são suportados de propósito, para que entrar uma rede não dependa de ter arte pronta.
+
+O que a arte precisa ser, para assentar sobre a cor da marca do mesmo jeito que a inicial assentava:
+
+- **monocromática em branco** (`fill="#ffffff"` no próprio arquivo — o `<img>` não herda o `color` da página);
+- **quadrada ou quase**, em `viewBox="0 0 24 24"`, com o desenho centrado: o CSS a encaixa em 64% do badge com `object-fit: contain`;
+- salva em `assets/logos/<slug>.svg`, que é o único caminho que o validador aceita.
+
+O espaço do badge é pequeno (46 px), então **símbolo funciona e wordmark não**. Quando a marca não tem símbolo — é o caso do Madero, que é só a palavra em serifa — a saída é a primeira letra do wordmark oficial, recortada da arte da própria rede, e não uma letra redesenhada por nós.
 
 ## O que o validador cobra
 
 Erros (derrubam a execução):
 
 - categoria que não existe em `categorias.json`; rede no `index.json` sem arquivo, ou arquivo sem rede
+- `logo` fora do padrão `assets/logos/<nome>.svg`, ou apontando para arquivo que não existe
 - item sem `nome`, `porcao` ou `kcal`; campo numérico ausente
 - valores fora de faixa (kcal 0–3000, sódio 0–6000 mg, macros 0–500 g)
 - nome repetido dentro da mesma categoria
@@ -99,7 +113,7 @@ Esse último é o pega-erro-de-digitação, e vale levá-lo a sério: foi ele qu
 
 ## Duas armadilhas ao mexer nos dados
 
-**Arquivo novo entra no mesmo commit que a referência a ele.** Se o `index.json` citar uma rede cujo arquivo ficou de fora do `git add`, o deploy passa, o build fica verde e a rede some da tela sem erro nenhum — 404 silencioso.
+**Arquivo novo entra no mesmo commit que a referência a ele.** Se o `index.json` citar uma rede cujo arquivo ficou de fora do `git add`, o deploy passa, o build fica verde e a rede some da tela sem erro nenhum — 404 silencioso. Vale igual para `assets/logos/`: a logo que não sobe cai calada na inicial. O validador e o passo 1 do smoke cobrem os dois casos.
 
 **Maiúsculas e minúsculas.** O Windows ignora, o Linux da Vercel não. `data/Burger-King.json` referenciado como `burger-king` funciona aqui e quebra em produção. Confira letra por letra.
 
