@@ -23,8 +23,13 @@ tipo de alimento. Monte um prato e veja o total de calorias como percentual do s
 | Burger King | 107 | PDF oficial (ZAMP S.A.) | 29/05/2026 |
 | KFC | 54 | Tabela oficial no site, com peso da porção | 08/2026 |
 | Madero | 101 | PDF oficial bilíngue | 05/2026 |
+| Bob's | 41 | Tabela oficial por produto (imagem) — **valores por 100 g** | 08/2026 |
 
-**427 itens** no total.
+**468 itens** no total.
+
+O Bob's publica **por 100 g**, e não por porção como as outras quatro. O app registra isso no
+campo `base` do JSON, mostra "kcal/100 g" ao lado do valor e, ao montar a refeição, pergunta a
+quantidade em gramas em vez de somar 100 g calados.
 
 Acrescentar uma rede é criar um JSON — veja **[ATUALIZAR-CARDAPIO.md](ATUALIZAR-CARDAPIO.md)**.
 

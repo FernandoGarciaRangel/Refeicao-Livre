@@ -17,9 +17,11 @@ skill cobre só o que é exclusivo de acrescentar uma rede que ainda não existe
 
 ## Passo 0 — o portão: essa fonte serve?
 
-**Faça isto antes de extrair qualquer coisa.** É o passo que economiza o trabalho
-inteiro quando a resposta é não, e foi aprendido caro: o Bob's só se revelou
-inviável depois que a fonte já tinha sido caçada, baixada e aberta.
+**Faça isto antes de extrair qualquer coisa.** Ele não existe para recusar redes:
+existe para você descobrir *no começo* o que a fonte exige, e não no fim. Foi
+aprendido caro no Bob's — que publica por 100 g, só em imagem, e só para metade
+do cardápio. As três coisas mudavam o plano, e as três apareceram depois de a
+fonte já ter sido caçada, baixada e aberta.
 
 Quatro perguntas, nesta ordem:
 
@@ -28,22 +30,29 @@ Quatro perguntas, nesta ordem:
    servem** — são terceiros que copiaram, sem garantia de estarem atualizados.
    O app inteiro se sustenta na promessa de "número oficial".
 
-2. **Os valores são por porção?** As redes já no app publicam por porção — o que
-   você come. Uma rede que publique **por 100 g** não é comparável: o Big Bob a
-   258 kcal/100 g apareceria ao lado de um Whopper de 717 kcal/unidade como se
-   fosse um terço dele (a unidade inteira dá ~602). Some no mesmo prato e o total
-   fica errado.
+2. **Em que base a rede publica — por porção ou por 100 g?** As duas servem, mas
+   **a base tem de ser declarada** no campo `base` do JSON (`"porcao"`, o padrão,
+   ou `"100g"`). Com `"100g"` o app mostra `kcal/100 g` ao lado do valor e pede a
+   quantidade em gramas ao montar a refeição, em vez de somar 100 g calados.
 
-   Se a fonte for por 100 g, **não converta**: o resultado seria número calculado
-   por nós, e este app não publica número calculado. Pare e leve a decisão a
-   quem pediu, com o exemplo concreto do desvio. O caso do Bob's está registrado
-   em `ATUALIZAR-CARDAPIO.md`.
+   **Não converta de 100 g para porção**, nem quando o rótulo publica a fração
+   (o Big Bob diz `100 g (3/7 unidade)`): o resultado seria número calculado por
+   nós, e este app só publica número publicado. Declare a base e deixe o app
+   lidar com ela.
+
+   O que **não** pode é a base ficar implícita. Sem o campo, 258 kcal por 100 g
+   entram no total como se fossem um sanduíche inteiro — e nada na tela avisa.
 
 3. **Dá para extrair sem transcrever à mão?** PDF com texto de verdade e site com
-   dado no HTML/payload servem. **Imagem serve mal** — o Bob's publica um PNG por
-   produto, e transcrever número de imagem é o método menos confiável que existe
-   para exatamente o dado que não pode estar errado. Se for imagem, diga o custo
-   (uma leitura por produto) antes de começar.
+   dado no HTML/payload servem. **Imagem custa caro** — o Bob's publica um PNG por
+   produto. Dá para fazer, mas diga o custo antes de começar, e monte folhas de 4
+   imagens num HTML local capturado pelo driver em vez de uma leitura por produto
+   (41 tabelas do Bob's viraram 11 leituras assim; a receita está em
+   `ATUALIZAR-CARDAPIO.md`).
+
+   E confira a **cobertura**: o Bob's só publica tabela para 41 dos 91 produtos —
+   os sanduíches centrais ficam de fora. Uma rede que entra pela metade ainda vale,
+   mas quem pediu precisa saber disso antes, não depois.
 
 4. **Essa é a versão corrente?** Procure a data no rodapé do documento. Já
    circulava um `Tabela-Nutricional-Geral.pdf` do Burger King de **janeiro de
@@ -168,7 +177,10 @@ curl -s -o /dev/null -w "%{http_code}\n" \
 ## O que NÃO fazer
 
 - Não use fonte de terceiro, por mais completa que pareça.
-- Não converta base (100 g → porção) para "encaixar" uma rede.
+- Não converta base (100 g → porção) para "encaixar" uma rede: declare `base`.
+- Não misture fontes dentro da mesma rede. O Bob's tem um resumo de três valores
+  na página do produto que **diverge** da sua própria tabela oficial (253 vs 258
+  kcal no Big Bob); use uma e diga qual.
 - Não preencha com `0` o campo que a fonte não publica.
 - Não estime valor impossível — deixe `null` e escreva o motivo em `observacoes`.
 - Não relaxe uma asserção do smoke para ela passar; atualize o valor esperado.

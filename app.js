@@ -73,6 +73,18 @@
       .trim();
   }
 
+  // A maioria das redes publica por porção; algumas publicam por 100 g. Misturar
+  // as duas numa soma dá total errado, então a base viaja com o dado e a UI
+  // mostra qual é. Ausente = por porção.
+  function baseDaRede(slug) {
+    var d = estado.cardapios[slug];
+    return d && d.base === '100g' ? '100g' : 'porcao';
+  }
+
+  function rotuloBase(slug) {
+    return baseDaRede(slug) === '100g' ? 'por 100 g' : 'por porção';
+  }
+
   function nomeCategoria(slug) {
     for (var i = 0; i < estado.categorias.length; i++) {
       if (estado.categorias[i].slug === slug) return estado.categorias[i].nome;
@@ -211,7 +223,10 @@
 
     var kcal = document.createElement('span');
     kcal.className = 'item-kcal';
-    kcal.innerHTML = fmt(item.kcal, 0) + '<small>kcal</small>';
+    var sufixo = document.createElement('small');
+    sufixo.textContent = baseDaRede(rede.slug) === '100g' ? 'kcal/100 g' : 'kcal';
+    kcal.appendChild(document.createTextNode(fmt(item.kcal, 0)));
+    kcal.appendChild(sufixo);
 
     topo.appendChild(info);
     topo.appendChild(kcal);
@@ -245,6 +260,15 @@
     if (estado.expandido === id) {
       var det = document.createElement('div');
       det.className = 'item-detalhe';
+      var base = document.createElement('p');
+      base.className = 'detalhe-base';
+      // Numa rede por 100 g a porção também é "100 g": repetir os dois só polui.
+      var rotulo = 'Valores ' + rotuloBase(rede.slug);
+      if (normaliza(item.porcao) !== normaliza(rotuloBase(rede.slug).replace('por ', ''))) {
+        rotulo += ' · ' + item.porcao;
+      }
+      base.textContent = rotulo;
+      det.appendChild(base);
       var dl = document.createElement('dl');
       dl.className = 'macros';
       [
@@ -370,8 +394,13 @@
 
   function alternaNoPrato(rede, catSlug, item) {
     var i = noPrato(rede.slug, catSlug, item.nome);
-    if (i === -1) estado.prato.push({ rede: rede.slug, redeNome: rede.nome, categoria: catSlug, nome: item.nome });
-    else estado.prato.splice(i, 1);
+    if (i === -1) {
+      var entrada = { rede: rede.slug, redeNome: rede.nome, categoria: catSlug, nome: item.nome };
+      // Item cujos valores são por 100 g precisa de uma quantidade para somar.
+      // Começa em 100 g (o próprio rótulo) e o painel deixa ajustar.
+      if (baseDaRede(rede.slug) === '100g') entrada.gramas = 100;
+      estado.prato.push(entrada);
+    } else estado.prato.splice(i, 1);
     guarda(CHAVE_PRATO, JSON.stringify(estado.prato));
     pintaCardapio();
     pintaPrato();
@@ -386,8 +415,10 @@
     estado.prato.forEach(function (entrada) {
       var item = achaItem(entrada);
       if (!item) return;
+      // valores por 100 g escalam pela quantidade; por porção entram inteiros
+      var fator = baseDaRede(entrada.rede) === '100g' ? (Number(entrada.gramas) || 0) / 100 : 1;
       campos.forEach(function (c) {
-        if (typeof item[c] === 'number') soma[c] += item[c];
+        if (typeof item[c] === 'number') soma[c] += item[c] * fator;
         else parcial[c] = true;
       });
     });
@@ -419,7 +450,37 @@
 
       var kcal = document.createElement('span');
       kcal.className = 'pl-kcal';
-      kcal.textContent = item ? fmt(item.kcal, 0) + ' kcal' : '—';
+      var porGrama = baseDaRede(entrada.rede) === '100g';
+      var fator = porGrama ? (Number(entrada.gramas) || 0) / 100 : 1;
+      kcal.textContent = item ? fmt(item.kcal * fator, 0) + ' kcal' : '—';
+
+      // Quantidade só existe onde a rede publica por 100 g: sem ela não há
+      // como somar, e inventar um valor seria pior que perguntar.
+      if (porGrama) {
+        var qtd = document.createElement('span');
+        qtd.className = 'pl-qtd';
+        var inp = document.createElement('input');
+        inp.type = 'number';
+        inp.min = '1';
+        inp.max = '2000';
+        inp.step = '10';
+        inp.value = entrada.gramas;
+        inp.setAttribute('aria-label', 'Quantidade de ' + entrada.nome + ' em gramas');
+        // Só os totais e o kcal desta linha são repintados: redesenhar a lista
+        // inteira a cada tecla tiraria o foco do campo no meio da digitação.
+        inp.addEventListener('input', function (e) {
+          entrada.gramas = Math.max(0, Number(e.target.value) || 0);
+          guarda(CHAVE_PRATO, JSON.stringify(estado.prato));
+          var it = achaItem(entrada);
+          if (it) kcal.textContent = fmt(it.kcal * (entrada.gramas / 100), 0) + ' kcal';
+          pintaTotais();
+        });
+        qtd.appendChild(inp);
+        var g = document.createElement('span');
+        g.textContent = 'g';
+        qtd.appendChild(g);
+        nome.appendChild(qtd);
+      }
 
       var rem = document.createElement('button');
       rem.type = 'button';
@@ -438,6 +499,16 @@
       li.appendChild(rem);
       lista.appendChild(li);
     });
+
+    pintaTotais();
+  }
+
+  // Separado de pintaPrato de propósito: o campo de gramas repinta só isto a
+  // cada tecla, e redesenhar a lista tiraria o foco do input no meio da digitação.
+  function pintaTotais() {
+    var r = somaPrato();
+    $('pratoContagem').textContent = estado.prato.length + (estado.prato.length === 1 ? ' item' : ' itens');
+    $('pratoKcal').textContent = fmt(r.soma.kcal, 0) + ' kcal';
 
     var totais = $('pratoTotais');
     totais.innerHTML = '';

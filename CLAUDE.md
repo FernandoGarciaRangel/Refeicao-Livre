@@ -30,7 +30,7 @@ Toda decisão de arquitetura deste repo sai daí:
   rede.
 - **O vocabulário de categorias é compartilhado.** `data/categorias.json` define
   os tipos de alimento; as redes só referenciam slugs. "Bebidas" é a mesma coisa
-  nas três, e uma categoria nova entra num lugar só.
+  em todas elas, e uma categoria nova entra num lugar só.
 - **O validador é a rede de proteção.** `node scripts/validar-dados.mjs` roda sem
   dependência nenhuma e recusa o commit se o schema, as faixas, as duplicatas ou
   a coerência entre calorias e macros não fecharem. É o que permite editar com
@@ -46,7 +46,7 @@ exclusivo de cada um:
 
 | Skill | Quando | O que ela sabe que o resto não diz |
 |---|---|---|
-| `adicionar-rede` | incluir uma rede que ainda não existe | o **portão de compatibilidade**: antes de extrair, checar se a fonte é oficial, por porção, extraível e corrente — foi o que faltou no caso do Bob's |
+| `adicionar-rede` | incluir uma rede que ainda não existe | o **portão**: antes de extrair, descobrir se a fonte é oficial, em que base publica, se é extraível, o quanto do cardápio cobre e se é a versão corrente — as três surpresas do Bob's apareceram tarde por falta dele |
 | `atualizar-cardapio` | reconferir uma rede já cadastrada | que os JSON **não** são saída crua de extrator: sobrescrever apaga em silêncio os `null` e `alerta` decididos à mão |
 
 **Ao mexer neste app, não introduza nada que quebre isso.** Concretamente: nada
@@ -55,16 +55,21 @@ dados, nada de campo que exija editar código para aparecer na tela. Se uma
 funcionalidade nova só funcionar com dado no código, ela está errada para este
 repo.
 
-### As três regras do dado
+### As quatro regras do dado
 
 1. **Campo que a fonte não publica é `null`, nunca `0`.** Um zero mentiroso entra
    na soma da refeição e produz um total errado com cara de certo. Com `null` a
    UI mostra `—` e marca o total como parcial.
-2. **Nada de valor estimado.** Onde a fonte oficial imprime um número impossível,
+2. **A base viaja com o dado.** `base: "porcao"` (padrão) ou `"100g"`. O Bob's
+   publica por 100 g; sem o campo, 258 kcal por 100 g entrariam no total como se
+   fossem um sanduíche inteiro. Com ele, a lista mostra `kcal/100 g` e a refeição
+   pede a quantidade em gramas. **Nunca converta entre bases** — seria número
+   calculado por nós, mesmo quando o rótulo publica a fração da unidade.
+3. **Nada de valor estimado.** Onde a fonte oficial imprime um número impossível,
    o campo fica `null` e o motivo vai para `observacoes` da rede. O app promete
    "número oficial"; um número derivado por nós quebra a promessa mesmo quando
    está certo.
-3. **`fonte` e `verificadoEm` são obrigatórios por rede.** É o que deixa o rodapé
+4. **`fonte` e `verificadoEm` são obrigatórios por rede.** É o que deixa o rodapé
    dizer de onde veio o número e quando foi conferido — e o que torna auditável
    um dado que vai envelhecer.
 
@@ -140,6 +145,12 @@ Estão em `observacoes` de cada rede, mas vale saber que existem antes de
   fecham (Molho Chipotle e Molho Secreto) levam `alerta`. A rede não publica
   açúcares. Um peso de porção era impossível (46 g num sanduíche com 104 g de
   macros) e virou `"1 porção"`.
+- **Bob's**: publica **por 100 g** (daí `base: "100g"`) e só para **41 dos 91**
+   produtos — Bob's Classic, Double Cheese e Cheddar Australiano não têm tabela
+   nenhuma. Pior: cada página de produto traz um resumo de três valores que
+   **diverge da própria tabela oficial** (Big Bob: 253 kcal / 515 mg no resumo,
+   258 kcal / 343 mg na tabela). Os `%VD` da tabela conferem todos, então é ela
+   que vale; o resumo não entra nem para preencher buraco.
 - **Madero**: o PDF repete o **mesmo bloco nutricional** em pratos diferentes — o
   trio `154 / 416 kcal / 20%` serve o Penne, o Ravioli e a salada de
   acompanhamento. E traz uma anotação interna, "Rever calculo", ao lado do Mini

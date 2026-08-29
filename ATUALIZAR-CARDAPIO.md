@@ -24,26 +24,44 @@ O validador sai com erro se algo não fecha. **Rode sempre antes de commitar** �
 | KFC | `https://www.kfc.com.br/nutritional-information` | Site, 7 tabelas HTML por categoria |
 | Burger King | `https://bk-media.burgerking.com.br/TABELA_NUTRICIONAL_BK.pdf` | PDF, uma página, duas colunas |
 | Madero | `https://restaurantemadero.com.br/assets/site/arquivos/Tabela_Nutricional_Alergenicos.pdf` | PDF, 10 páginas, texto corrido bilíngue |
+| Bob's | `https://bobs.com.br/cardapio/` | Imagem PNG por produto, **por 100 g** |
 
 Cada `data/<rede>.json` guarda a URL da sua fonte no campo `fonte.url`. Se a rede mudar o endereço, mude lá também.
 
-### Bob's: avaliado e deixado de fora
+### Bob's: o caso que criou o campo `base`
 
-Não é falta de fonte — é incompatibilidade de base. O Bob's publica **por 100 g**, não por
-porção: o rótulo do Big Bob diz `Porção: 100 g (3/7 unidade)` e `258 kcal`. As outras três redes
-publicam por porção. Lado a lado na mesma tela, e somados no mesmo prato, o Big Bob apareceria
-com pouco mais de um terço de um Whopper; a unidade inteira dá cerca de 602 kcal.
+O Bob's publica **por 100 g**, não por porção. O rótulo do Big Bob diz
+`Porção: 100 g (3/7 unidade)` e `258 kcal`. Ao lado de um Whopper de 717 kcal por unidade, ele
+apareceria como um terço do tamanho; a unidade inteira dá cerca de 602 kcal.
 
-As duas saídas foram consideradas e recusadas: converter pela fração publicada dá um número
-**calculado por nós**, o que este app não faz; publicar como está torna a comparação e a soma
-da refeição enganosas, que é justamente o que o app existe para evitar.
+Converter pela fração publicada foi recusado — daria um número **calculado por nós**. A saída
+foi o campo `base`: o dado diz em que quantidade ele se aplica, a UI mostra "kcal/100 g" ao lado
+do valor, e ao montar a refeição o app **pergunta a quantidade em gramas** em vez de somar 100 g
+calados. Nada é estimado e nada é comparado fora de base.
 
-Some-se o custo: o Bob's entrega a tabela só como **imagem PNG, uma por produto**
-(`/cardapio/infonutricionais/<slug>`, com o `nutri_*.png` no HTML), e o cardápio é renderizado
-no cliente. Seriam umas 50 transcrições visuais de número — o método menos confiável disponível.
+Duas coisas a saber antes de mexer nesse arquivo:
 
-Se um dia entrar, entra com um campo de base explícito no JSON e a UI mostrando a base ao lado
-do valor; não como mais uma rede igual às outras.
+- **Só 41 dos 91 produtos têm tabela.** Sanduíches centrais — Bob's Classic, Double Cheese,
+  Cheddar Australiano, Crispy Bacon — não têm nenhuma tabela publicada. Não estão no app, e não
+  devem entrar a partir do resumo da página (veja abaixo).
+- **O resumo de três valores da página do produto diverge da tabela oficial.** No Big Bob a
+  página diz 253 kcal e 515 mg de sódio; a tabela diz 258 kcal e 343 mg. Os `%VD` da tabela
+  conferem todos, então é ela que vale. Não use o resumo, nem para completar buracos.
+
+A tabela sai como **imagem PNG, uma por produto**, com o `nutri_*.png` já no HTML estático da
+página do produto (dá para pegar por `curl`, sem browser). Para transcrever sem gastar uma
+leitura por imagem, monte folhas de 4 num HTML local e capture com o driver:
+
+```bash
+# uma página com 4 <img> em grade 2x2, servida pelo próprio driver
+APP_DIR=<pasta> OUT_DIR=<saída> node .claude/skills/run-refeicao-livre/driver.mjs repl
+> size 1400 1800 1     # o 3º argumento é o deviceScaleFactor; sem ele sai em 2800x3600
+> goto /folha0.html
+> shot folha0.png
+```
+
+41 tabelas viraram 11 leituras. E confira o `%VD` de cada folha: ele é o que separa transcrição
+certa de número parecido.
 
 **O Burger King e o Madero têm outra tabela antiga circulando na web.** Confira sempre a data impressa no rodapé do PDF (o BK diz "Última atualização"; o Madero traz um carimbo tipo `MD STH MAIO/2026`) contra o campo `fonte.atualizadoEm` do JSON. Já existiu um `Tabela-Nutricional-Geral.pdf` do BK, de janeiro de 2024, com valores diferentes para os mesmos sanduíches.
 
@@ -65,6 +83,25 @@ do valor; não como mais uma rede igual às outras.
 ```
 
 Campos opcionais: `sazonal: true` (produto que entra e sai do cardápio) e `alerta: "<texto>"` (mostra um aviso no detalhe do item).
+
+### `base`: a que quantidade os valores se referem
+
+No topo do arquivo da rede, ao lado de `fonte` e `verificadoEm`:
+
+```json
+"base": "100g"
+```
+
+Vale `"porcao"` (o padrão, e o que vale quando o campo não existe) ou `"100g"`. Nada além disso
+— o validador recusa outro valor, porque a UI leria como "porcao" e somaria errado.
+
+Isso não é cosmético. Com `"100g"` o app mostra `kcal/100 g` na lista, escreve "Valores por
+100 g" no detalhe e, ao acrescentar o item à refeição, pede a **quantidade em gramas** para
+poder somar. Sem o campo, 258 kcal por 100 g entrariam no total como se fossem um sanduíche
+inteiro.
+
+Escolha a base pela fonte, nunca pela conveniência: se a rede publica por 100 g, é `"100g"`,
+mesmo que dê mais trabalho. Converter para porção seria publicar número calculado por nós.
 
 ### A regra que mais importa: `null`, nunca `0`
 
@@ -124,7 +161,7 @@ A checagem de massa é mais nova e pega o que a de Atwater não vê. Atwater só
 Depois do deploy, confirme que cada arquivo respondeu:
 
 ```bash
-for f in index categorias mcdonalds burger-king kfc madero; do
+for f in index categorias mcdonalds burger-king kfc madero bobs; do
   printf "%-14s" "$f"
   curl -s -o /dev/null -w "%{http_code}\n" "https://refeicao-livre.vercel.app/data/$f.json?v=$RANDOM"
 done

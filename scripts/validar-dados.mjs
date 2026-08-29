@@ -82,6 +82,12 @@ for (const rede of indice?.redes ?? []) {
   if (dados.slug !== rede.slug) erro(`${rede.slug}.json: "slug" interno (${dados.slug}) não bate com o do index.json`);
   if (!dados.fonte?.url || !/^https:\/\//.test(dados.fonte.url)) erro(`${rede.slug}.json: "fonte.url" ausente ou não é https`);
   if (!dados.fonte?.atualizadoEm) erro(`${rede.slug}.json: falta "fonte.atualizadoEm"`);
+  // A base diz a que quantidade os valores se referem. Ausente = por porção.
+  // Uma base desconhecida seria lida como "porcao" pela UI e somaria errado, por
+  // isso é erro em vez de aviso.
+  if (dados.base !== undefined && dados.base !== 'porcao' && dados.base !== '100g') {
+    erro(`${rede.slug}.json: "base" só aceita "porcao" ou "100g" — veio ${JSON.stringify(dados.base)}`);
+  }
   if (!/^\d{4}-\d{2}-\d{2}$/.test(dados.verificadoEm ?? '')) erro(`${rede.slug}.json: "verificadoEm" precisa estar em AAAA-MM-DD`);
   else if (Number.isNaN(Date.parse(dados.verificadoEm))) erro(`${rede.slug}.json: "verificadoEm" não é uma data real`);
 

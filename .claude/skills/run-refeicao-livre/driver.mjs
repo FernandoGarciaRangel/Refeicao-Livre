@@ -22,7 +22,7 @@
  *   wait <js>              espera a expressão virar truthy (8s)
  *   shot <arq.png>         screenshot do viewport
  *   shotfull <arq.png>     screenshot da página inteira
- *   size <w> <h>           muda o viewport
+ *   size <w> <h> [dsf]     muda o viewport (dsf default 2; use 1 p/ tamanho exato)
  *   offline                corta o Firebase (ver SKILL.md); use antes do goto
  *   console / errors       despeja o que o app logou
  *   sleep <ms> / quit
@@ -580,9 +580,12 @@ async function cmdRepl() {
           P('ok wait', rest);
           break;
         case 'size': {
-          const [w, h] = rest.split(/\s+/).map(Number);
-          await page.viewport(w, h);
-          P('ok size', w, h);
+          // 3º argumento opcional: deviceScaleFactor. O default 2 é o certo para
+          // inspecionar UI, mas dobra o pixel de qualquer captura — passe 1 quando
+          // a imagem precisar sair no tamanho exato pedido.
+          const [w, h, dsf] = rest.split(/\s+/).map(Number);
+          await page.viewport(w, h, Number.isFinite(dsf) && dsf > 0 ? dsf : 2);
+          P('ok size', w, h, Number.isFinite(dsf) && dsf > 0 ? dsf : 2);
           break;
         }
         case 'offline':
@@ -638,7 +641,7 @@ async function cmdSmoke() {
     c.is(
       'redes no portal',
       await page.eval("[...document.querySelectorAll('.entry-title')].map(e => e.innerText)"),
-      ["McDonald's", 'Burger King', 'KFC', 'Madero'],
+      ["McDonald's", 'Burger King', 'KFC', 'Madero', "Bob's"],
     );
     // A logo do badge vem de data/index.json e mora em assets/. É o mesmo
     // descuido que deixa um data/*.json fora do commit: o deploy fica verde e o
