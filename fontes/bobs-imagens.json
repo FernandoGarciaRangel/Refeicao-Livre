@@ -1,0 +1,207 @@
+[
+ {
+  "nome": "Big Bob Picanha e Costela",
+  "produto": "/cardapio/sanduiches/big-bob-picanha-e-costela",
+  "imagem": "/media/filer_public/4c/f8/4cf8bee6-2698-4b3c-a1da-6d7c99dedb61/nutri_big-bob-costela.png"
+ },
+ {
+  "nome": "Double Cheese Picanha e Costela",
+  "produto": "/cardapio/sanduiches/double-cheese-picanha-e-costela",
+  "imagem": "/media/filer_public/ea/62/ea62d5a3-f4ef-4b6e-aa98-bdec66cfe366/nutri_double-cheese-costela.png"
+ },
+ {
+  "nome": "Cheddar Australiano Picanha e Costela",
+  "produto": "/cardapio/sanduiches/cheddar-australiano-picanha-e-costela",
+  "imagem": "/media/filer_public/07/dc/07dcf7ee-4ea4-400a-8708-5eab6f8a431c/nutri_cheddar-costela.png"
+ },
+ {
+  "nome": "Chicken Filé Jr.",
+  "produto": "/cardapio/sanduiches/chicken-file-jr",
+  "imagem": "/media/filer_public/a6/28/a628ddfa-20b2-4f15-bd71-a7a5af3c6e9b/nutri_chicken-jr.png"
+ },
+ {
+  "nome": "Big Bob",
+  "produto": "/cardapio/sanduiches/big-bob",
+  "imagem": "/media/filer_public/03/69/0369f82c-ada3-4fe9-b605-f4869eee5cdf/nutri_bigbob.png"
+ },
+ {
+  "nome": "Chicken Filé",
+  "produto": "/cardapio/sanduiches/chicken-file",
+  "imagem": "/media/filer_public/12/67/1267009c-2529-4bec-8ec4-02407b2daf60/nutri_chicken-filet.png"
+ },
+ {
+  "nome": "Chicken Bacon de Responsa",
+  "produto": "/cardapio/sanduiches/chicken-bacon-de-responsa",
+  "imagem": "/media/filer_public/db/82/db82bab3-d176-4b8b-a967-3a2ed169a454/nutri_chicken-responsa.png"
+ },
+ {
+  "nome": "Tiras de Frango",
+  "produto": "/cardapio/acompanhamentos/tiras-de-frango",
+  "imagem": "/media/filer_public/1a/25/1a257db8-2c19-4913-9e9f-58ae75e52614/nutri_filezinhos.png"
+ },
+ {
+  "nome": "Batata Palito",
+  "produto": "/cardapio/acompanhamentos/batata-palito",
+  "imagem": "/media/filer_public/a1/30/a130a8c9-1334-42e8-a45b-a06ddb0bd7a0/nutri_batata-media.png"
+ },
+ {
+  "nome": "Franlitos",
+  "produto": "/cardapio/acompanhamentos/franlitos",
+  "imagem": "/media/filer_public/e4/84/e484fab9-d217-4c94-8ca7-2e6c3249398a/nutri_franlitos-4.png"
+ },
+ {
+  "nome": "Colherudo Max Pistache",
+  "produto": "/cardapio/sobremesas/colherudo-max-pistache",
+  "imagem": "/media/filer_public/18/da/18dac4a5-e695-4072-ab84-565b4f8b1c05/colherudo-max-nutri.png"
+ },
+ {
+  "nome": "Colherudo Shake Pistache",
+  "produto": "/cardapio/sobremesas/colherudo-shake-pistache",
+  "imagem": "/media/filer_public/b1/74/b174718a-7937-4cb3-9e8d-7d24d36ef8f9/colherudo-shake-nutri-300.png"
+ },
+ {
+  "nome": "Shake Duplo Chocolate",
+  "produto": "/cardapio/sobremesas/shake-duplo-chocolate",
+  "imagem": "/media/filer_public/5f/06/5f06571b-e17c-417d-94df-0ca84976b3f5/nutri_shake-duplo-chocolate-300.png"
+ },
+ {
+  "nome": "Shake Triplo Crocante",
+  "produto": "/cardapio/sobremesas/shake-triplo-crocante",
+  "imagem": "/media/filer_public/72/98/7298a2b2-b39a-4112-94b4-1e21c0b22e6d/nutri_shake-triplo-crocante-300.png"
+ },
+ {
+  "nome": "Colherudo Max Choco Nuts",
+  "produto": "/cardapio/sobremesas/colherudo-max-choco-nuts",
+  "imagem": "/media/filer_public/9e/4b/9e4bbf8e-2f4a-4e56-9dae-5fd5aada38e4/nutri_max-choco-nuts.png"
+ },
+ {
+  "nome": "Colherudo Shake Choco Nuts",
+  "produto": "/cardapio/sobremesas/colherudo-shake-choco-nuts",
+  "imagem": "/media/filer_public/d5/0f/d50f939d-576b-45bc-b5b9-3a4a0f7c6857/nutri_shake-colherudo-nuts-300.png"
+ },
+ {
+  "nome": "Colherudo Shake Morango",
+  "produto": "/cardapio/sobremesas/colherudo-shake-morango",
+  "imagem": "/media/filer_public/96/ee/96ee2a13-2101-46e2-a4f1-9df34a38af4b/nutri_shake-colherudo-morango.png"
+ },
+ {
+  "nome": "Colherudo Max Morango",
+  "produto": "/cardapio/sobremesas/colherudo-max-morango",
+  "imagem": "/media/filer_public/7c/92/7c92ca2c-6463-4a46-a2d1-b6738b0cc84d/nutri_max-colherudo_morango.png"
+ },
+ {
+  "nome": "Colherudo Max Nuts",
+  "produto": "/cardapio/sobremesas/colherudo-max-nuts",
+  "imagem": "/media/filer_public/2c/1a/2c1ab0e0-1934-43a0-b860-f536fe4a7c4a/nutri_max-colherudo_nuts.png"
+ },
+ {
+  "nome": "Milk Shake de Paçoca",
+  "produto": "/cardapio/sobremesas/milk-shake-de-pacoca",
+  "imagem": "/media/filer_public/b1/26/b126244e-c3b4-4fbd-b40c-d59804e19637/nutri_shake-pacoca.png"
+ },
+ {
+  "nome": "Milk Café Shake",
+  "produto": "/cardapio/sobremesas/milk-cafe-shake",
+  "imagem": "/media/filer_public/20/73/2073cc1a-8f7c-4bab-a47c-0ce82918e5ef/nutri_shake-cafe.png"
+ },
+ {
+  "nome": "Milk Shake Crocante",
+  "produto": "/cardapio/sobremesas/milk-shake-crocante",
+  "imagem": "/media/filer_public/f3/a4/f3a44534-f198-41c0-bcc1-444cfd91e4b2/nutri_shake-crocante.png"
+ },
+ {
+  "nome": "Milk Shake Morango",
+  "produto": "/cardapio/sobremesas/milk-shake-morango",
+  "imagem": "/media/filer_public/17/ba/17ba864b-5d64-41f6-b647-c8fbc2f17652/nutri_shake-morango.png"
+ },
+ {
+  "nome": "Milk Shake Nuts",
+  "produto": "/cardapio/sobremesas/milk-shake-nuts",
+  "imagem": "/media/filer_public/23/bb/23bb5a82-3434-4828-8b07-f9378e3b248f/nutri_shake-nuts.png"
+ },
+ {
+  "nome": "Milk Shake Chocolate",
+  "produto": "/cardapio/sobremesas/milk-shake-chocolate",
+  "imagem": "/media/filer_public/6a/4d/6a4dd802-8b30-4105-ae5f-38502051d303/nutri_shake-chocolate.png"
+ },
+ {
+  "nome": "Bob's Max Ovomaltine",
+  "produto": "/cardapio/sobremesas/bobs-max-ovomaltine",
+  "imagem": "/media/filer_public/a2/50/a25081cb-1db6-4f02-a181-a974625c5fd7/nutri_max-ovo.png"
+ },
+ {
+  "nome": "Sundae Ovomaltine",
+  "produto": "/cardapio/sobremesas/sundae-ovomaltine",
+  "imagem": "/media/filer_public/b7/46/b7463995-78f2-43dc-b4cf-a2c09206b162/nutri_sundae-ovo.png"
+ },
+ {
+  "nome": "Sundae Morango",
+  "produto": "/cardapio/sobremesas/sundae-morango",
+  "imagem": "/media/filer_public/be/34/be34bf0a-48ab-4a8a-801e-6343a2b0268f/nutri_sundae-morango.png"
+ },
+ {
+  "nome": "Sundae Chocolate",
+  "produto": "/cardapio/sobremesas/sundae-chocolate",
+  "imagem": "/media/filer_public/bc/b6/bcb676a3-0ec9-4494-819a-f934c29145b6/nutri_sundae-choco.png"
+ },
+ {
+  "nome": "Big Cascão Ovomaltine",
+  "produto": "/cardapio/sobremesas/big-cascao-ovomaltine",
+  "imagem": "/media/filer_public/0a/bb/0abb8034-c5fe-4bc4-a74f-fba3d2677ea8/nutri_big-cascao-ovo.png"
+ },
+ {
+  "nome": "Big Cascão Morango",
+  "produto": "/cardapio/sobremesas/big-cascao-morango",
+  "imagem": "/media/filer_public/41/0e/410ea6d9-505f-4a7d-809e-04844d9e9e75/nutri_big-cascao-morango.png"
+ },
+ {
+  "nome": "Big Cascão Chocolate",
+  "produto": "/cardapio/sobremesas/big-cascao-chocolate",
+  "imagem": "/media/filer_public/70/cc/70cce1bc-3682-42a9-8886-ff059bd7fe82/nutri_big-cascao-choco.png"
+ },
+ {
+  "nome": "Casquinha Baunilha",
+  "produto": "/cardapio/sobremesas/casquinha-baunilha",
+  "imagem": "/media/filer_public/07/58/07582848-e4c9-4672-8435-d37c0843f646/nutri_casquinha-baunilha.png"
+ },
+ {
+  "nome": "Casquinha Chocolate",
+  "produto": "/cardapio/sobremesas/casquinha-chocolate",
+  "imagem": "/media/filer_public/2b/c9/2bc9b247-826e-44b3-b424-eb53f2ce472c/nutri_casquinha-choco.png"
+ },
+ {
+  "nome": "Casquinha Mista",
+  "produto": "/cardapio/sobremesas/casquinha-mista",
+  "imagem": "/media/filer_public/15/18/1518ee35-e0f4-47b8-855b-69f674023c75/nutri_casquinha-mista.png"
+ },
+ {
+  "nome": "Casquinha Recheada",
+  "produto": "/cardapio/sobremesas/casquinha-recheada",
+  "imagem": "/media/filer_public/50/50/50502bc7-d4f4-4a08-8efc-60af7b882d8c/nutri_casquinha-recheada.png"
+ },
+ {
+  "nome": "Casquinha de Açaí",
+  "produto": "/cardapio/sobremesas/casquinha-de-acai",
+  "imagem": "/media/filer_public/d3/3f/d33fa4b2-15c9-4cc4-8b63-5db50688dc41/nutri_casquinha-acai.png"
+ },
+ {
+  "nome": "Top Açaí",
+  "produto": "/cardapio/sobremesas/top-acai",
+  "imagem": "/media/filer_public/49/2b/492b9ad9-bcd0-4470-a2ea-445bb4e9b142/nutri_acai-top.png"
+ },
+ {
+  "nome": "Bob's Max Morango",
+  "produto": "/cardapio/sobremesas/bobs-max-morango",
+  "imagem": "/media/filer_public/63/38/6338352f-5218-4fed-aac1-a524bfcd43a9/nutri_max-morango.png"
+ },
+ {
+  "nome": "Bob's Max Chocolate",
+  "produto": "/cardapio/sobremesas/bobs-max-chocolate",
+  "imagem": "/media/filer_public/2b/38/2b38c3fc-de57-4c76-9d60-416dfbbed233/nutri_max-chocolate.png"
+ },
+ {
+  "nome": "Milk Shake Baunilha",
+  "produto": "/cardapio/sobremesas/milk-shake-baunilha",
+  "imagem": "/media/filer_public/86/83/86837b1d-224a-403f-84b6-de6f92f68cc2/nutri_shake-baunilha.png"
+ }
+]

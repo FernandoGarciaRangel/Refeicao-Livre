@@ -218,9 +218,35 @@ Isso soma-se às quatro armadilhas já registradas no `CLAUDE.md` do WeightChart
 token-sonda, não confiar em `shotfull` com `<canvas>`). A regra é a mesma:
 **meça, e depois confira a medição.**
 
+## O que fica registrado sobre as fontes
+
+O binário da fonte **não** fica no repo (são ~11 MB de PDF e ~10 MB de PNG). Fica
+o que responde "a fonte mudou?" sem reextrair nada:
+
+- `data/<rede>.json` → `fonte.url`, `fonte.tipo`, `fonte.atualizadoEm`, `verificadoEm`
+- `fontes/manifesto.json` → sha256, tamanho, data da obtenção e **como cada fonte
+  se versiona**, que é o que decide se dá para conferir
+- `fontes/bobs-imagens.json` → as 41 URLs de imagem do Bob's, que não estão em
+  nenhum outro lugar (redescobri-las custa varrer 91 páginas de produto)
+- `node scripts/conferir-fontes.mjs` → rebaixa e compara
+
+O versionamento difere por rede, e é isso que muda o risco:
+
+| Rede | Como versiona | O que acontece na atualização |
+|---|---|---|
+| BK, Madero | caminho fixo | **sobrescrito** — a versão de onde extraímos deixa de existir |
+| Subway | URL com data e hash | o CMS da Zamp **preserva** as antigas; surge uma URL nova |
+| McDonald's, KFC | site | sempre a versão corrente, sem data publicada |
+| Bob's | imagem por produto | sem versão nenhuma |
+
+Ao reextrair, atualize o `sha256` e o `obtidoEm` do manifesto junto com o JSON —
+manifesto desatualizado é pior que nenhum, porque diz "não mudou" sobre um
+documento que você mesmo trocou.
+
 ## Testar
 
 ```bash
+node scripts/conferir-fontes.mjs                            # as fontes mudaram?
 node scripts/validar-dados.mjs                              # os JSON
 node .claude/skills/run-refeicao-livre/driver.mjs smoke      # a tela (22 checagens)
 ```

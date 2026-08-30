@@ -40,8 +40,25 @@ pode é a correção sumir sem alguém decidir.
 
 ## Passo 1 — a fonte mudou?
 
-Pegue a URL em `fonte.url` do próprio JSON e compare a data impressa no documento
-com `fonte.atualizadoEm`:
+**Comece por isto, e é uma linha:**
+
+```bash
+node scripts/conferir-fontes.mjs
+```
+
+`fontes/manifesto.json` guarda o sha256 do documento de onde cada cardápio saiu; o
+script rebaixa e compara. Nada mudou? O trabalho é atualizar `verificadoEm` e
+commitar. Mudou? Ele diz qual rede reextrair.
+
+Três redes não são conferíveis por hash — McDonald's e KFC são sites que mudam
+sempre, Bob's são imagens sem versão — e o script diz isso em vez de fingir que
+conferiu. Para essas, reextrair e comparar o JSON é o único caminho.
+
+Ao reextrair, **atualize o `sha256` e o `obtidoEm` no manifesto** junto com o
+JSON: um manifesto desatualizado é pior que nenhum, porque diz "não mudou" sobre
+um documento que você mesmo trocou.
+
+Confira também a data impressa no documento contra `fonte.atualizadoEm`:
 
 - **Burger King** — "Última atualização" no rodapé do PDF
 - **Madero** — carimbo tipo `MD STH MAIO/2026` no rodapé
@@ -104,7 +121,7 @@ do Madero.
 | itens do Burger King | 107 |
 | Big Mac + WHOPPER® Jr. | `524 + 388 = 912` kcal |
 | 912 kcal sobre 2.400 | "38% do seu gasto diário" |
-| redes no portal | `["McDonald's", "Burger King", "Madero"]` |
+| redes no portal | `["McDonald's", "Burger King", "KFC", "Madero", "Subway", "Bob's"]` |
 
 Quebrou? **Confira o número novo contra a fonte e atualize a asserção.** Nunca
 afrouxe a checagem para ela passar — ela existe para avisar exatamente agora.

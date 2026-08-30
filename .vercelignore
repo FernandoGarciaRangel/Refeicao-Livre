@@ -1,0 +1,14 @@
+# Documentação e ferramental internos: versionados aqui, fora do deploy.
+# O app é servido da raiz do repo, então sem esta exclusão a Vercel publica tudo
+# — e estava publicando: CLAUDE.md, ATUALIZAR-CARDAPIO.md e o próprio validador
+# respondiam 200 no domínio público.
+#
+# NÃO acrescente data/ nem assets/ aqui: são o app.
+
+CLAUDE.md
+ATUALIZAR-CARDAPIO.md
+README.md
+scripts/
+fontes/
+.claude/
+.claude-shots/

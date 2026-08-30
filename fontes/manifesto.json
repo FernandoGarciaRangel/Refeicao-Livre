@@ -1,0 +1,69 @@
+{
+  "_leia": "Registro do documento de onde cada cardápio foi extraído. O binário não fica no repo (são ~11 MB de PDF e ~10 MB de PNG); o que fica é o suficiente para responder 'a fonte mudou?' sem reextrair nada. Rode: node scripts/conferir-fontes.mjs",
+  "fontes": [
+    {
+      "rede": "mcdonalds",
+      "url": "https://www.mcdonalds.com.br/cardapio",
+      "formato": "site",
+      "versionamento": "nenhum — o site é sempre a versão corrente, e não há data publicada",
+      "conferivelPorHash": false,
+      "obtidoEm": "2026-08-28",
+      "nota": "Protegido por Cloudflare: só Chrome com janela (HEADFUL=1) passa. O dado vem do __NUXT_DATA__ de cada página de categoria."
+    },
+    {
+      "rede": "burger-king",
+      "url": "https://bk-media.burgerking.com.br/TABELA_NUTRICIONAL_BK.pdf",
+      "formato": "pdf",
+      "versionamento": "caminho fixo, SOBRESCRITO a cada atualização — a versão anterior deixa de existir",
+      "conferivelPorHash": true,
+      "sha256": "eff2c52635f465a9ae5621f2ef03f5d7a108449f58a82a92c58183c190224a03",
+      "bytes": 418641,
+      "dataNoDocumento": "2026-05-29",
+      "obtidoEm": "2026-08-28",
+      "nota": "Circula também um Tabela-Nutricional-Geral.pdf de janeiro/2024 com valores diferentes. Confira a linha 'Última atualização' no rodapé."
+    },
+    {
+      "rede": "kfc",
+      "url": "https://www.kfc.com.br/nutritional-information",
+      "formato": "site",
+      "versionamento": "nenhum — a página não traz data nem versão",
+      "conferivelPorHash": false,
+      "obtidoEm": "2026-08-29",
+      "nota": "Sete tabelas HTML, uma por categoria. Os %VD impressos são inconsistentes e não servem de conferência."
+    },
+    {
+      "rede": "madero",
+      "url": "https://restaurantemadero.com.br/assets/site/arquivos/Tabela_Nutricional_Alergenicos.pdf",
+      "formato": "pdf",
+      "versionamento": "caminho fixo, SOBRESCRITO a cada atualização — a versão anterior deixa de existir",
+      "conferivelPorHash": true,
+      "sha256": "ca67019a6d94d8a77f97021854ad453804017b526dcfe4e24583abe2fedfecec",
+      "bytes": 5044519,
+      "dataNoDocumento": "2026-05",
+      "obtidoEm": "2026-08-28",
+      "nota": "O carimbo de data fica no rodapé, no formato 'MD STH MAIO/2026'."
+    },
+    {
+      "rede": "subway",
+      "url": "https://sbw-cms.zamp.com.br/Tabela_Nutricional_15_05_2026_a7b1fe9dee/Tabela_Nutricional_15_05_2026_a7b1fe9dee.pdf",
+      "formato": "pdf",
+      "versionamento": "URL versionada por data e hash; o CMS PRESERVA as antigas (a de 02/01/2023 ainda responde 200). Uma atualização cria uma URL nova em vez de trocar esta.",
+      "conferivelPorHash": true,
+      "sha256": "b48e07de59a1dfe92bf128bcfc3214ce3c735e76f76c27f682542199fa5f5503",
+      "bytes": 5594219,
+      "dataNoDocumento": "2026-05-15",
+      "obtidoEm": "2026-08-29",
+      "nota": "Não está no site do Subway: mora no CMS da Zamp, a operadora. Arte vetorial sem camada de texto — ver scripts/render-pdf.html."
+    },
+    {
+      "rede": "bobs",
+      "url": "https://bobs.com.br/cardapio/",
+      "formato": "imagem por produto",
+      "versionamento": "nenhum — cada PNG fica num caminho de CMS com hash, e nada indica versão",
+      "conferivelPorHash": false,
+      "obtidoEm": "2026-08-29",
+      "listaDeImagens": "fontes/bobs-imagens.json",
+      "nota": "Só 41 dos 91 produtos têm tabela. O resumo de três valores da página do produto DIVERGE da tabela oficial; vale a tabela."
+    }
+  ]
+}

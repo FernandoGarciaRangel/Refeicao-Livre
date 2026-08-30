@@ -5,14 +5,24 @@ As redes mudam cardápio o tempo todo. Atualizar aqui é editar um arquivo JSON 
 ## O ciclo
 
 ```bash
-# 1. baixe a fonte oficial da rede (links na tabela abaixo)
-# 2. edite data/<rede>.json
-# 3. confira
+# 1. a fonte mudou? (segundos, e diz qual rede olhar)
+node scripts/conferir-fontes.mjs
+# 2. baixe a fonte oficial da rede (links na tabela abaixo)
+# 3. edite data/<rede>.json
+# 4. confira
 node scripts/validar-dados.mjs
-# 4. suba o app e olhe
+# 5. suba o app e olhe
 npx serve . -l 8082
-# 5. commit
+# 6. commit
 ```
+
+**Comece sempre pelo passo 1.** `fontes/manifesto.json` guarda o sha256 do documento de onde
+cada cardápio saiu; o script rebaixa e compara. Se nada mudou, o trabalho é atualizar
+`verificadoEm` e commitar. Se mudou, ele diz qual rede reextrair.
+
+Três redes não dão para conferir por hash — McDonald's e KFC são sites que mudam sempre, e o
+Bob's são imagens sem versão. Para essas, reextrair e comparar o JSON é o único caminho, e o
+script diz isso em vez de fingir que conferiu.
 
 O validador sai com erro se algo não fecha. **Rode sempre antes de commitar** — ele é a diferença entre publicar um número certo e um número plausível.
 
