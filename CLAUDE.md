@@ -75,6 +75,13 @@ repo.
 
 ---
 
+## O que ficou de fora, e por quê
+
+**[PENDENCIAS.md](PENDENCIAS.md)** — Pizza Hut (fonte boa, atribuição de massa não
+confiável), Popeyes (a rede não publica) e os limites do Bob's. Cada item registra o
+que já foi testado e falhou, com a evidência, para a próxima tentativa não recomeçar
+do zero.
+
 ## O validador não é burocracia
 
 Foi ele que revelou que a tabela do Madero imprime os pares "por 100 g" e "por
