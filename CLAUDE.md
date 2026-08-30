@@ -151,6 +151,11 @@ Estão em `observacoes` de cada rede, mas vale saber que existem antes de
    **diverge da própria tabela oficial** (Big Bob: 253 kcal / 515 mg no resumo,
    258 kcal / 343 mg na tabela). Os `%VD` da tabela conferem todos, então é ela
    que vale; o resumo não entra nem para preencher buraco.
+- **Subway**: a fonte **não está no site da rede** — o `subway.com.br` não publica tabela
+  nenhuma. Ela mora no CMS da Zamp, a operadora (a mesma do BK), e o PDF é arte vetorial **sem
+  camada de texto**: foi lido visualmente, renderizado por `pdf.js` no browser
+  (`scripts/render-pdf.html`). A rede publica sobretudo os **componentes** do sanduíche, daí as
+  categorias `proteinas`, `queijos`, `paes` e `vegetais`, que só ela usa.
 - **Madero**: o PDF repete o **mesmo bloco nutricional** em pratos diferentes — o
   trio `154 / 416 kcal / 20%` serve o Penne, o Ravioli e a salada de
   acompanhamento. E traz uma anotação interna, "Rever calculo", ao lado do Mini

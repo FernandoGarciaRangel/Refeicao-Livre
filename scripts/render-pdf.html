@@ -1,0 +1,20 @@
+<!doctype html><meta charset=utf-8>
+<style>body{margin:0;background:#fff}canvas{display:block}</style>
+<canvas id=c></canvas>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs" type="module"></script>
+<script type="module">
+import * as pdfjs from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs';
+pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs';
+const q = new URLSearchParams(location.search);
+const pg = Number(q.get('p') || 1), esc = Number(q.get('s') || 2);
+const fx = Number(q.get('fx') || 0), fy = Number(q.get('fy') || 0), fw = Number(q.get('fw') || 1), fh = Number(q.get('fh') || 1);
+const doc = await pdfjs.getDocument(q.get('f') || 'sbw.pdf').promise;
+const page = await doc.getPage(pg);
+const vp = page.getViewport({ scale: esc });
+const c = document.getElementById('c');
+c.width = Math.round(vp.width * fw); c.height = Math.round(vp.height * fh);
+const ctx = c.getContext('2d');
+ctx.translate(-vp.width * fx, -vp.height * fy);
+await page.render({ canvasContext: ctx, viewport: vp }).promise;
+document.title = 'pronto ' + c.width + 'x' + c.height;
+</script>

@@ -23,9 +23,13 @@ tipo de alimento. Monte um prato e veja o total de calorias como percentual do s
 | Burger King | 107 | PDF oficial (ZAMP S.A.) | 29/05/2026 |
 | KFC | 54 | Tabela oficial no site, com peso da porção | 08/2026 |
 | Madero | 101 | PDF oficial bilíngue | 05/2026 |
+| Subway | 62 | PDF oficial (Zamp) | 15/05/2026 |
 | Bob's | 41 | Tabela oficial por produto (imagem) — **valores por 100 g** | 08/2026 |
 
-**468 itens** no total.
+**530 itens** no total.
+
+O Subway publica sobretudo os **componentes** do sanduíche — pão, proteína, queijo, vegetais,
+molho — e só alguns subs montados. Some os itens na refeição para chegar ao seu sanduíche.
 
 O Bob's publica **por 100 g**, e não por porção como as outras quatro. O app registra isso no
 campo `base` do JSON, mostra "kcal/100 g" ao lado do valor e, ao montar a refeição, pergunta a

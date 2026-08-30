@@ -24,6 +24,7 @@ O validador sai com erro se algo não fecha. **Rode sempre antes de commitar** �
 | KFC | `https://www.kfc.com.br/nutritional-information` | Site, 7 tabelas HTML por categoria |
 | Burger King | `https://bk-media.burgerking.com.br/TABELA_NUTRICIONAL_BK.pdf` | PDF, uma página, duas colunas |
 | Madero | `https://restaurantemadero.com.br/assets/site/arquivos/Tabela_Nutricional_Alergenicos.pdf` | PDF, 10 páginas, texto corrido bilíngue |
+| Subway | `https://sbw-cms.zamp.com.br/Tabela_Nutricional_15_05_2026_a7b1fe9dee/…pdf` | PDF, arte vetorial **sem texto** |
 | Bob's | `https://bobs.com.br/cardapio/` | Imagem PNG por produto, **por 100 g** |
 
 Cada `data/<rede>.json` guarda a URL da sua fonte no campo `fonte.url`. Se a rede mudar o endereço, mude lá também.
@@ -62,6 +63,36 @@ APP_DIR=<pasta> OUT_DIR=<saída> node .claude/skills/run-refeicao-livre/driver.m
 
 41 tabelas viraram 11 leituras. E confira o `%VD` de cada folha: ele é o que separa transcrição
 certa de número parecido.
+
+### Subway: a fonte não está no site da rede
+
+O `subway.com.br` **não** publica tabela nutricional — nem na home, nem no cardápio, nem nas
+páginas de produto, e o site é protegido por Akamai (o Chrome headless leva "Access Denied";
+com janela passa). Procurar lá esgota sem resultado.
+
+A tabela existe e é oficial, mas mora no CMS da **Zamp**, a operadora — a mesma do Burger King
+e do Popeyes: `sbw-cms.zamp.com.br/Tabela_Nutricional_<data>_<hash>/…pdf`. Quando a data mudar,
+o caminho inteiro muda; ache o novo pelo campo `fonte.url` do JSON ou por busca no host.
+
+O PDF é **arte vetorial sem camada de texto**: `pdfjs` extrai zero caracteres dele. A saída foi
+renderizar com o próprio `pdf.js` dentro do browser e ler as faixas visualmente:
+
+```bash
+# render.html carrega pdf.js do CDN e desenha a página num <canvas>,
+# com recorte por fração (fx/fy/fw/fh) para ampliar uma faixa
+APP_DIR=<pasta> OUT_DIR=<saída> node .claude/skills/run-refeicao-livre/driver.mjs repl
+> size 2400 1000 1
+> goto /render.html?p=2&s=2&fx=0.02&fw=0.65&fy=0.09&fh=0.235
+> shot faixa0.png
+```
+
+Quatro faixas cobriram a tabela inteira. **Página 1 é a lista de ingredientes; a tabela está na
+página 2.**
+
+E uma coisa sobre o cardápio, que muda como o dado é usado: o Subway publica sobretudo os
+**componentes** (pão, proteína, queijo, vegetal, molho) e só alguns subs prontos. É por isso que
+ele tem as categorias `proteinas`, `queijos`, `paes` e `vegetais`, que nenhuma outra rede usa —
+o usuário monta o sanduíche na refeição, que é como a rede vende.
 
 **O Burger King e o Madero têm outra tabela antiga circulando na web.** Confira sempre a data impressa no rodapé do PDF (o BK diz "Última atualização"; o Madero traz um carimbo tipo `MD STH MAIO/2026`) contra o campo `fonte.atualizadoEm` do JSON. Já existiu um `Tabela-Nutricional-Geral.pdf` do BK, de janeiro de 2024, com valores diferentes para os mesmos sanduíches.
 
@@ -161,7 +192,7 @@ A checagem de massa é mais nova e pega o que a de Atwater não vê. Atwater só
 Depois do deploy, confirme que cada arquivo respondeu:
 
 ```bash
-for f in index categorias mcdonalds burger-king kfc madero bobs; do
+for f in index categorias mcdonalds burger-king kfc madero subway bobs; do
   printf "%-14s" "$f"
   curl -s -o /dev/null -w "%{http_code}\n" "https://refeicao-livre.vercel.app/data/$f.json?v=$RANDOM"
 done

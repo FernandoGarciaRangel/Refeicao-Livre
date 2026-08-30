@@ -1,6 +1,10 @@
 [
   { "slug": "hamburgueres",    "nome": "Hambúrgueres e sanduíches" },
   { "slug": "frango",          "nome": "Frango" },
+  { "slug": "proteinas",       "nome": "Proteínas" },
+  { "slug": "queijos",         "nome": "Queijos" },
+  { "slug": "paes",            "nome": "Pães" },
+  { "slug": "vegetais",        "nome": "Vegetais" },
   { "slug": "carnes",          "nome": "Carnes" },
   { "slug": "peixes",          "nome": "Peixes" },
   { "slug": "massas",          "nome": "Massas" },

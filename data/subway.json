@@ -1,0 +1,792 @@
+{
+  "slug": "subway",
+  "nome": "Subway",
+  "fonte": {
+    "url": "https://sbw-cms.zamp.com.br/Tabela_Nutricional_15_05_2026_a7b1fe9dee/Tabela_Nutricional_15_05_2026_a7b1fe9dee.pdf",
+    "tipo": "PDF oficial",
+    "atualizadoEm": "2026-05-15"
+  },
+  "verificadoEm": "2026-08-29",
+  "observacoes": "Valores por porção, com o peso em gramas, transcritos da tabela nutricional oficial do Subway Brasil (operado pela Zamp) — o PDF é arte vetorial sem camada de texto, então foi lido visualmente, faixa a faixa, e não extraído por script. O Subway publica sobretudo os COMPONENTES do sanduíche (pão, proteína, queijo, vegetais, molho) e só alguns subs montados: some os itens na refeição para chegar ao seu sanduíche. Valores de sub e salada não incluem queijo salvo indicação, e acrescentar itens muda o total — é a própria rede que avisa. A rede não publica açúcares. \"Frango Supreme Proteico\" aparece na tabela sem nenhum valor e por isso ficou de fora.",
+  "categorias": [
+    {
+      "slug": "hamburgueres",
+      "itens": [
+        {
+          "nome": "Epic Frango Barbecue Bacon",
+          "porcao": "291 g",
+          "kcal": 575,
+          "carb": 67,
+          "acucar": null,
+          "prot": 33,
+          "gord": 20,
+          "gordSat": 7,
+          "fibra": 2,
+          "sodio": 1567
+        },
+        {
+          "nome": "Frango Mostarda e Mel Proteico",
+          "porcao": "291 g",
+          "kcal": 542,
+          "carb": 57,
+          "acucar": null,
+          "prot": 34,
+          "gord": 22,
+          "gordSat": 5,
+          "fibra": 2,
+          "sodio": 1190
+        },
+        {
+          "nome": "Frango Teriyaki Proteico",
+          "porcao": "307 g",
+          "kcal": 487,
+          "carb": 41,
+          "acucar": null,
+          "prot": 44,
+          "gord": 16,
+          "gordSat": 5.8,
+          "fibra": 3.6,
+          "sodio": 1473
+        },
+        {
+          "nome": "Grand Teriyaki Pepperoni",
+          "porcao": "323 g",
+          "kcal": 456,
+          "carb": 50,
+          "acucar": null,
+          "prot": 46,
+          "gord": 7.9,
+          "gordSat": 3.5,
+          "fibra": 3.4,
+          "sodio": 996
+        },
+        {
+          "nome": "Supremo Frango & Bacon",
+          "porcao": "325 g",
+          "kcal": 475,
+          "carb": 43,
+          "acucar": null,
+          "prot": 44,
+          "gord": 14,
+          "gordSat": 5.4,
+          "fibra": 3.8,
+          "sodio": 1492
+        }
+      ]
+    },
+    {
+      "slug": "proteinas",
+      "itens": [
+        {
+          "nome": "Bacon",
+          "porcao": "15 g",
+          "kcal": 72,
+          "carb": 1,
+          "acucar": null,
+          "prot": 5,
+          "gord": 6,
+          "gordSat": 2,
+          "fibra": 0,
+          "sodio": 282
+        },
+        {
+          "nome": "Carne Seca",
+          "porcao": "70 g",
+          "kcal": 145,
+          "carb": 1,
+          "acucar": null,
+          "prot": 9,
+          "gord": 12,
+          "gordSat": 7,
+          "fibra": 0,
+          "sodio": 354
+        },
+        {
+          "nome": "Carne Supreme",
+          "porcao": "100 g",
+          "kcal": 140,
+          "carb": 0,
+          "acucar": null,
+          "prot": 20,
+          "gord": 6,
+          "gordSat": 3,
+          "fibra": 0,
+          "sodio": 690
+        },
+        {
+          "nome": "Frango",
+          "porcao": "70 g",
+          "kcal": 116,
+          "carb": 3,
+          "acucar": null,
+          "prot": 13,
+          "gord": 6,
+          "gordSat": 2,
+          "fibra": 0,
+          "sodio": 287
+        },
+        {
+          "nome": "Frango Assado",
+          "porcao": "70 g",
+          "kcal": 100,
+          "carb": 0,
+          "acucar": null,
+          "prot": 15,
+          "gord": 4,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 217
+        },
+        {
+          "nome": "Frango Assado com Barbecue",
+          "porcao": "90 g",
+          "kcal": 118,
+          "carb": 8,
+          "acucar": null,
+          "prot": 14,
+          "gord": 3,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 404
+        },
+        {
+          "nome": "Frango com Molho Ranch",
+          "porcao": "70 g",
+          "kcal": 138,
+          "carb": 3.4,
+          "acucar": null,
+          "prot": 8.7,
+          "gord": 9.9,
+          "gordSat": 2.2,
+          "fibra": 0.1,
+          "sodio": 383
+        },
+        {
+          "nome": "Frango Defumado com Cream Cheese",
+          "porcao": "70 g",
+          "kcal": 151,
+          "carb": 3,
+          "acucar": null,
+          "prot": 8,
+          "gord": 12,
+          "gordSat": 7,
+          "fibra": 0,
+          "sodio": 405
+        },
+        {
+          "nome": "Frango Empanado",
+          "porcao": "78 g",
+          "kcal": 209,
+          "carb": 17,
+          "acucar": null,
+          "prot": 10,
+          "gord": 11,
+          "gordSat": 2,
+          "fibra": 1,
+          "sodio": 472
+        },
+        {
+          "nome": "Frango Teriyaki",
+          "porcao": "75 g",
+          "kcal": 100,
+          "carb": 7,
+          "acucar": null,
+          "prot": 13,
+          "gord": 2,
+          "gordSat": 1,
+          "fibra": 0,
+          "sodio": 431
+        },
+        {
+          "nome": "Pepperoni (3 fatias)",
+          "porcao": "19 g",
+          "kcal": 83,
+          "carb": 0,
+          "acucar": null,
+          "prot": 4,
+          "gord": 8,
+          "gordSat": 3,
+          "fibra": 0,
+          "sodio": 256
+        },
+        {
+          "nome": "Presunto (2 fatias)",
+          "porcao": "30 g",
+          "kcal": 24,
+          "carb": 0,
+          "acucar": null,
+          "prot": 5,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 244
+        },
+        {
+          "nome": "Salame (3 fatias)",
+          "porcao": "19 g",
+          "kcal": 74,
+          "carb": 0,
+          "acucar": null,
+          "prot": 5,
+          "gord": 6,
+          "gordSat": 3,
+          "fibra": 0,
+          "sodio": 304
+        },
+        {
+          "nome": "Steak Churrasco",
+          "porcao": "64 g",
+          "kcal": 147,
+          "carb": 6,
+          "acucar": null,
+          "prot": 9,
+          "gord": 10,
+          "gordSat": 4,
+          "fibra": 0,
+          "sodio": 480
+        }
+      ]
+    },
+    {
+      "slug": "queijos",
+      "itens": [
+        {
+          "nome": "Cheddar Cremoso",
+          "porcao": "74 g",
+          "kcal": 159,
+          "carb": 5,
+          "acucar": null,
+          "prot": 5,
+          "gord": 13,
+          "gordSat": 9,
+          "fibra": 0,
+          "sodio": 795
+        },
+        {
+          "nome": "Cream Cheese",
+          "porcao": "72 g",
+          "kcal": 193,
+          "carb": 2,
+          "acucar": null,
+          "prot": 4,
+          "gord": 19,
+          "gordSat": 12,
+          "fibra": 0,
+          "sodio": 371
+        },
+        {
+          "nome": "Mussarela Ralada",
+          "porcao": "15 g",
+          "kcal": 14,
+          "carb": 0,
+          "acucar": null,
+          "prot": 1,
+          "gord": 1,
+          "gordSat": 0.7,
+          "fibra": 0,
+          "sodio": 24
+        },
+        {
+          "nome": "Queijo Processado Fatiado Cheddar (2 fatias)",
+          "porcao": "11 g",
+          "kcal": 40,
+          "carb": 1,
+          "acucar": null,
+          "prot": 1,
+          "gord": 3,
+          "gordSat": 2,
+          "fibra": 0,
+          "sodio": 146
+        },
+        {
+          "nome": "Queijo Processado Fatiado Suíço (2 fatias)",
+          "porcao": "11 g",
+          "kcal": 40,
+          "carb": 1,
+          "acucar": null,
+          "prot": 1,
+          "gord": 4,
+          "gordSat": 2,
+          "fibra": 0,
+          "sodio": 129
+        },
+        {
+          "nome": "Requeijão Cremoso Catupiry® Original",
+          "porcao": "30 g",
+          "kcal": 80,
+          "carb": 0.5,
+          "acucar": null,
+          "prot": 3.4,
+          "gord": 7.3,
+          "gordSat": 4.5,
+          "fibra": 0,
+          "sodio": 128
+        }
+      ]
+    },
+    {
+      "slug": "paes",
+      "itens": [
+        {
+          "nome": "3 Queijos",
+          "porcao": "89 g",
+          "kcal": 273,
+          "carb": 47,
+          "acucar": null,
+          "prot": 12,
+          "gord": 4,
+          "gordSat": 1,
+          "fibra": 2,
+          "sodio": 357
+        },
+        {
+          "nome": "Aveia e Mel (Cobertura)",
+          "porcao": "100 g",
+          "kcal": 353,
+          "carb": 73,
+          "acucar": null,
+          "prot": 7.7,
+          "gord": 3.3,
+          "gordSat": 0.7,
+          "fibra": 9.6,
+          "sodio": 80
+        },
+        {
+          "nome": "Integral",
+          "porcao": "100 g",
+          "kcal": 225,
+          "carb": 41,
+          "acucar": null,
+          "prot": 11,
+          "gord": 2.1,
+          "gordSat": 0.5,
+          "fibra": 4.3,
+          "sodio": 396
+        },
+        {
+          "nome": "Italiano Branco",
+          "porcao": "85 g",
+          "kcal": 254,
+          "carb": 47,
+          "acucar": null,
+          "prot": 11,
+          "gord": 3,
+          "gordSat": 0,
+          "fibra": 2,
+          "sodio": 332
+        },
+        {
+          "nome": "Manteiga e Alho",
+          "porcao": "89 g",
+          "kcal": 268,
+          "carb": 50,
+          "acucar": null,
+          "prot": 11,
+          "gord": 3,
+          "gordSat": 0,
+          "fibra": 2,
+          "sodio": 501
+        },
+        {
+          "nome": "Parmesão e Orégano",
+          "porcao": "89 g",
+          "kcal": 273,
+          "carb": 49,
+          "acucar": null,
+          "prot": 11,
+          "gord": 3,
+          "gordSat": 1,
+          "fibra": 3,
+          "sodio": 501
+        }
+      ]
+    },
+    {
+      "slug": "vegetais",
+      "itens": [
+        {
+          "nome": "Alface",
+          "porcao": "21 g",
+          "kcal": 3,
+          "carb": 1,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 2
+        },
+        {
+          "nome": "Azeitona (3 fatias)",
+          "porcao": "3 g",
+          "kcal": 4,
+          "carb": 0,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 26
+        },
+        {
+          "nome": "Cebola",
+          "porcao": "7 g",
+          "kcal": 3,
+          "carb": 1,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 0
+        },
+        {
+          "nome": "Cebola Crispy",
+          "porcao": "12 g",
+          "kcal": 56,
+          "carb": 7,
+          "acucar": null,
+          "prot": 1,
+          "gord": 3,
+          "gordSat": 1,
+          "fibra": 1,
+          "sodio": 108
+        },
+        {
+          "nome": "Pepino (3 fatias)",
+          "porcao": "15 g",
+          "kcal": 2,
+          "carb": 0,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 0
+        },
+        {
+          "nome": "Picles (3 fatias)",
+          "porcao": "9 g",
+          "kcal": 1,
+          "carb": 1,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 74
+        },
+        {
+          "nome": "Pimentão (3 fatias)",
+          "porcao": "6 g",
+          "kcal": 1,
+          "carb": 0,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 0
+        },
+        {
+          "nome": "Tomate",
+          "porcao": "39 g",
+          "kcal": 7,
+          "carb": 2,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 2
+        }
+      ]
+    },
+    {
+      "slug": "molhos",
+      "itens": [
+        {
+          "nome": "Azeite",
+          "porcao": "3,5 g",
+          "kcal": 29,
+          "carb": 0,
+          "acucar": null,
+          "prot": 0,
+          "gord": 3,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 0
+        },
+        {
+          "nome": "Barbecue",
+          "porcao": "11,5 g",
+          "kcal": 12,
+          "carb": 3,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 88
+        },
+        {
+          "nome": "Cebola Agridoce",
+          "porcao": "13 g",
+          "kcal": 20,
+          "carb": 5,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 54
+        },
+        {
+          "nome": "Chipotle",
+          "porcao": "7,5 g",
+          "kcal": 20,
+          "carb": 1,
+          "acucar": null,
+          "prot": 0,
+          "gord": 2,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 68
+        },
+        {
+          "nome": "Maionese",
+          "porcao": "9 g",
+          "kcal": 26,
+          "carb": 1,
+          "acucar": null,
+          "prot": 0,
+          "gord": 3,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 75
+        },
+        {
+          "nome": "Maionese Temperada",
+          "porcao": "9 g",
+          "kcal": 22,
+          "carb": 1,
+          "acucar": null,
+          "prot": 0,
+          "gord": 2,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 74
+        },
+        {
+          "nome": "Mix de Pimentas",
+          "porcao": "0,14 g",
+          "kcal": 0,
+          "carb": 0,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 0
+        },
+        {
+          "nome": "Molho Aioli",
+          "porcao": "20 g",
+          "kcal": 61,
+          "carb": 1.5,
+          "acucar": null,
+          "prot": 0,
+          "gord": 7,
+          "gordSat": 1,
+          "fibra": 0,
+          "sodio": 137
+        },
+        {
+          "nome": "Molho de Pimenta Biquinho",
+          "porcao": "12 g",
+          "kcal": 9,
+          "carb": 2,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0.2,
+          "sodio": 203
+        },
+        {
+          "nome": "Molho Parmesão",
+          "porcao": "10 g",
+          "kcal": 29,
+          "carb": 1,
+          "acucar": null,
+          "prot": 0,
+          "gord": 3,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 102
+        },
+        {
+          "nome": "Molho Ranch",
+          "porcao": "10 g",
+          "kcal": 29,
+          "carb": 0.6,
+          "acucar": null,
+          "prot": 0.1,
+          "gord": 2.9,
+          "gordSat": 0.5,
+          "fibra": 0,
+          "sodio": 48
+        },
+        {
+          "nome": "Mostarda e Mel",
+          "porcao": "10 g",
+          "kcal": 10,
+          "carb": 8,
+          "acucar": null,
+          "prot": 0,
+          "gord": 1,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 58
+        },
+        {
+          "nome": "Orégano",
+          "porcao": "0,14 g",
+          "kcal": 0,
+          "carb": 0,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 0
+        },
+        {
+          "nome": "Sal",
+          "porcao": "0,8 g",
+          "kcal": 0,
+          "carb": 0,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 312
+        },
+        {
+          "nome": "Supreme",
+          "porcao": "10 g",
+          "kcal": 35,
+          "carb": 1,
+          "acucar": null,
+          "prot": 0,
+          "gord": 4,
+          "gordSat": 1,
+          "fibra": 0,
+          "sodio": 88
+        },
+        {
+          "nome": "Vinagre",
+          "porcao": "3,5 g",
+          "kcal": 1,
+          "carb": 0,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 0
+        }
+      ]
+    },
+    {
+      "slug": "acompanhamentos",
+      "itens": [
+        {
+          "nome": "Batata Rústica com Ervas Finas",
+          "porcao": "84 g",
+          "kcal": 93,
+          "carb": 14,
+          "acucar": null,
+          "prot": 2.5,
+          "gord": 2.9,
+          "gordSat": 1.3,
+          "fibra": 2.6,
+          "sodio": 160
+        },
+        {
+          "nome": "Cookie Chocolate com Gotas de Chocolate",
+          "porcao": "45 g",
+          "kcal": 204,
+          "carb": 27,
+          "acucar": null,
+          "prot": 3,
+          "gord": 9,
+          "gordSat": 5,
+          "fibra": 1,
+          "sodio": 105
+        },
+        {
+          "nome": "Cookie Gotas de Chocolate",
+          "porcao": "45 g",
+          "kcal": 207,
+          "carb": 29,
+          "acucar": null,
+          "prot": 2,
+          "gord": 9,
+          "gordSat": 5,
+          "fibra": 1,
+          "sodio": 91
+        },
+        {
+          "nome": "Cookie Macadâmia",
+          "porcao": "45 g",
+          "kcal": 214,
+          "carb": 27,
+          "acucar": null,
+          "prot": 2,
+          "gord": 11,
+          "gordSat": 5,
+          "fibra": 1,
+          "sodio": 140
+        },
+        {
+          "nome": "Cookie Recheado com Brigadeiro",
+          "porcao": "65 g",
+          "kcal": 259,
+          "carb": 37.1,
+          "acucar": null,
+          "prot": 3.4,
+          "gord": 11.1,
+          "gordSat": 7.2,
+          "fibra": 0.7,
+          "sodio": 106
+        },
+        {
+          "nome": "Cookie Recheado com Nutella®",
+          "porcao": "65 g",
+          "kcal": 284,
+          "carb": 38,
+          "acucar": null,
+          "prot": 4,
+          "gord": 13,
+          "gordSat": 5.2,
+          "fibra": 0.9,
+          "sodio": 156
+        },
+        {
+          "nome": "Maçã",
+          "porcao": "90 g",
+          "kcal": 47,
+          "carb": 13,
+          "acucar": null,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 2,
+          "sodio": 1
+        }
+      ]
+    }
+  ]
+}

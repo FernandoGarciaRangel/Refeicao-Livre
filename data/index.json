@@ -4,6 +4,7 @@
     { "slug": "burger-king", "nome": "Burger King", "cor": "#d62300", "inicial": "BK", "logo": "assets/logos/burger-king.svg" },
     { "slug": "kfc", "nome": "KFC", "cor": "#a3132b", "inicial": "KFC", "logo": "assets/logos/kfc.svg" },
     { "slug": "madero", "nome": "Madero", "cor": "#8b1a1a", "inicial": "MD", "logo": "assets/logos/madero.svg" },
+    { "slug": "subway", "nome": "Subway", "cor": "#00713c", "inicial": "S", "logo": "assets/logos/subway.svg" },
     { "slug": "bobs", "nome": "Bob's", "cor": "#e30613", "inicial": "B" }
   ]
 }
