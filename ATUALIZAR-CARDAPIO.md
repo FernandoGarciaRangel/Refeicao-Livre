@@ -172,6 +172,18 @@ O que a arte precisa ser, para assentar sobre a cor da marca do mesmo jeito que 
 
 O espaço do badge é pequeno (46 px), então **símbolo funciona e wordmark não**. Quando a marca não tem símbolo — é o caso do Madero, que é só a palavra em serifa — a saída é a primeira letra do wordmark oficial, recortada da arte da própria rede, e não uma letra redesenhada por nós.
 
+**Onde achar a arte, na ordem que compensa tentar:**
+
+1. **Simple Icons** — `https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/<slug>.svg`. É de onde vieram McDonald's, Burger King e KFC. Já vem em `viewBox="0 0 24 24"` com um path só; basta trocar `role="img"` por `fill="#ffffff"`. Cobertura irregular: Subway, Pizza Hut e Bob's não existem lá em versão nenhuma (testado da v9 à v13).
+2. **Wikimedia Commons**, pela API da Wikipédia — foi de lá que saiu o `Subway icon.svg`. Procure o artigo da marca e liste as imagens:
+   `https://en.wikipedia.org/w/api.php?action=query&titles=<Artigo>&prop=images&imlimit=200&format=json`.
+   Prefira arquivos com "icon" no nome: os "logo" costumam ser wordmark. Ali também estão o `Pizza Hut 2025.svg` (o telhado com o script — testado, lê bem a 46 px) e o `Logotipo do Bob's.svg` (wordmark 2:1, **não** serve).
+3. **O site da rede**, por último. O Pizza Hut publica `/assets/svgs/logo-ph-full.svg`, mas o logo dele é wordmark dentro do telhado e vira borrão a 46 px.
+
+**Não perca tempo com favicon nem `apple-touch-icon`.** Nos três sites testados (Bob's, Pizza Hut, Subway) esses caminhos respondem **200 com HTML** — é fallback de SPA, não o ícone. Confira o `content-type` antes de acreditar no código de status.
+
+Antes de aceitar uma logo, **renderize-a no badge real, a 46 px e ampliada**, sobre a cor da marca. Foi assim que Pizza Hut e Bob's foram reprovados e Subway e KFC aprovados.
+
 ## O que o validador cobra
 
 Erros (derrubam a execução):
