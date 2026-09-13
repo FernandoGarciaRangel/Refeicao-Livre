@@ -114,6 +114,18 @@
       "nota": "O documento NÃO traz data impressa: \"FEV-2025\" vem do título do PDF, do nome do arquivo e dos ingredientes datados dentro dele. A ordem das colunas muda de seção para seção — parseie o cabeçalho de cada uma. Cobertura parcial: saladas, massas, sobremesas e bebidas têm uma linha ou nenhuma."
     },
     {
+      "rede": "ragazzo",
+      "url": "https://www1.deliveryragazzo.com.br/storage/pdf/tb_nutri.pdf",
+      "formato": "pdf",
+      "versionamento": "caminho fixo, SOBRESCRITO a cada atualização — a versão anterior deixa de existir",
+      "conferivelPorHash": true,
+      "sha256": "1025d9ec8fb682cc2860b5033ebd9b2e132e4ef540cf2da0e9b765238007a9ae",
+      "bytes": 807842,
+      "dataNoDocumento": "2026-07",
+      "obtidoEm": "2026-09-13",
+      "nota": "Mesmo gerador de tabela do Habib's (mesmo grupo): três tabelas por faixa, colunas \"100 g / porção / %VD\". Aqui o %VD é confiável e fecha em 130 dos 135 itens. O buscador ainda indexa _pdf/tabela_Nutricional_Ragazzo.pdf e _pdf/tabela_Nutricional_RagazzoExpress.pdf, de JUNHO DE 2019, que respondem 200 e não são a versão corrente — o site só linka os dois de /storage/pdf/. O ponto aparece uma única vez no documento (1.159 mg), como separador de milhar. A rede publica também tb_nutri_rex.pdf, do Ragazzo Express (abril de 2026), que não foi mesclado."
+    },
+    {
       "rede": "milky-moo",
       "url": "https://www.fatsecret.com.br/calorias-nutri%C3%A7%C3%A3o/milky-moo",
       "formato": "agregador",

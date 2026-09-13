@@ -10,6 +10,7 @@
     { "slug": "vivenda-do-camarao", "nome": "Vivenda do Camarão", "cor": "#007e7f", "inicial": "VC" },
     { "slug": "montana-grill", "nome": "Montana Grill", "cor": "#59050f", "inicial": "MG" },
     { "slug": "habibs", "nome": "Habib's", "cor": "#e2001a", "inicial": "H" },
+    { "slug": "ragazzo", "nome": "Ragazzo", "cor": "#006d64", "inicial": "R" },
     { "slug": "milky-moo", "nome": "Milky Moo", "cor": "#c2426a", "inicial": "MM" }
   ]
 }
