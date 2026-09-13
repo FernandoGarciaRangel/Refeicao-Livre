@@ -40,7 +40,12 @@ const FAIXAS = {
   gord:    [0, 500],
   gordSat: [0, 500],
   fibra:   [0, 200],
-  sodio:   [0, 6000],
+  // O teto do sódio era 6.000 e reprovou um valor certo: o Montana Bacon é um
+  // sanduíche de 616 g com fritas, e o rótulo oficial imprime 6.099 mg — que a
+  // coluna por 100 g (989 mg × 6,16) e o %VD impresso (305% de 2.000) confirmam.
+  // A faixa existe para pegar grama trocada por miligrama, que erra por 1000×;
+  // 7.000 continua pegando isso e para de julgar o prato pelo tamanho.
+  sodio:   [0, 7000],
 };
 const NUMERICOS = Object.keys(FAIXAS);
 

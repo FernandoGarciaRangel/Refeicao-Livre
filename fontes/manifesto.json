@@ -64,6 +64,54 @@
       "obtidoEm": "2026-08-29",
       "listaDeImagens": "fontes/bobs-imagens.json",
       "nota": "Só 41 dos 91 produtos têm tabela. O resumo de três valores da página do produto DIVERGE da tabela oficial; vale a tabela."
+    },
+    {
+      "rede": "giraffas",
+      "url": "https://www.giraffas.com.br/documentos/Tabela_Nutricional_A3_26.pdf",
+      "formato": "pdf",
+      "versionamento": "caminho com o mês no nome (A3_26 = março/2026) — uma atualização provavelmente estreia uma URL nova",
+      "conferivelPorHash": true,
+      "sha256": "94cba70ab1aa8678f118ff2fb8b6d5ed6974ba8bd914d27edad38d7bde20c9c2",
+      "bytes": 637588,
+      "dataNoDocumento": "2026-03",
+      "obtidoEm": "2026-08-30",
+      "nota": "O link NÃO está no HTML: o site é React e a casca de /cardapio tem 1,4 KB. O caminho vive numa constante do bundle /assets/index-*.js, ao lado dos links do rodapé. Traz %VD em cada célula — é a melhor conferência do repo."
+    },
+    {
+      "rede": "habibs",
+      "url": "https://www.habibs.com.br/storage/pdf/tb_nutri.pdf",
+      "formato": "pdf",
+      "versionamento": "caminho fixo, SOBRESCRITO a cada atualização — a versão anterior deixa de existir",
+      "conferivelPorHash": true,
+      "sha256": "8255ca89e75de42a0bb65bd4d216f856750d3080ca803aebd3f115894fe4e71a",
+      "bytes": 156559,
+      "dataNoDocumento": "2026-08",
+      "obtidoEm": "2026-08-30",
+      "nota": "Tabela de caracteres própria, como o Madero: parser caseiro devolve lixo, use pdfjs-dist. O %VD de gorduras totais é calculado sobre 65 g, não sobre os 55 g da RDC 429/2020 — assumir uma base só produz ~100 falsos positivos."
+    },
+    {
+      "rede": "vivenda-do-camarao",
+      "url": "https://vivendadocamarao.com.br/wp-content/uploads/2025/08/Tabela_nutricional.pdf",
+      "formato": "pdf",
+      "versionamento": "upload do WordPress com ano/mês no caminho — uma atualização estreia uma URL nova e a antiga continua no ar",
+      "conferivelPorHash": true,
+      "sha256": "aac84e29ffc0b004bc4892b99452a1070ecc9c22712ff1eca23b03004b891524",
+      "bytes": 3018361,
+      "dataNoDocumento": "2024-11-14",
+      "obtidoEm": "2026-08-30",
+      "nota": "Achado pela API de mídia do WordPress (wp-json/wp/v2/media?search=nutri), não por link no site. Não publica açúcares em nenhum item."
+    },
+    {
+      "rede": "montana-grill",
+      "url": "https://montanagrill.com.br/wp-content/uploads/2025/05/TABELA-NUTRICIONAL-FEV-2025.pdf",
+      "formato": "pdf",
+      "versionamento": "upload do WordPress com ano/mês no caminho; a rota /tabelanutricional responde 301 para ele",
+      "conferivelPorHash": true,
+      "sha256": "4c1e50da179bf08401deca5d539745ef5d09fc4381d000f386a894407d345ef6",
+      "bytes": 713512,
+      "dataNoDocumento": "2025-02",
+      "obtidoEm": "2026-08-30",
+      "nota": "O documento NÃO traz data impressa: \"FEV-2025\" vem do título do PDF, do nome do arquivo e dos ingredientes datados dentro dele. A ordem das colunas muda de seção para seção — parseie o cabeçalho de cada uma. Cobertura parcial: saladas, massas, sobremesas e bebidas têm uma linha ou nenhuma."
     }
   ]
 }

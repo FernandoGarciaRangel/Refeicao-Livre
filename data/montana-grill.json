@@ -1,0 +1,988 @@
+{
+  "slug": "montana-grill",
+  "nome": "Montana Grill",
+  "fonte": {
+    "url": "https://montanagrill.com.br/wp-content/uploads/2025/05/TABELA-NUTRICIONAL-FEV-2025.pdf",
+    "tipo": "PDF oficial",
+    "atualizadoEm": "2025-02"
+  },
+  "verificadoEm": "2026-08-30",
+  "observacoes": "Valores por porção, extraídos da tabela nutricional oficial da rede (https://montanagrill.com.br/tabelanutricional responde 301 e redireciona para este PDF). O documento não traz data impressa: \"FEV-2025\" vem do título do arquivo e dos próprios ingredientes datados (\"maionese especial fev 25\"); a assinatura é \"Elaborado por: Edilaine Sponchiato - CRN 3822\", com \"Fonte: Nutrinenu\". A ordem das colunas muda de seção para seção — no segundo bloco de Acompanhamentos, em Saladas e em Suco de Laranja a coluna de proteína vem antes das de açúcares, ao contrário de Carnes —, e a tabela mistura as duas bases de valor diário de referência (RDC 360/2003 e RDC 429/2020): só os percentuais mudam, não os valores absolutos usados aqui. Em \"Filé de Frango\" (135 g, seção Carnes) o sódio impresso, 5.248 mg, é impossível — o %VD ao lado (22%) corresponde a cerca de 525 mg —, então o campo ficou nulo e o item leva \"alerta\". Em \"Strogonoff Carne\" o açúcar total sai como 0 g na mesma linha que 3,4 g de açúcar adicionado; por ser contraditório, o açúcar ficou nulo. A fonte repete linhas idênticas: \"Feijão Tradicional\" aparece duas vezes em Acompanhamentos e \"Filé de Frango\" duas vezes na linha Executive — cada um entrou uma vez só. \"Linguiça Calabresa\" (Cortes Especiais) e \"Linguiça Calabresa Fatiada\" (Acompanhamentos) trazem o mesmo bloco de valores. Os pratos das linhas Leve e Executive vêm com acompanhamentos inclusos (arroz, feijão, fritas, farofa ou salada, conforme o prato), o que explica o peso; o sufixo no nome preserva a linha do cardápio e evita nomes repetidos. A sobremesa \"Pudim de Leite\" está listada sem nenhum valor e por isso ficou de fora. Os seis hambúrgueres vêm de rótulos próprios no rodapé do PDF, com colunas \"por 100 g\" e \"por porção\"; aqui está a coluna por porção, conferida contra o %VD impresso. O sódio do Montana Bacon, 6.099 mg, é alto mas está certo: confere com a coluna por 100 g (989 mg x 6,16) e com o %VD impresso (305% de 2.000 mg). Grafias como \"Filé de Tlápia\", \"Ancho Suino\" e \"Picanha Suina\" estão como no original.",
+  "categorias": [
+    {
+      "slug": "hamburgueres",
+      "itens": [
+        {
+          "nome": "Montana Barbecue",
+          "porcao": "612 g",
+          "kcal": 1622,
+          "carb": 91,
+          "acucar": 0.6,
+          "prot": 49,
+          "gord": 118,
+          "gordSat": 37,
+          "fibra": 9.5,
+          "sodio": 5077
+        },
+        {
+          "nome": "Montana Onion",
+          "porcao": "518 g",
+          "kcal": 1222,
+          "carb": 83,
+          "acucar": 0.6,
+          "prot": 43,
+          "gord": 80,
+          "gordSat": 26,
+          "fibra": 9.1,
+          "sodio": 3188
+        },
+        {
+          "nome": "Montana Cheese Linguiça",
+          "porcao": "510 g",
+          "kcal": 1120,
+          "carb": 93,
+          "acucar": 2.4,
+          "prot": 42,
+          "gord": 65,
+          "gordSat": 17,
+          "fibra": 5.2,
+          "sodio": 2470
+        },
+        {
+          "nome": "Montana Salad",
+          "porcao": "457 g",
+          "kcal": 1059,
+          "carb": 70,
+          "acucar": 0.6,
+          "prot": 42,
+          "gord": 68,
+          "gordSat": 24,
+          "fibra": 8.5,
+          "sodio": 2349
+        },
+        {
+          "nome": "Montana Bacon",
+          "porcao": "616 g",
+          "kcal": 1893,
+          "carb": 76,
+          "acucar": 3,
+          "prot": 55,
+          "gord": 152,
+          "gordSat": 48,
+          "fibra": 8.5,
+          "sodio": 6099
+        },
+        {
+          "nome": "Montana Cheeseburger",
+          "porcao": "423 g",
+          "kcal": 1079,
+          "carb": 69,
+          "acucar": 0.6,
+          "prot": 41,
+          "gord": 71,
+          "gordSat": 25,
+          "fibra": 7.5,
+          "sodio": 3024
+        }
+      ]
+    },
+    {
+      "slug": "carnes",
+      "itens": [
+        {
+          "nome": "Picanha",
+          "porcao": "220 g",
+          "kcal": 479,
+          "carb": 0,
+          "acucar": 0,
+          "prot": 41,
+          "gord": 35,
+          "gordSat": 14,
+          "fibra": 0,
+          "sodio": 882
+        },
+        {
+          "nome": "Contra Filé",
+          "porcao": "150 g",
+          "kcal": 310,
+          "carb": 0,
+          "acucar": 0,
+          "prot": 28,
+          "gord": 22,
+          "gordSat": 8.5,
+          "fibra": 0,
+          "sodio": 184
+        },
+        {
+          "nome": "Contra Filé Acebolado",
+          "porcao": "150 g",
+          "kcal": 333,
+          "carb": 4.1,
+          "acucar": 0,
+          "prot": 31,
+          "gord": 21,
+          "gordSat": 8.3,
+          "fibra": 1.1,
+          "sodio": 379
+        },
+        {
+          "nome": "Mignon Express",
+          "porcao": "140 g",
+          "kcal": 214,
+          "carb": 0,
+          "acucar": 0,
+          "prot": 30,
+          "gord": 10,
+          "gordSat": 4.4,
+          "fibra": 0,
+          "sodio": 451
+        },
+        {
+          "nome": "Bife à Cavalo",
+          "porcao": "120 g",
+          "kcal": 398,
+          "carb": 0.8,
+          "acucar": 0,
+          "prot": 31,
+          "gord": 30,
+          "gordSat": 8.7,
+          "fibra": 0,
+          "sodio": 345
+        },
+        {
+          "nome": "Fraldinha",
+          "porcao": "220 g",
+          "kcal": 491,
+          "carb": 0,
+          "acucar": 0,
+          "prot": 39,
+          "gord": 37,
+          "gordSat": 16,
+          "fibra": 0,
+          "sodio": 509
+        },
+        {
+          "nome": "Prime Angus",
+          "porcao": "220 g",
+          "kcal": 472,
+          "carb": 0,
+          "acucar": 0,
+          "prot": 45,
+          "gord": 33,
+          "gordSat": 12,
+          "fibra": 0,
+          "sodio": 658
+        },
+        {
+          "nome": "Bife do Vazio",
+          "porcao": "220 g",
+          "kcal": 329,
+          "carb": 0,
+          "acucar": 0,
+          "prot": 47,
+          "gord": 16,
+          "gordSat": 4.4,
+          "fibra": 0,
+          "sodio": 514
+        },
+        {
+          "nome": "Ribeye",
+          "porcao": "300 g",
+          "kcal": 645,
+          "carb": 0,
+          "acucar": 0,
+          "prot": 96,
+          "gord": 29,
+          "gordSat": 0.73,
+          "fibra": 0,
+          "sodio": 994
+        },
+        {
+          "nome": "Ancho Suíno",
+          "porcao": "220 g",
+          "kcal": 386,
+          "carb": 0,
+          "acucar": 0,
+          "prot": 43,
+          "gord": 24,
+          "gordSat": 7.1,
+          "fibra": 0,
+          "sodio": 303
+        },
+        {
+          "nome": "Blade Bife",
+          "porcao": "260 g",
+          "kcal": 415,
+          "carb": 0,
+          "acucar": 0,
+          "prot": 55,
+          "gord": 22,
+          "gordSat": 8,
+          "fibra": 0,
+          "sodio": 559
+        },
+        {
+          "nome": "Linguiça Calabresa",
+          "porcao": "100 g",
+          "kcal": 340,
+          "carb": 0,
+          "acucar": 0,
+          "prot": 17,
+          "gord": 30,
+          "gordSat": 13,
+          "fibra": 0,
+          "sodio": 2040
+        },
+        {
+          "nome": "Picanha Suína",
+          "porcao": "135 g",
+          "kcal": 245,
+          "carb": 0,
+          "acucar": 0,
+          "prot": 20,
+          "gord": 18,
+          "gordSat": 9.9,
+          "fibra": 0,
+          "sodio": 583
+        },
+        {
+          "nome": "Top Side",
+          "porcao": "120 g",
+          "kcal": 218,
+          "carb": 0,
+          "acucar": 0,
+          "prot": 26,
+          "gord": 13,
+          "gordSat": 5.1,
+          "fibra": 0,
+          "sodio": 518
+        },
+        {
+          "nome": "Tiras de Alcatra",
+          "porcao": "150 g",
+          "kcal": 251,
+          "carb": 0,
+          "acucar": null,
+          "prot": 32,
+          "gord": 14,
+          "gordSat": 5.3,
+          "fibra": 0,
+          "sodio": 600
+        },
+        {
+          "nome": "Linguiça Caracol",
+          "porcao": "150 g",
+          "kcal": 383,
+          "carb": 23,
+          "acucar": 0,
+          "prot": 24,
+          "gord": 22,
+          "gordSat": 5.5,
+          "fibra": 0,
+          "sodio": 959
+        },
+        {
+          "nome": "Mignon (Linha Leve)",
+          "porcao": "597 g",
+          "kcal": 683,
+          "carb": 36,
+          "acucar": 0,
+          "prot": 37,
+          "gord": 43,
+          "gordSat": 13,
+          "fibra": 7.8,
+          "sodio": 1977
+        },
+        {
+          "nome": "Filé Parmegiana",
+          "porcao": "309 g",
+          "kcal": 637,
+          "carb": 23,
+          "acucar": 0,
+          "prot": 36,
+          "gord": 44,
+          "gordSat": 16,
+          "fibra": 0.1,
+          "sodio": 714
+        },
+        {
+          "nome": "Strogonoff Carne",
+          "porcao": "670 g",
+          "kcal": 1958,
+          "carb": 140,
+          "acucar": null,
+          "prot": 46,
+          "gord": 135,
+          "gordSat": 44,
+          "fibra": 6.6,
+          "sodio": 3317
+        },
+        {
+          "nome": "Linguiça Calabresa (Executive)",
+          "porcao": "580 g",
+          "kcal": 689,
+          "carb": 56,
+          "acucar": 0,
+          "prot": 25,
+          "gord": 40,
+          "gordSat": 14,
+          "fibra": 11,
+          "sodio": 3346
+        },
+        {
+          "nome": "Tiras de Carne (Executive)",
+          "porcao": "630 g",
+          "kcal": 740,
+          "carb": 41,
+          "acucar": 0,
+          "prot": 41,
+          "gord": 46,
+          "gordSat": 12,
+          "fibra": 15,
+          "sodio": 1958
+        },
+        {
+          "nome": "Picanha Suína (Executive)",
+          "porcao": "494 g",
+          "kcal": 580,
+          "carb": 59,
+          "acucar": 0,
+          "prot": 11,
+          "gord": 33,
+          "gordSat": 5.9,
+          "fibra": 17,
+          "sodio": 1943
+        },
+        {
+          "nome": "Top Side (Executive)",
+          "porcao": "470 g",
+          "kcal": 548,
+          "carb": 29,
+          "acucar": 0,
+          "prot": 31,
+          "gord": 34,
+          "gordSat": 9.8,
+          "fibra": 3.9,
+          "sodio": 1669
+        }
+      ]
+    },
+    {
+      "slug": "frango",
+      "itens": [
+        {
+          "nome": "Filé de Frango",
+          "porcao": "135 g",
+          "kcal": 167,
+          "carb": 0,
+          "acucar": 0,
+          "prot": 31.1,
+          "gord": 4.7,
+          "gordSat": 0.9,
+          "fibra": 0,
+          "sodio": null,
+          "alerta": "A tabela oficial imprime 5.248 mg de sódio, valor impossível para esta porção: o próprio %VD impresso ao lado (22%) corresponde a cerca de 525 mg. O campo ficou vazio em vez de estimado."
+        },
+        {
+          "nome": "Filé de Frango Empanado",
+          "porcao": "135 g",
+          "kcal": 435,
+          "carb": 29,
+          "acucar": 0,
+          "prot": 28,
+          "gord": 23,
+          "gordSat": 7.7,
+          "fibra": 1.1,
+          "sodio": 371
+        },
+        {
+          "nome": "Filé de Frango Honey Mustard",
+          "porcao": "250 g",
+          "kcal": 533,
+          "carb": 14,
+          "acucar": 0,
+          "prot": 44,
+          "gord": 34,
+          "gordSat": 13,
+          "fibra": 0,
+          "sodio": 1192
+        },
+        {
+          "nome": "Tiras de Frango",
+          "porcao": "120 g",
+          "kcal": 155,
+          "carb": 1.7,
+          "acucar": 0,
+          "prot": 19,
+          "gord": 8,
+          "gordSat": 2.3,
+          "fibra": 0,
+          "sodio": 367
+        },
+        {
+          "nome": "Filé de Frango (Linha Leve)",
+          "porcao": "538 g",
+          "kcal": 466,
+          "carb": 34,
+          "acucar": 0,
+          "prot": 28,
+          "gord": 24,
+          "gordSat": 6.7,
+          "fibra": 2.3,
+          "sodio": 1628
+        },
+        {
+          "nome": "Filé Frango Parmegiana",
+          "porcao": "320 g",
+          "kcal": 557,
+          "carb": 26,
+          "acucar": 0,
+          "prot": 48,
+          "gord": 29,
+          "gordSat": 11,
+          "fibra": 0.1,
+          "sodio": 854
+        },
+        {
+          "nome": "Strogonoff Frango",
+          "porcao": "670 g",
+          "kcal": 1937,
+          "carb": 138,
+          "acucar": 8.4,
+          "prot": 59,
+          "gord": 128,
+          "gordSat": 40,
+          "fibra": 6.6,
+          "sodio": 3225
+        },
+        {
+          "nome": "Filé de Frango 2 (Executive)",
+          "porcao": "515 g",
+          "kcal": 458,
+          "carb": 16,
+          "acucar": 0,
+          "prot": 27,
+          "gord": 32,
+          "gordSat": 8.4,
+          "fibra": 4.4,
+          "sodio": 1640
+        },
+        {
+          "nome": "Filé de Frango (Executive)",
+          "porcao": "465 g",
+          "kcal": 798,
+          "carb": 93,
+          "acucar": 0,
+          "prot": 33,
+          "gord": 33,
+          "gordSat": 9.4,
+          "fibra": 10,
+          "sodio": 1107
+        },
+        {
+          "nome": "Filé de Frango Empanado (Executive)",
+          "porcao": "485 g",
+          "kcal": 743,
+          "carb": 60,
+          "acucar": 0,
+          "prot": 33,
+          "gord": 41,
+          "gordSat": 9.1,
+          "fibra": 5.8,
+          "sodio": 1706
+        },
+        {
+          "nome": "Filé de Frango 1 (Executive)",
+          "porcao": "615 g",
+          "kcal": 733,
+          "carb": 61,
+          "acucar": 0,
+          "prot": 33,
+          "gord": 40,
+          "gordSat": 8.1,
+          "fibra": 17,
+          "sodio": 1904
+        }
+      ]
+    },
+    {
+      "slug": "peixes",
+      "itens": [
+        {
+          "nome": "Salmão",
+          "porcao": "200 g",
+          "kcal": 408,
+          "carb": 0,
+          "acucar": 0,
+          "prot": 45,
+          "gord": 25,
+          "gordSat": 4.6,
+          "fibra": 0,
+          "sodio": 603
+        },
+        {
+          "nome": "Filé de Tilápia",
+          "porcao": "200 g",
+          "kcal": 238,
+          "carb": 0,
+          "acucar": 0,
+          "prot": 40,
+          "gord": 8.4,
+          "gordSat": 1.9,
+          "fibra": 0.7,
+          "sodio": 881
+        },
+        {
+          "nome": "Filé de Tilápia (Linha Leve)",
+          "porcao": "717 g",
+          "kcal": 648,
+          "carb": 24,
+          "acucar": 0,
+          "prot": 46,
+          "gord": 41,
+          "gordSat": 9.4,
+          "fibra": 9.1,
+          "sodio": 1879
+        },
+        {
+          "nome": "Salmão (Linha Leve)",
+          "porcao": "680 g",
+          "kcal": 716,
+          "carb": 35,
+          "acucar": 0,
+          "prot": 45,
+          "gord": 44,
+          "gordSat": 9.2,
+          "fibra": 3.8,
+          "sodio": 2778
+        }
+      ]
+    },
+    {
+      "slug": "massas",
+      "itens": [
+        {
+          "nome": "Fettuccine",
+          "porcao": "200 g",
+          "kcal": 394,
+          "carb": 61,
+          "acucar": 0,
+          "prot": 12,
+          "gord": 11,
+          "gordSat": 1.7,
+          "fibra": 6.4,
+          "sodio": 782
+        }
+      ]
+    },
+    {
+      "slug": "saladas",
+      "itens": [
+        {
+          "nome": "Montana (meia)",
+          "porcao": "155 g",
+          "kcal": 131,
+          "carb": 7.8,
+          "acucar": 0,
+          "prot": 6.1,
+          "gord": 8.4,
+          "gordSat": 3,
+          "fibra": 3.2,
+          "sodio": 326
+        }
+      ]
+    },
+    {
+      "slug": "acompanhamentos",
+      "itens": [
+        {
+          "nome": "Farofa Executive",
+          "porcao": "30 g",
+          "kcal": 130,
+          "carb": 16,
+          "acucar": 0,
+          "prot": 0.9,
+          "gord": 6.8,
+          "gordSat": 1.1,
+          "fibra": 1.3,
+          "sodio": 134
+        },
+        {
+          "nome": "Arroz Branco",
+          "porcao": "180 g",
+          "kcal": 243,
+          "carb": 49,
+          "acucar": 0,
+          "prot": 4.4,
+          "gord": 3.3,
+          "gordSat": 0.51,
+          "fibra": 1,
+          "sodio": 626
+        },
+        {
+          "nome": "Arroz à Grega",
+          "porcao": "200 g",
+          "kcal": 280,
+          "carb": 38,
+          "acucar": 0,
+          "prot": 4,
+          "gord": 12,
+          "gordSat": 2.6,
+          "fibra": 2.6,
+          "sodio": 456
+        },
+        {
+          "nome": "Feijão Preto",
+          "porcao": "150 g",
+          "kcal": 162,
+          "carb": 19,
+          "acucar": 0,
+          "prot": 11,
+          "gord": 4.6,
+          "gordSat": 0.68,
+          "fibra": 11,
+          "sodio": 273
+        },
+        {
+          "nome": "Feijão Tradicional",
+          "porcao": "150 g",
+          "kcal": 205,
+          "carb": 30,
+          "acucar": 0,
+          "prot": 9.4,
+          "gord": 5.3,
+          "gordSat": 0,
+          "fibra": 8.6,
+          "sodio": 276
+        },
+        {
+          "nome": "Farofa",
+          "porcao": "80 g",
+          "kcal": 402,
+          "carb": 40,
+          "acucar": 0,
+          "prot": 2.8,
+          "gord": 26,
+          "gordSat": 3.8,
+          "fibra": 2.9,
+          "sodio": 429
+        },
+        {
+          "nome": "Brócolis Sautê",
+          "porcao": "140 g",
+          "kcal": 191,
+          "carb": 5,
+          "acucar": 0,
+          "prot": 4.9,
+          "gord": 17,
+          "gordSat": 0,
+          "fibra": 3.8,
+          "sodio": 213
+        },
+        {
+          "nome": "Polenta",
+          "porcao": "130 g",
+          "kcal": 272,
+          "carb": 30,
+          "acucar": 0,
+          "prot": 3,
+          "gord": 15,
+          "gordSat": 2.2,
+          "fibra": 3,
+          "sodio": 575
+        },
+        {
+          "nome": "Legumes Sautê",
+          "porcao": "140 g",
+          "kcal": 191,
+          "carb": 7.6,
+          "acucar": 0,
+          "prot": 3,
+          "gord": 17,
+          "gordSat": 0,
+          "fibra": 3.8,
+          "sodio": 807
+        },
+        {
+          "nome": "Legumes Grelhado",
+          "porcao": "150 g",
+          "kcal": 61,
+          "carb": 12.3,
+          "acucar": 0,
+          "prot": 2,
+          "gord": 0.4,
+          "gordSat": 0.82,
+          "fibra": 0.35,
+          "sodio": 193.8
+        },
+        {
+          "nome": "Fritas",
+          "porcao": "120 g",
+          "kcal": 279,
+          "carb": 23,
+          "acucar": 0,
+          "prot": 3,
+          "gord": 20,
+          "gordSat": 3.7,
+          "fibra": 3.2,
+          "sodio": 96
+        },
+        {
+          "nome": "Purê de Batatas",
+          "porcao": "150 g",
+          "kcal": 166,
+          "carb": 23.9,
+          "acucar": 0,
+          "prot": 2.9,
+          "gord": 6.5,
+          "gordSat": 1.7,
+          "fibra": 1.5,
+          "sodio": 894.4
+        },
+        {
+          "nome": "Ovo Frito",
+          "porcao": "40 g",
+          "kcal": 99,
+          "carb": 0.6,
+          "acucar": 0,
+          "prot": 5,
+          "gord": 8.6,
+          "gordSat": 1.8,
+          "fibra": 0,
+          "sodio": 278
+        },
+        {
+          "nome": "Onion Rings",
+          "porcao": "110 g",
+          "kcal": 336,
+          "carb": 33,
+          "acucar": 0,
+          "prot": 2.6,
+          "gord": 22,
+          "gordSat": 3,
+          "fibra": 2.2,
+          "sodio": 496
+        },
+        {
+          "nome": "Fritas Montana",
+          "porcao": "120 g",
+          "kcal": 234,
+          "carb": 23,
+          "acucar": 0,
+          "prot": 3,
+          "gord": 15,
+          "gordSat": 3.1,
+          "fibra": 3.2,
+          "sodio": 183
+        },
+        {
+          "nome": "Saladinha Express (com molho)",
+          "porcao": "50 g",
+          "kcal": 64,
+          "carb": 2.1,
+          "acucar": 0,
+          "prot": 2.2,
+          "gord": 5.2,
+          "gordSat": 1.5,
+          "fibra": 0.69,
+          "sodio": 200
+        },
+        {
+          "nome": "Vinagrete",
+          "porcao": "150 g",
+          "kcal": 33,
+          "carb": 6.7,
+          "acucar": 0,
+          "prot": 1.2,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 1.5,
+          "sodio": 623
+        },
+        {
+          "nome": "Linguiça Calabresa Fatiada",
+          "porcao": "100 g",
+          "kcal": 340,
+          "carb": 0,
+          "acucar": 0,
+          "prot": 17,
+          "gord": 30,
+          "gordSat": 13,
+          "fibra": 0,
+          "sodio": 2040
+        },
+        {
+          "nome": "Pão de Alho",
+          "porcao": "25 g",
+          "kcal": 134,
+          "carb": 11.5,
+          "acucar": 0,
+          "prot": 4,
+          "gord": 8,
+          "gordSat": 2,
+          "fibra": 1,
+          "sodio": 420
+        },
+        {
+          "nome": "Cebola na Chapa",
+          "porcao": "50 g",
+          "kcal": 38,
+          "carb": 4.1,
+          "acucar": 0,
+          "prot": 0.75,
+          "gord": 2,
+          "gordSat": 0.31,
+          "fibra": 1.1,
+          "sodio": 194
+        },
+        {
+          "nome": "Queijo Coalho",
+          "porcao": "80 g",
+          "kcal": 231,
+          "carb": 3,
+          "acucar": 0,
+          "prot": 13,
+          "gord": 17,
+          "gordSat": 12,
+          "fibra": 0,
+          "sodio": 240
+        }
+      ]
+    },
+    {
+      "slug": "molhos",
+      "itens": [
+        {
+          "nome": "Saladinha",
+          "porcao": "30 g",
+          "kcal": 75,
+          "carb": 2,
+          "acucar": 0,
+          "prot": 0,
+          "gord": 7,
+          "gordSat": 1,
+          "fibra": 0,
+          "sodio": 213
+        },
+        {
+          "nome": "Barbecue",
+          "porcao": "30 g",
+          "kcal": 35,
+          "carb": 6.4,
+          "acucar": 0,
+          "prot": 0,
+          "gord": 1,
+          "gordSat": 0.2,
+          "fibra": 0,
+          "sodio": 338
+        },
+        {
+          "nome": "Honey Mustard",
+          "porcao": "30 g",
+          "kcal": 68,
+          "carb": 5.6,
+          "acucar": 0,
+          "prot": 0,
+          "gord": 5.1,
+          "gordSat": 0.7,
+          "fibra": 0,
+          "sodio": 299
+        },
+        {
+          "nome": "Maionese Especial",
+          "porcao": "30 g",
+          "kcal": 96,
+          "carb": 4.3,
+          "acucar": 0,
+          "prot": 0,
+          "gord": 8.8,
+          "gordSat": 1.3,
+          "fibra": 0,
+          "sodio": 304
+        },
+        {
+          "nome": "Vinagrete",
+          "porcao": "50 g",
+          "kcal": 11,
+          "carb": 2.2,
+          "acucar": 0,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 206
+        },
+        {
+          "nome": "Molho Pomodoro",
+          "porcao": "120 g",
+          "kcal": 39,
+          "carb": 5,
+          "acucar": 0,
+          "prot": 0,
+          "gord": 2,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 120
+        }
+      ]
+    },
+    {
+      "slug": "sobremesas",
+      "itens": [
+        {
+          "nome": "Maçã (fruta)",
+          "porcao": "100 g",
+          "kcal": 64,
+          "carb": 15,
+          "acucar": 0,
+          "prot": 0,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 1.3,
+          "sodio": 2
+        }
+      ]
+    },
+    {
+      "slug": "bebidas",
+      "itens": [
+        {
+          "nome": "Suco de Laranja 300 ml",
+          "porcao": "300 ml",
+          "kcal": 102,
+          "carb": 23,
+          "acucar": null,
+          "prot": 2.1,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 0
+        },
+        {
+          "nome": "Suco de Laranja 500 ml",
+          "porcao": "500 ml",
+          "kcal": 170,
+          "carb": 38,
+          "acucar": null,
+          "prot": 3.5,
+          "gord": 0,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 0
+        },
+        {
+          "nome": "Suco de Laranja 700 ml",
+          "porcao": "700 ml",
+          "kcal": 239,
+          "carb": 53,
+          "acucar": null,
+          "prot": 4.9,
+          "gord": 0.7,
+          "gordSat": 0,
+          "fibra": 0,
+          "sodio": 0
+        }
+      ]
+    }
+  ]
+}
