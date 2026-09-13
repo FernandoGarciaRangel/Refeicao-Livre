@@ -28,16 +28,30 @@ O validador sai com erro se algo não fecha. **Rode sempre antes de commitar** �
 
 ## Fontes oficiais por rede
 
-| Rede | Onde está a tabela | Formato |
-|---|---|---|
-| McDonald's | `https://www.mcdonalds.com.br/cardapio` | Site, uma tabela por produto |
-| KFC | `https://www.kfc.com.br/nutritional-information` | Site, 7 tabelas HTML por categoria |
-| Burger King | `https://bk-media.burgerking.com.br/TABELA_NUTRICIONAL_BK.pdf` | PDF, uma página, duas colunas |
-| Madero | `https://restaurantemadero.com.br/assets/site/arquivos/Tabela_Nutricional_Alergenicos.pdf` | PDF, 10 páginas, texto corrido bilíngue |
-| Subway | `https://sbw-cms.zamp.com.br/Tabela_Nutricional_15_05_2026_a7b1fe9dee/…pdf` | PDF, arte vetorial **sem texto** |
-| Bob's | `https://bobs.com.br/cardapio/` | Imagem PNG por produto, **por 100 g** |
+Na ordem em que aparecem no portal. A coluna da data é a do **documento**, não a da última
+conferência — essa é o `verificadoEm` de cada arquivo.
+
+| Rede | Onde está a tabela | Formato | Itens | Doc. |
+|---|---|---|---|---|
+| McDonald's | `https://www.mcdonalds.com.br/cardapio` | Site, uma tabela por produto | 165 | 08/2026 |
+| Burger King | `https://bk-media.burgerking.com.br/TABELA_NUTRICIONAL_BK.pdf` | PDF, uma página, duas colunas | 107 | 29/05/2026 |
+| KFC | `https://www.kfc.com.br/nutritional-information` | Site, 7 tabelas HTML por categoria | 54 | 08/2026 |
+| Madero | `https://restaurantemadero.com.br/assets/site/arquivos/Tabela_Nutricional_Alergenicos.pdf` | PDF, 10 páginas, texto corrido bilíngue | 101 | 05/2026 |
+| Subway | `https://sbw-cms.zamp.com.br/Tabela_Nutricional_15_05_2026_a7b1fe9dee/…pdf` | PDF, arte vetorial **sem texto** | 62 | 15/05/2026 |
+| Bob's | `https://bobs.com.br/cardapio/` | Imagem PNG por produto, **por 100 g** | 41 | 08/2026 |
+| Giraffas | `https://www.giraffas.com.br/documentos/Tabela_Nutricional_A3_26.pdf` | PDF, `%VD` ao lado de cada valor | 179 | 03/2026 |
+| Vivenda do Camarão | `https://vivendadocamarao.com.br/wp-content/uploads/2025/08/Tabela_nutricional.pdf` | PDF, WordPress | 102 | 14/11/2024 |
+| Montana Grill | `https://montanagrill.com.br/wp-content/uploads/2025/05/TABELA-NUTRICIONAL-FEV-2025.pdf` | PDF, WordPress (o `/tabelanutricional` é rota, dá 308) | 77 | 02/2025 |
+| Habib's | `https://www.habibs.com.br/storage/pdf/tb_nutri.pdf` | PDF, 22 páginas, tabela de caracteres própria | 175 | 08/2026 |
+| Ragazzo | `https://www1.deliveryragazzo.com.br/storage/pdf/tb_nutri.pdf` | PDF, 18 páginas, mesmo gerador do Habib's | 133 | 07/2026 |
+| Milky Moo | `https://www.fatsecret.com.br/…/milky-moo` | **Agregador**, `fonte.oficial: false` | 16 | 12/09/2026 |
 
 Cada `data/<rede>.json` guarda a URL da sua fonte no campo `fonte.url`. Se a rede mudar o endereço, mude lá também.
+E **esta tabela é cópia** — a contagem e a data saem dos arquivos. Depois de mexer num cardápio, confira com:
+
+```bash
+node -e "const f=require('fs'),i=JSON.parse(f.readFileSync('data/index.json'));for(const r of i.redes){const d=JSON.parse(f.readFileSync('data/'+r.slug+'.json'));console.log(r.nome.padEnd(20),String(d.categorias.reduce((a,c)=>a+c.itens.length,0)).padStart(4),d.fonte.atualizadoEm)}"
+```
 
 ### Bob's: o caso que criou o campo `base`
 
