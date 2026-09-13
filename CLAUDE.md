@@ -98,6 +98,20 @@ do zero. No fim dele está a **varredura de candidatas** de 2026-08-29: quem pub
 oficial e ainda não entrou (Giraffas, Habib's, Vivenda do Camarão, Montana Grill, Chiquinho)
 e quem foi reprovado, com o motivo.
 
+## A única leitura de API do repo
+
+`scripts/sincronizar-fatsecret.mjs` regrava `data/milky-moo.json` pela Platform
+API do FatSecret, no lugar da raspagem de HTML que trouxe a rede. **Manutenção,
+rodado à mão** — a API pede chave e IP na whitelist, então não pode ir para o
+browser, e o app segue lendo só os JSON. Detalhes e o modo de teste sem chave
+(`FATSECRET_FIXTURE`) estão em [ATUALIZAR-CARDAPIO.md](ATUALIZAR-CARDAPIO.md).
+
+Duas travas que existem por serem o risco do desenho: ele recusa gravar se a
+sincronização perderia mais de 30% dos itens (sobrescrever é o modo de operação;
+uma busca que volta pela metade apagaria sabores em silêncio), e mantém a porção
+que já está no arquivo quando o sabor tem várias — trocar de porção mudaria as
+calorias sem a fonte ter mudado nada.
+
 ## O validador não é burocracia
 
 Foi ele que revelou que a tabela do Madero imprime os pares "por 100 g" e "por

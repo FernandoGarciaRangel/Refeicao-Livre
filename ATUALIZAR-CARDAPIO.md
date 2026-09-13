@@ -165,6 +165,52 @@ Não use isso para contornar o portão do `.claude/skills/adicionar-rede/SKILL.m
 continua sendo fonte oficial; `oficial: false` é o rótulo de uma exceção decidida caso a caso,
 não uma porta de entrada para agregador.
 
+### Sincronizar pela API em vez de raspar: `sincronizar-fatsecret.mjs`
+
+Só a Milky Moo usa, e só porque ela é a rede sem tabela oficial. As outras dez vêm de
+PDF ou tabela do próprio site e não têm API nenhuma para chamar.
+
+```bash
+FATSECRET_KEY=… FATSECRET_SECRET=… node scripts/sincronizar-fatsecret.mjs milky-moo --dry
+node scripts/sincronizar-fatsecret.mjs milky-moo        # regrava data/milky-moo.json
+```
+
+**É script de manutenção, rodado à mão — não código de runtime.** A API pede chave e
+IP na whitelist; nada disso pode ir para o browser. O app continua lendo só os JSON de
+`data/`, e quem roda commita o resultado. Isso é o desenho do repo, não limitação: um
+`fetch` autenticado na abertura da página traria chave no cliente, CORS e uma rede a
+menos toda vez que a API caísse.
+
+Três coisas que ele faz e que valem saber:
+
+- **Preserva a porção já escolhida.** Um sabor com várias porções (100 ml e 300 ml, por
+  exemplo) mantém a que está no arquivo. Sem isso a sincronização trocaria as calorias
+  do item sem a fonte ter mudado nada, e o diff pareceria erro de extração.
+- **Recusa a gravação quando perderia mais de 30% dos itens.** Sincronizar é
+  sobrescrever: uma busca que volta pela metade apagaria sabores reais em silêncio.
+  Confira com `--dry`; se a perda for real, `--force`.
+- **Preserva o `observacoes`.** O texto é curado à mão e descreve os defeitos da fonte —
+  nenhuma API informa isso.
+
+O `fonte.url` continua apontando para a **página pública** do FatSecret, não para o
+endpoint REST: o rodapé do app transforma esse campo em link para o usuário clicar, e um
+endpoint que pede chave não diria nada a ninguém.
+
+A API devolve o objeto `serving` inteiro, então `acucar`, `gordSat`, `fibra` e `sodio`
+podem deixar de ser `null` — quando o registro de origem os tiver. **O que não muda: o
+número continua sendo de terceiro.** O `fonte.oficial: false` fica.
+
+Para mexer no mapeamento sem ter chave, há uma resposta sintética de teste:
+
+```bash
+FATSECRET_FIXTURE=scripts/fixtures/fatsecret-exemplo.json \
+  node scripts/sincronizar-fatsecret.mjs milky-moo --dry
+```
+
+Ela cobre de propósito os casos chatos: `servings` como objeto único em vez de array
+(herança do XML — ler `.length` direto perde o caso de um item), marca alheia no meio dos
+resultados, item sem porção com calorias, e campo que a API traz e o site não trazia.
+
 ### A regra que mais importa: `null`, nunca `0`
 
 Quando a fonte **não publica** um valor, o campo vai `null`. Nunca `0`.
