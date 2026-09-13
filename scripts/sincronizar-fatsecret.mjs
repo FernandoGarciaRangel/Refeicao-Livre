@@ -119,8 +119,15 @@ async function pegaToken() {
   });
   const corpo = await r.text();
   if (!r.ok) {
-    morre(`token: HTTP ${r.status} — ${corpo.slice(0, 300)}\n`
-        + '  401 com credencial certa costuma ser IP fora da whitelist do painel.');
+    // Conferido contra o servidor: credencial errada devolve 400 invalid_client.
+    // Entao 400/invalid_client é chave, e 401/403 é quase sempre IP — vale saber
+    // qual dos dois antes de sair regerando segredo no painel à toa.
+    const dica = /invalid_client/.test(corpo)
+      ? '  invalid_client = par chave/segredo nao confere. Copie os dois de novo do painel.'
+      : '  Sem invalid_client, o suspeito e o IP: so os enderecos cadastrados na whitelist\n'
+      + '  emitem token. Confira o IP de saida desta maquina (curl https://api.ipify.org) e,\n'
+      + '  se a rede tiver IPv6, cadastre-o tambem — a requisicao pode sair por ele.';
+    morre(`token: HTTP ${r.status} — ${corpo.slice(0, 300)}\n${dica}`);
   }
   const j = JSON.parse(corpo);
   if (!j.access_token) morre(`token: resposta sem access_token — ${corpo.slice(0, 300)}`);
