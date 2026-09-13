@@ -365,9 +365,17 @@
     a.href = dados.fonte.url;
     a.target = '_blank';
     a.rel = 'noopener noreferrer';
-    a.textContent = dados.fonte.tipo + ' do ' + dados.nome;
+    // "fonte.oficial: false" é a rede que não publica tabela nutricional e cujos
+    // números vieram de terceiro. A frase padrão ("tabela do <rede> · atualizada
+    // pela rede") afirmaria duas coisas falsas sobre um dado de saúde, então o
+    // rótulo muda junto — a ausência do campo continua significando fonte oficial.
+    var oficial = dados.fonte.oficial !== false;
+    a.textContent = oficial ? dados.fonte.tipo + ' do ' + dados.nome : dados.fonte.tipo;
     p.appendChild(a);
-    p.appendChild(document.createTextNode(' · atualizada pela rede em ' + dataBr(dados.fonte.atualizadoEm) + '.'));
+    p.appendChild(document.createTextNode(oficial
+      ? ' · atualizada pela rede em ' + dataBr(dados.fonte.atualizadoEm) + '.'
+      : ' · consultado em ' + dataBr(dados.fonte.atualizadoEm) + '. A ' + dados.nome +
+        ' não publica tabela nutricional: estes números não são oficiais.'));
     f.appendChild(p);
     if (dados.observacoes) {
       var obs = document.createElement('p');

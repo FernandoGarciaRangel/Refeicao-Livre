@@ -1,0 +1,211 @@
+{
+  "slug": "milky-moo",
+  "nome": "Milky Moo",
+  "fonte": {
+    "url": "https://www.fatsecret.com.br/calorias-nutri%C3%A7%C3%A3o/milky-moo",
+    "tipo": "Levantamento do FatSecret",
+    "oficial": false,
+    "atualizadoEm": "2026-09-12"
+  },
+  "verificadoEm": "2026-09-12",
+  "observacoes": "ATENÇÃO: esta é a única rede do app cujos números NÃO são oficiais. A Milky Moo não publica tabela nutricional — o site diz \"consulte nossa tabela nutricional\" e não linka nenhuma, e /tabela-nutricional, /nutricional e /informacoes-nutricionais respondem 404 (conferido em 12/09/2026). Em setembro de 2025, depois da polêmica do copo de ~3.000 kcal, a marca anunciou uma revisão da tabela \"já disponível no site\"; um ano depois ela continua fora do ar. Os valores abaixo vêm do FatSecret (\"fatsecret Platform API\"), que é um banco de terceiros alimentado por colaboração — não há como conferi-los contra a fonte da rede. O FatSecret publica só calorias, gordura total, carboidrato e proteína: açúcares, gordura saturada, fibra e sódio ficaram nulos porque não existem lá, e não foram estimados. As porções são as que o FatSecret declara, e elas não são padronizadas entre si (100 ml, 120 ml, 120 g e 300 ml) nem correspondem aos copos vendidos na loja — some sempre olhando a porção do item, não o sabor. Os nomes dos 16 sabores foram conferidos contra o cardápio oficial (milkymoo.com.br/cardapio), que lista 37; os outros 21 não têm dado em lugar nenhum e ficaram de fora. Os 16 fecham na conta de Atwater dentro de 2%, o que só mostra coerência interna do FatSecret, não acerto. Troque tudo isso pela tabela oficial assim que a rede publicar uma.",
+  "categorias": [
+    {
+      "slug": "shakes",
+      "itens": [
+        {
+          "nome": "Bisa",
+          "porcao": "120 ml",
+          "kcal": 172,
+          "carb": 28,
+          "acucar": null,
+          "prot": 2.5,
+          "gord": 5.7,
+          "gordSat": null,
+          "fibra": null,
+          "sodio": null
+        },
+        {
+          "nome": "Cacau",
+          "porcao": "300 ml",
+          "kcal": 684,
+          "carb": 53,
+          "acucar": null,
+          "prot": 7.9,
+          "gord": 49,
+          "gordSat": null,
+          "fibra": null,
+          "sodio": null
+        },
+        {
+          "nome": "Dengosa",
+          "porcao": "300 ml",
+          "kcal": 667,
+          "carb": 63,
+          "acucar": null,
+          "prot": 6.8,
+          "gord": 43,
+          "gordSat": null,
+          "fibra": null,
+          "sodio": null
+        },
+        {
+          "nome": "Diva",
+          "porcao": "300 ml",
+          "kcal": 693,
+          "carb": 34,
+          "acucar": null,
+          "prot": 6.9,
+          "gord": 59,
+          "gordSat": null,
+          "fibra": null,
+          "sodio": null
+        },
+        {
+          "nome": "Dominó",
+          "porcao": "120 ml",
+          "kcal": 189,
+          "carb": 29,
+          "acucar": null,
+          "prot": 3,
+          "gord": 7,
+          "gordSat": null,
+          "fibra": null,
+          "sodio": null
+        },
+        {
+          "nome": "Filó",
+          "porcao": "120 ml",
+          "kcal": 190,
+          "carb": 28,
+          "acucar": null,
+          "prot": 3.1,
+          "gord": 6.9,
+          "gordSat": null,
+          "fibra": null,
+          "sodio": null
+        },
+        {
+          "nome": "Graciosa",
+          "porcao": "300 ml",
+          "kcal": 736,
+          "carb": 62,
+          "acucar": null,
+          "prot": 6.6,
+          "gord": 52,
+          "gordSat": null,
+          "fibra": null,
+          "sodio": null
+        },
+        {
+          "nome": "Malhada",
+          "porcao": "300 ml",
+          "kcal": 802,
+          "carb": 53,
+          "acucar": null,
+          "prot": 6.7,
+          "gord": 62,
+          "gordSat": null,
+          "fibra": null,
+          "sodio": null
+        },
+        {
+          "nome": "Manhosa",
+          "porcao": "100 ml",
+          "kcal": 204,
+          "carb": 35,
+          "acucar": null,
+          "prot": 2.5,
+          "gord": 5.9,
+          "gordSat": null,
+          "fibra": null,
+          "sodio": null
+        },
+        {
+          "nome": "Mimosa",
+          "porcao": "300 ml",
+          "kcal": 718,
+          "carb": 45,
+          "acucar": null,
+          "prot": 7.3,
+          "gord": 57,
+          "gordSat": null,
+          "fibra": null,
+          "sodio": null
+        },
+        {
+          "nome": "Mineira",
+          "porcao": "120 ml",
+          "kcal": 154,
+          "carb": 22,
+          "acucar": null,
+          "prot": 2.1,
+          "gord": 6.3,
+          "gordSat": null,
+          "fibra": null,
+          "sodio": null
+        },
+        {
+          "nome": "Pandora",
+          "porcao": "100 ml",
+          "kcal": 209,
+          "carb": 28,
+          "acucar": null,
+          "prot": 3.6,
+          "gord": 9.3,
+          "gordSat": null,
+          "fibra": null,
+          "sodio": null
+        },
+        {
+          "nome": "Preciosa",
+          "porcao": "120 ml",
+          "kcal": 232,
+          "carb": 29,
+          "acucar": null,
+          "prot": 2.8,
+          "gord": 12,
+          "gordSat": null,
+          "fibra": null,
+          "sodio": null
+        },
+        {
+          "nome": "Preta",
+          "porcao": "120 g",
+          "kcal": 209,
+          "carb": 29,
+          "acucar": null,
+          "prot": 2.9,
+          "gord": 9.4,
+          "gordSat": null,
+          "fibra": null,
+          "sodio": null
+        },
+        {
+          "nome": "Tempestade",
+          "porcao": "120 g",
+          "kcal": 236,
+          "carb": 38,
+          "acucar": null,
+          "prot": 3.8,
+          "gord": 7.7,
+          "gordSat": null,
+          "fibra": null,
+          "sodio": null
+        },
+        {
+          "nome": "Xonada",
+          "porcao": "120 ml",
+          "kcal": 241,
+          "carb": 38,
+          "acucar": null,
+          "prot": 2.1,
+          "gord": 9.1,
+          "gordSat": null,
+          "fibra": null,
+          "sodio": null
+        }
+      ]
+    }
+  ]
+}

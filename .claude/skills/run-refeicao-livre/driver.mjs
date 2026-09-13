@@ -642,7 +642,7 @@ async function cmdSmoke() {
       'redes no portal',
       await page.eval("[...document.querySelectorAll('.entry-title')].map(e => e.innerText)"),
       ["McDonald's", 'Burger King', 'KFC', 'Madero', 'Subway', "Bob's", 'Giraffas',
-        'Vivenda do Camarão', 'Montana Grill', "Habib's"],
+        'Vivenda do Camarão', 'Montana Grill', "Habib's", 'Milky Moo'],
     );
     // A logo do badge vem de data/index.json e mora em assets/. É o mesmo
     // descuido que deixa um data/*.json fora do commit: o deploy fica verde e o

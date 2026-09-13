@@ -1,7 +1,8 @@
 # Refeição Livre
 
 Guia de refeição livre: o cardápio das maiores redes de fast food, montado a partir da
-**tabela nutricional oficial** de cada rede, organizado por restaurante e, dentro dele, por
+**tabela nutricional oficial** de cada rede — com uma exceção, a Milky Moo, que não
+publica nenhuma e entrou com dado de agregador, avisado na tela —, organizado por restaurante e, dentro dele, por
 tipo de alimento. Monte um prato e veja o total de calorias como percentual do seu gasto diário.
 
 **App online:** [refeicao-livre.vercel.app](https://refeicao-livre.vercel.app/)
@@ -25,15 +26,25 @@ tipo de alimento. Monte um prato e veja o total de calorias como percentual do s
 | Madero | 101 | PDF oficial bilíngue | 05/2026 |
 | Subway | 62 | PDF oficial (Zamp) | 15/05/2026 |
 | Bob's | 41 | Tabela oficial por produto (imagem) — **valores por 100 g** | 08/2026 |
+| Giraffas | 179 | PDF oficial | 03/2026 |
+| Vivenda do Camarão | 102 | PDF oficial | 14/11/2024 |
+| Montana Grill | 77 | PDF oficial | 02/2025 |
+| Habib's | 175 | PDF oficial | 08/2026 |
+| Milky Moo | 16 | ⚠ **Não oficial** — a rede não publica tabela; valores do FatSecret | consultado em 12/09/2026 |
 
-**530 itens** no total.
+**1.079 itens** no total.
 
 O Subway publica sobretudo os **componentes** do sanduíche — pão, proteína, queijo, vegetais,
 molho — e só alguns subs montados. Some os itens na refeição para chegar ao seu sanduíche.
 
-O Bob's publica **por 100 g**, e não por porção como as outras quatro. O app registra isso no
+O Bob's publica **por 100 g**, e não por porção como as demais. O app registra isso no
 campo `base` do JSON, mostra "kcal/100 g" ao lado do valor e, ao montar a refeição, pergunta a
 quantidade em gramas em vez de somar 100 g calados.
+
+A **Milky Moo** é a única rede cujos números não são oficiais: ela não publica tabela nutricional
+(o site promete uma e não a linka; as rotas de nutrição respondem 404), e os 16 sabores vieram do
+FatSecret, que é agregador. O cardápio dela avisa isso na tela, e só ela traz `fonte.oficial: false`
+no JSON. Sai de cena assim que a rede publicar a própria tabela.
 
 Acrescentar uma rede é criar um JSON — veja **[ATUALIZAR-CARDAPIO.md](ATUALIZAR-CARDAPIO.md)**.
 

@@ -144,6 +144,27 @@ inteiro.
 Escolha a base pela fonte, nunca pela conveniência: se a rede publica por 100 g, é `"100g"`,
 mesmo que dê mais trabalho. Converter para porção seria publicar número calculado por nós.
 
+### `fonte.oficial: false`: a exceção, e por que ela é visível
+
+Regra do app: número publicado pela própria rede. **A Milky Moo é a única exceção** — ela não
+publica tabela nenhuma, e os valores dela vieram do FatSecret, por decisão explícita de quem
+mantém o app. O campo existe para que essa escolha apareça na tela, em vez de ficar só no
+`observacoes`:
+
+```json
+"fonte": { "url": "…", "tipo": "Levantamento do FatSecret", "oficial": false, "atualizadoEm": "2026-09-12" }
+```
+
+O campo **ausente significa oficial** — as outras dez redes não mudam. Com `false`, o rodapé
+troca "tabela oficial do X · atualizada pela rede em …" (que afirmaria duas coisas falsas sobre
+um dado de saúde) por "… · consultado em … A X não publica tabela nutricional: estes números não
+são oficiais.". O validador exige booleano de verdade: a string `"false"` é truthy e a tela
+voltaria a chamar o dado de oficial, calada.
+
+Não use isso para contornar o portão do `.claude/skills/adicionar-rede/SKILL.md`. A regra
+continua sendo fonte oficial; `oficial: false` é o rótulo de uma exceção decidida caso a caso,
+não uma porta de entrada para agregador.
+
 ### A regra que mais importa: `null`, nunca `0`
 
 Quando a fonte **não publica** um valor, o campo vai `null`. Nunca `0`.

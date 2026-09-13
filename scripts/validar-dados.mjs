@@ -87,6 +87,12 @@ for (const rede of indice?.redes ?? []) {
   if (dados.slug !== rede.slug) erro(`${rede.slug}.json: "slug" interno (${dados.slug}) não bate com o do index.json`);
   if (!dados.fonte?.url || !/^https:\/\//.test(dados.fonte.url)) erro(`${rede.slug}.json: "fonte.url" ausente ou não é https`);
   if (!dados.fonte?.atualizadoEm) erro(`${rede.slug}.json: falta "fonte.atualizadoEm"`);
+  // "oficial" só existe para marcar a exceção: rede que não publica tabela e cujos
+  // números vieram de terceiro. Ausente = oficial. Precisa ser booleano de verdade —
+  // a string "false" é truthy e a tela voltaria a chamar o dado de oficial, calada.
+  if (dados.fonte?.oficial !== undefined && typeof dados.fonte.oficial !== 'boolean') {
+    erro(`${rede.slug}.json: "fonte.oficial" só aceita true ou false — veio ${JSON.stringify(dados.fonte.oficial)}`);
+  }
   // A base diz a que quantidade os valores se referem. Ausente = por porção.
   // Uma base desconhecida seria lida como "porcao" pela UI e somaria errado, por
   // isso é erro em vez de aviso.

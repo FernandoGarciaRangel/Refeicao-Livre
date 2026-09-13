@@ -4,6 +4,10 @@ Cardápio das redes de fast food com a tabela nutricional **oficial** de cada um
 organizado por rede → tipo de alimento. Estático: `index.html` + `tokens.css` +
 `styles.css` + `app.js`, sem build e sem dependências em runtime.
 
+Uma exceção, e só uma: a **Milky Moo** não publica tabela e entrou com dado de
+agregador, marcada `fonte.oficial: false` — ver a regra 5 abaixo e o item 2c de
+`PENDENCIAS.md`. As outras dez continuam sendo número publicado pela própria rede.
+
 Deploy: Vercel, projeto estático, root = `index.html`. Sem variáveis de ambiente.
 Dev: `npx serve . -l 8082` (porta fixa — ver `README.md`).
 Repo: `FernandoGarciaRangel/Refeicao-Livre`.
@@ -72,15 +76,27 @@ repo.
 4. **`fonte` e `verificadoEm` são obrigatórios por rede.** É o que deixa o rodapé
    dizer de onde veio o número e quando foi conferido — e o que torna auditável
    um dado que vai envelhecer.
+5. **`fonte.oficial: false` rotula a exceção, não abre exceção.** Ausente = oficial,
+   que é o caso de dez das onze redes. Com `false`, o rodapé para de dizer "tabela
+   oficial do X · atualizada pela rede" e passa a avisar que o número não é oficial —
+   porque a frase padrão afirmaria duas coisas falsas sobre um dado de saúde. O
+   validador exige booleano de verdade (`"false"` é truthy e a tela mentiria calada).
+   Hoje só a Milky Moo usa; o portão do `adicionar-rede` continua valendo para
+   qualquer rede nova.
 
 ---
 
 ## O que ficou de fora, e por quê
 
 **[PENDENCIAS.md](PENDENCIAS.md)** — Pizza Hut (fonte boa, atribuição de massa não
-confiável), Popeyes (a rede não publica) e os limites do Bob's. Cada item registra o
+confiável), Popeyes (a rede não publica), Johnny Joy (não existe dado, nem oficial nem
+de agregador), Cabana Burger (não publica; a tabela foi
+pedida pelo WhatsApp do atendimento) e os limites do Bob's. Está lá também a Milky Moo,
+que entrou mas continua pendente de troca pela tabela oficial. Cada item registra o
 que já foi testado e falhou, com a evidência, para a próxima tentativa não recomeçar
-do zero.
+do zero. No fim dele está a **varredura de candidatas** de 2026-08-29: quem publica tabela
+oficial e ainda não entrou (Giraffas, Habib's, Vivenda do Camarão, Montana Grill, Chiquinho)
+e quem foi reprovado, com o motivo.
 
 ## O validador não é burocracia
 
