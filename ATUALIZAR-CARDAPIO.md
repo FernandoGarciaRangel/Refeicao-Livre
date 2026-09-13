@@ -196,9 +196,32 @@ O `fonte.url` continua apontando para a **página pública** do FatSecret, não 
 endpoint REST: o rodapé do app transforma esse campo em link para o usuário clicar, e um
 endpoint que pede chave não diria nada a ninguém.
 
-A API devolve o objeto `serving` inteiro, então `acucar`, `gordSat`, `fibra` e `sodio`
-podem deixar de ser `null` — quando o registro de origem os tiver. **O que não muda: o
-número continua sendo de terceiro.** O `fonte.oficial: false` fica.
+### O que o plano gratuito não dá (medido na conta real)
+
+- **`foods/search/v3` responde `Missing scope: scope 'premier'`.** A v1 responde, mas
+  resume os nutrientes numa frase (`food_description`) em vez de devolver o objeto
+  `servings`: "Per 120ml - Calories: 241kcal | Fat: 9.10g | Carbs: 38.00g | Protein:
+  2.10g". São os **mesmos quatro campos que a raspagem já dava** — o ganho no degrau
+  de baixo não é dado novo, é parar de depender do HTML.
+- **`region`/`language` são premium**: *"Localization is a premium feature only made
+  available to select accounts"*. Sem eles a busca enxerga só o índice dos EUA — e a
+  Milky Moo é marca brasileira, cadastrada no `fatsecret.com.br`.
+
+A segunda é a que decide. **Se a busca sem `region` não achar a marca, este caminho
+está fechado no plano gratuito**, e não há ajuste de código que resolva. O script diz
+isso com todas as letras em vez de falhar com mensagem genérica, e se recusa a gravar
+com zero item.
+
+Por isso ele desce uma escada e informa por qual degrau passou:
+
+| Etapa | Degrau de cima | Degrau de baixo |
+|---|---|---|
+| busca | `foods/search/v3` (premier, `servings` estruturado) | `foods/search/v1` (basic, frase) |
+| detalhe | `food/v2` por id (açúcar, gord. saturada, fibra, sódio) | a frase da busca (só quatro campos) |
+
+Quando o detalhe por id existe, `acucar`, `gordSat`, `fibra` e `sodio` deixam de ser
+`null` — se o registro de origem os tiver. **O que não muda em degrau nenhum: o número
+continua sendo de terceiro.** O `fonte.oficial: false` fica.
 
 Para mexer no mapeamento sem ter chave, há uma resposta sintética de teste:
 
@@ -207,9 +230,16 @@ FATSECRET_FIXTURE=scripts/fixtures/fatsecret-exemplo.json \
   node scripts/sincronizar-fatsecret.mjs milky-moo --dry
 ```
 
-Ela cobre de propósito os casos chatos: `servings` como objeto único em vez de array
-(herança do XML — ler `.length` direto perde o caso de um item), marca alheia no meio dos
-resultados, item sem porção com calorias, e campo que a API traz e o site não trazia.
+São duas, uma por degrau — `fatsecret-exemplo.json` (v3, com `servings`) e
+`fatsecret-v1-exemplo.json` (v1, com a frase) — e cobrem de propósito os casos chatos:
+`servings` como objeto único em vez de array (herança do XML: ler `.length` direto perde o
+caso de um item), marca alheia no meio dos resultados, item sem valor nutricional, porção em
+inglês ("1 serving" viraria texto cru numa tela em pt-BR) e campo que a API traz e o site não
+trazia.
+
+Nas duas, o **Xonada foi escrito com os valores que já estão no arquivo** e não gera linha de
+"mudou". É essa ausência que prova o mapeamento: os dois caminhos chegam no mesmo resultado
+que a raspagem deu.
 
 ### A regra que mais importa: `null`, nunca `0`
 

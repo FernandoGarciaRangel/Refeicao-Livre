@@ -10,22 +10,40 @@
  * chave e de IP na whitelist — nada disso pode viver no browser, e o app continua
  * lendo só os JSON de `data/`. Quem roda isto commita o resultado.
  *
- * Por que a API e não o site: a raspagem do HTML dependia de o FatSecret continuar
- * imprimindo `|Cals|241|` naquela ordem, e só entregava quatro campos (kcal, gordura,
- * carboidrato, proteína). A API devolve o objeto `serving` inteiro, então açúcar,
- * gordura saturada, fibra e sódio podem deixar de ser `null` — quando o registro
- * de origem os tiver. O que NÃO muda: o número continua sendo de terceiro, não da
- * rede. O `fonte.oficial: false` fica.
+ * ------------------------------------------------------------------ os planos
  *
- * Credenciais (cadastro gratuito em platform.fatsecret.com), por variável de ambiente:
+ * O que o tier gratuito (scope `basic`) NÃO dá, medido na conta real:
  *
- *   FATSECRET_KEY=<client_id>  FATSECRET_SECRET=<client_secret>  node scripts/…
+ *   - `foods/search/v3` responde "Missing scope: scope 'premier'". A v1 responde,
+ *     mas devolve os nutrientes como FRASE (`food_description`), não como objeto.
+ *   - `region`/`language` são premium: "Localization is a premium feature only made
+ *     available to select accounts". Sem eles a busca vê só o índice dos EUA — e a
+ *     Milky Moo é marca brasileira, cadastrada no fatsecret.com.br.
  *
- * ou num `.env` na raiz (já está no .gitignore) — este script lê o arquivo sozinho,
- * sem dependência.
+ * A segunda é a que decide: se a busca sem `region` não achar a marca, este caminho
+ * está fechado no plano gratuito, e não adianta mexer no código. O script diz isso
+ * em vez de falhar com mensagem genérica.
  *
- * O tier gratuito só emite token para IPs cadastrados no painel. Erro 401 na etapa
- * do token com credencial certa costuma ser IP fora da whitelist, não chave errada.
+ * Por isso ele desce uma escada e informa por qual degrau passou:
+ *
+ *   busca:    v3 (premier, traz `servings` estruturado) → v1 (basic, traz frase)
+ *   detalhe:  food/v2 por id (traz açúcar, gordura saturada, fibra e sódio)
+ *             → frase da busca (só kcal, gordura, carboidrato e proteína)
+ *
+ * No degrau de baixo o resultado é o MESMO conteúdo que a raspagem já dava. O ganho
+ * aí não é dado novo: é parar de depender do HTML e passar por interface documentada.
+ *
+ * -------------------------------------------------------------------- ambiente
+ *
+ * Credenciais (cadastro gratuito em platform.fatsecret.com), por variável de ambiente
+ * ou num `.env` na raiz (já está no .gitignore) — este script lê o arquivo sozinho:
+ *
+ *   FATSECRET_KEY=<client_id>       FATSECRET_SECRET=<client_secret>
+ *   FATSECRET_SCOPE=basic           # "basic premier localization" se a conta tiver
+ *   FATSECRET_REGIAO=BR             # só funciona com localization; vazio = índice dos EUA
+ *
+ * O tier gratuito só emite token para IPs cadastrados no painel, e o painel avisa que
+ * a mudança leva até 24 h para valer.
  *
  * Sem dependências — usa o fetch do Node ≥ 22.
  */
@@ -64,9 +82,10 @@ const REDES = {
   },
 };
 
-const API = 'https://platform.fatsecret.com/rest/foods/search/v3';
 const OAUTH = 'https://oauth.fatsecret.com/connect/token';
-const REGIAO = { region: 'BR', language: 'pt' };
+const BUSCA_V3 = 'https://platform.fatsecret.com/rest/foods/search/v3';
+const BUSCA_V1 = 'https://platform.fatsecret.com/rest/foods/search/v1';
+const DETALHE_V2 = 'https://platform.fatsecret.com/rest/food/v2';
 
 // ------------------------------------------------------------------- utilidades
 
@@ -77,7 +96,7 @@ function carregaEnv() {
   const arq = path.join(RAIZ, '.env');
   if (!fs.existsSync(arq)) return;
   for (const linha of fs.readFileSync(arq, 'utf8').split('\n')) {
-    const m = /^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/.exec(linha);
+    const m = /^\s*([A-Z0-9_]+)\s*=\s*(.*?)\s*$/.exec(linha);
     if (!m) continue;
     const valor = m[2].replace(/^["']|["']$/g, '');
     if (process.env[m[1]] === undefined) process.env[m[1]] = valor;
@@ -107,6 +126,18 @@ function porcaoDe(serving) {
   return (serving.serving_description || '').trim() || '1 porção';
 }
 
+/**
+ * "120ml" -> "120 ml", e traduz a porção genérica: o índice dos EUA descreve em
+ * inglês, e "1 serving" apareceria cru na tela de um app em pt-BR.
+ */
+function separaUnidade(s) {
+  const t = s.trim().replace(/^([\d.,]+)\s*(g|ml|kg|l|oz)$/i, (_, n, u) => `${n} ${u.toLowerCase()}`);
+  return t.replace(/\b(\d+)?\s*servings?\b/i, (_, n) => (n ? `${n} porção` : 'porção')).trim();
+}
+
+/** Erro de escopo é degrau da escada, não falha: precisa ser reconhecido, não abortado. */
+const semEscopo = (corpo) => /missing scope|scope '?(premier|localization)/i.test(corpo);
+
 // ------------------------------------------------------------------------- API
 
 async function pegaToken() {
@@ -123,18 +154,22 @@ async function pegaToken() {
       Authorization: 'Basic ' + Buffer.from(`${id}:${segredo}`).toString('base64'),
       'Content-Type': 'application/x-www-form-urlencoded',
     },
-    body: new URLSearchParams({ grant_type: 'client_credentials', scope: 'basic' }),
+    body: new URLSearchParams({
+      grant_type: 'client_credentials',
+      scope: process.env.FATSECRET_SCOPE || 'basic',
+    }),
   });
   const corpo = await r.text();
   if (!r.ok) {
     // Conferido contra o servidor: credencial errada devolve 400 invalid_client.
-    // Entao 400/invalid_client é chave, e 401/403 é quase sempre IP — vale saber
+    // Então 400/invalid_client é chave, e 401/403 é quase sempre IP — vale saber
     // qual dos dois antes de sair regerando segredo no painel à toa.
     const dica = /invalid_client/.test(corpo)
       ? '  invalid_client = par chave/segredo nao confere. Copie os dois de novo do painel.'
+      : /invalid_scope/.test(corpo)
+      ? '  invalid_scope = a conta nao tem esse scope. Tire FATSECRET_SCOPE do .env para usar "basic".'
       : '  Sem invalid_client, o suspeito e o IP: so os enderecos cadastrados na whitelist\n'
-      + '  emitem token. Confira o IP de saida desta maquina (curl https://api.ipify.org) e,\n'
-      + '  se a rede tiver IPv6, cadastre-o tambem — a requisicao pode sair por ele.';
+      + '  emitem token, e o painel avisa que a mudanca leva ate 24 h para valer.';
     morre(`token: HTTP ${r.status} — ${corpo.slice(0, 300)}\n${dica}`);
   }
   const j = JSON.parse(corpo);
@@ -142,10 +177,21 @@ async function pegaToken() {
   return j.access_token;
 }
 
+/** GET autenticado. Devolve {ok, json, corpo} em vez de lançar: o chamador decide. */
+async function chama(base, params, token) {
+  const url = new URL(base);
+  url.search = new URLSearchParams({ format: 'json', ...params });
+  const r = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
+  const corpo = await r.text();
+  let json = null;
+  try { json = JSON.parse(corpo); } catch { /* erro em texto puro */ }
+  // A API responde 200 com `{"error": …}` em parte dos casos, então o status não basta.
+  const erro = json?.error ? (json.error.message ?? JSON.stringify(json.error)) : null;
+  return { ok: r.ok && !erro, status: r.status, json, corpo: erro ?? corpo };
+}
+
 /**
- * Percorre as páginas da busca e devolve os `food` crus.
- *
- * O envelope da resposta já mudou de forma entre versões da API (`foods` na v2,
+ * O envelope da resposta já mudou de forma entre versões (`foods` na v1,
  * `foods_search` na v3), então em vez de fixar o caminho a extração procura a
  * primeira chave `food` que aparecer na árvore. Custa nada e sobrevive à v4.
  */
@@ -159,33 +205,64 @@ function achaFoods(no) {
   return null;
 }
 
+/** Desce a escada de busca e devolve {foods, versao}. */
 async function busca(token, expressao) {
   const fixture = process.env.FATSECRET_FIXTURE;
   if (fixture) {
     console.log(`  (fixture: ${fixture} — nenhuma chamada de rede)`);
-    return achaFoods(JSON.parse(fs.readFileSync(fixture, 'utf8'))) ?? [];
+    return { foods: achaFoods(JSON.parse(fs.readFileSync(fixture, 'utf8'))) ?? [], versao: 'fixture' };
   }
 
-  const todos = [];
-  for (let pagina = 0; pagina < 20; pagina++) {
-    const url = new URL(API);
-    url.search = new URLSearchParams({
-      search_expression: expressao,
-      max_results: '50',
-      page_number: String(pagina),
-      format: 'json',
-      ...REGIAO,
-    });
-    const r = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
-    const corpo = await r.text();
-    if (!r.ok) morre(`busca (página ${pagina}): HTTP ${r.status} — ${corpo.slice(0, 300)}`);
-    const j = JSON.parse(corpo);
-    if (j.error) morre(`busca: ${j.error.message ?? JSON.stringify(j.error)}`);
-    const foods = achaFoods(j) ?? [];
-    todos.push(...foods);
-    if (foods.length < 50) break;
+  const regiao = process.env.FATSECRET_REGIAO
+    ? { region: process.env.FATSECRET_REGIAO, language: process.env.FATSECRET_IDIOMA || 'pt' }
+    : {};
+
+  for (const [base, versao] of [[BUSCA_V3, 'v3'], [BUSCA_V1, 'v1']]) {
+    const todos = [];
+    let degrauCaiu = false;
+
+    for (let pagina = 0; pagina < 20; pagina++) {
+      const r = await chama(base, {
+        search_expression: expressao,
+        max_results: '50',
+        page_number: String(pagina),
+        ...regiao,
+      }, token);
+
+      if (!r.ok) {
+        if (semEscopo(r.corpo) && versao === 'v3') {
+          console.log(`  busca v3 indisponivel no plano (${r.corpo.trim()}) — caindo para a v1`);
+          degrauCaiu = true;
+          break;
+        }
+        if (semEscopo(r.corpo) && Object.keys(regiao).length) {
+          morre(`busca ${versao}: ${r.corpo}\n`
+              + '  region/language sao premium. Tire FATSECRET_REGIAO do .env e rode de novo —\n'
+              + '  mas saiba que sem regiao a busca ve so o indice dos EUA.');
+        }
+        morre(`busca ${versao} (pagina ${pagina}): HTTP ${r.status} — ${String(r.corpo).slice(0, 300)}`);
+      }
+
+      const foods = achaFoods(r.json) ?? [];
+      todos.push(...foods);
+      if (foods.length < 50) break;
+    }
+
+    if (!degrauCaiu) return { foods: todos, versao };
   }
-  return todos;
+  return { foods: [], versao: 'nenhuma' };
+}
+
+/**
+ * Detalhe por id, que é o único jeito de obter açúcar, gordura saturada, fibra e
+ * sódio. Se o plano não liberar, devolve null uma vez e o chamador para de tentar —
+ * insistir por item gastaria 16 chamadas para 16 negativas iguais.
+ */
+async function detalhe(token, foodId) {
+  const r = await chama(DETALHE_V2, { food_id: String(foodId) }, token);
+  if (!r.ok) return { indisponivel: true, motivo: String(r.corpo).slice(0, 160) };
+  const food = r.json?.food ?? achaFoods(r.json)?.[0] ?? null;
+  return { food };
 }
 
 // -------------------------------------------------------------------- mapeamento
@@ -205,9 +282,9 @@ function escolheServing(food, porcaoAtual) {
   return servings.find((s) => String(s.is_default) === '1') ?? servings[0];
 }
 
-function itemDe(food, serving) {
+function itemDeServing(nome, serving) {
   return {
-    nome: String(food.food_name).trim(),
+    nome,
     porcao: porcaoDe(serving),
     kcal: num(serving.calories, 0),
     carb: num(serving.carbohydrate, 1),
@@ -220,11 +297,40 @@ function itemDe(food, serving) {
   };
 }
 
+/**
+ * Degrau de baixo: a v1 resume tudo numa frase.
+ *   "Per 120ml - Calories: 241kcal | Fat: 9.10g | Carbs: 38.00g | Protein: 2.10g"
+ * Os quatro campos que ela traz são os mesmos que a raspagem dava; o resto fica null,
+ * como manda a regra — campo que a fonte não publica não se estima.
+ */
+function itemDeDescricao(nome, descricao) {
+  if (!descricao) return null;
+  const campo = (rot) => {
+    const m = new RegExp(`${rot}:\\s*([\\d.,]+)`, 'i').exec(descricao);
+    return m ? num(m[1], 1) : null;
+  };
+  const porcao = /^Per\s+(.+?)\s*-\s*Calories/i.exec(descricao)?.[1]?.trim();
+  const kcal = campo('Calories');
+  if (kcal === null) return null;
+  return {
+    nome,
+    porcao: porcao ? separaUnidade(porcao) : '1 porção',
+    kcal: Math.round(kcal),
+    carb: campo('Carbs'),
+    acucar: null,
+    prot: campo('Protein'),
+    gord: campo('Fat'),
+    gordSat: null,
+    fibra: null,
+    sodio: null,
+  };
+}
+
 /** 4·carb + 4·prot + 9·gord contra as kcal declaradas — pega erro de mapeamento. */
 function atwater(it) {
   if ([it.kcal, it.carb, it.prot, it.gord].some((v) => typeof v !== 'number')) return null;
-  const calc = 4 * it.carb + 4 * it.prot + 9 * it.gord;
   if (it.kcal <= 40) return null;
+  const calc = 4 * it.carb + 4 * it.prot + 9 * it.gord;
   return Math.round(((calc - it.kcal) / it.kcal) * 100);
 }
 
@@ -250,28 +356,55 @@ for (const cat of atual?.categorias ?? []) {
 console.log(`\nSincronizando ${cfg.nome} pela Platform API do FatSecret\n`);
 
 const token = process.env.FATSECRET_FIXTURE ? null : await pegaToken();
-const crus = await busca(token, cfg.busca);
-console.log(`  ${crus.length} resultado(s) na busca por "${cfg.busca}"`);
+const { foods: crus, versao } = await busca(token, cfg.busca);
+console.log(`  busca ${versao}: ${crus.length} resultado(s) para "${cfg.busca}"`);
 
 const daMarca = crus.filter((f) => String(f.brand_name ?? '').trim() === cfg.marca);
 console.log(`  ${daMarca.length} com brand_name === "${cfg.marca}"`);
+
 if (!daMarca.length) {
-  morre('nenhum item da marca voltou. Confira o brand_name na resposta antes de mexer\n'
-      + '  no arquivo — sincronizar com zero item apagaria a rede do app.');
+  const marcas = [...new Set(crus.map((f) => f.brand_name).filter(Boolean))].slice(0, 8);
+  morre('nenhum item da marca voltou — nao vou sincronizar com zero item, isso apagaria a rede.\n'
+      + (marcas.length ? `  Marcas que vieram: ${marcas.join(', ')}\n` : '  A busca nao devolveu marca nenhuma.\n')
+      + '\n  Causa mais provavel: o plano gratuito ve so o indice dos EUA, e a Milky Moo e\n'
+      + '  marca brasileira. region/language sao premium ("Localization is a premium feature\n'
+      + '  only made available to select accounts"), entao nao ha ajuste de codigo que resolva.\n'
+      + '  Se for isso, o caminho da API esta fechado no plano gratuito — mantenha o dado atual.');
 }
 
+// ---- monta os itens, tentando o detalhe antes de cair na frase
 const itens = [];
-const semServing = [];
+const semDado = [];
+let detalheOff = null;
+
 for (const food of daMarca) {
-  const s = escolheServing(food, porcaoPorNome.get(String(food.food_name).trim()));
-  if (!s) { semServing.push(food.food_name); continue; }
-  itens.push(itemDe(food, s));
+  const nome = String(food.food_name).trim();
+  let item = null;
+
+  if (food.servings) {
+    const s = escolheServing(food, porcaoPorNome.get(nome));
+    if (s) item = itemDeServing(nome, s);
+  }
+
+  // Em modo fixture não existe token: sair para a rede aqui mandaria "Bearer null".
+  if (!item && !detalheOff && food.food_id && !process.env.FATSECRET_FIXTURE) {
+    const d = await detalhe(token, food.food_id);
+    if (d.indisponivel) {
+      detalheOff = d.motivo;
+      console.log(`  detalhe por id indisponivel (${d.motivo}) — usando a frase da busca`);
+    } else if (d.food) {
+      const s = escolheServing(d.food, porcaoPorNome.get(nome));
+      if (s) item = itemDeServing(nome, s);
+    }
+  }
+
+  if (!item) item = itemDeDescricao(nome, food.food_description);
+  if (!item) { semDado.push(nome); continue; }
+  itens.push(item);
 }
 itens.sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
 
-if (semServing.length) {
-  console.log(`  ⚠ ${semServing.length} sem porção com calorias, ficaram de fora: ${semServing.join(', ')}`);
-}
+if (semDado.length) console.log(`  ⚠ ${semDado.length} sem valor nutricional, ficaram de fora: ${semDado.join(', ')}`);
 
 // ---- o que mudou em relação ao arquivo em disco
 const antes = new Map();
@@ -292,8 +425,8 @@ if (novos.length) console.log(`  novos:   ${novos.join(', ')}`);
 if (sumidos.length) console.log(`  sumiram: ${sumidos.join(', ')}`);
 for (const m of mudados) console.log(`  mudou   ${m}`);
 
-// Aviso de Atwater aqui também, para o desvio aparecer antes do commit e não só
-// no validador — a diferença é que aqui dá para reconferir com a resposta na mão.
+// Aviso de Atwater aqui também, para o desvio aparecer antes do commit e não só no
+// validador — a diferença é que aqui dá para reconferir com a resposta na mão.
 const fora = itens.map((it) => [it.nome, atwater(it)]).filter(([, d]) => d !== null && Math.abs(d) > 20);
 if (fora.length) {
   console.log('');

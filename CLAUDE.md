@@ -106,6 +106,13 @@ rodado à mão** — a API pede chave e IP na whitelist, então não pode ir par
 browser, e o app segue lendo só os JSON. Detalhes e o modo de teste sem chave
 (`FATSECRET_FIXTURE`) estão em [ATUALIZAR-CARDAPIO.md](ATUALIZAR-CARDAPIO.md).
 
+**O plano gratuito pode nao servir, e a causa nao e de codigo.** Medido na conta
+real: `foods/search/v3` exige scope `premier`, e `region`/`language` sao premium
+("Localization is a premium feature only made available to select accounts"). Sem
+regiao a busca ve so o indice dos EUA — e a Milky Moo e marca brasileira. O script
+desce para a v1 sozinho e, se a marca nao voltar, diz que o caminho esta fechado em
+vez de falhar com mensagem generica.
+
 Duas travas que existem por serem o risco do desenho: ele recusa gravar se a
 sincronização perderia mais de 30% dos itens (sobrescrever é o modo de operação;
 uma busca que volta pela metade apagaria sabores em silêncio), e mantém a porção
