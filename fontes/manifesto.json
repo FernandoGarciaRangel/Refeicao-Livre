@@ -112,6 +112,15 @@
       "dataNoDocumento": "2025-02",
       "obtidoEm": "2026-08-30",
       "nota": "O documento NÃO traz data impressa: \"FEV-2025\" vem do título do PDF, do nome do arquivo e dos ingredientes datados dentro dele. A ordem das colunas muda de seção para seção — parseie o cabeçalho de cada uma. Cobertura parcial: saladas, massas, sobremesas e bebidas têm uma linha ou nenhuma."
+    },
+    {
+      "rede": "milky-moo",
+      "url": "https://www.fatsecret.com.br/calorias-nutri%C3%A7%C3%A3o/milky-moo",
+      "formato": "agregador",
+      "versionamento": "nenhum — banco de terceiro, editado por colaboração, sem data publicada",
+      "conferivelPorHash": false,
+      "obtidoEm": "2026-09-12",
+      "nota": "ÚNICA fonte não oficial do app (fonte.oficial: false). A rede não publica tabela: o cardápio promete uma e não a linka, e /tabela-nutricional, /nutricional e /informacoes-nutricionais dão 404. Em setembro de 2025 a marca anunciou revisão da tabela \"já disponível no site\", que um ano depois continua fora do ar — é isso que faz valer a pena reconferir o site oficial de tempos em tempos, e não esta URL. Sincronização por scripts/sincronizar-fatsecret.mjs (Platform API), não por raspagem; ver o item 2c de PENDENCIAS.md."
     }
   ]
 }

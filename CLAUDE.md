@@ -45,8 +45,9 @@ validador cobra — está em **[ATUALIZAR-CARDAPIO.md](ATUALIZAR-CARDAPIO.md)**.
 **Leia antes de tocar em qualquer JSON.** Ele é a fonte única dessas regras; as
 skills abaixo apontam para ele em vez de repeti-las, de propósito.
 
-Há duas skills em `.claude/skills/` para os dois fluxos, e elas guardam o que é
-exclusivo de cada um:
+Das três skills em `.claude/skills/`, duas cobrem os fluxos de dado e guardam o que é
+exclusivo de cada um (a terceira, `run-refeicao-livre`, não mexe em dado: sobe e pilota
+o app):
 
 | Skill | Quando | O que ela sabe que o resto não diz |
 |---|---|---|
@@ -95,8 +96,8 @@ pedida pelo WhatsApp do atendimento) e os limites do Bob's. Está lá também a 
 que entrou mas continua pendente de troca pela tabela oficial. Cada item registra o
 que já foi testado e falhou, com a evidência, para a próxima tentativa não recomeçar
 do zero. No fim dele está a **varredura de candidatas** de 2026-08-29: quem publica tabela
-oficial e ainda não entrou (Giraffas, Habib's, Vivenda do Camarão, Montana Grill, Chiquinho)
-e quem foi reprovado, com o motivo.
+oficial e ainda não entrou. Dela só resta o **Chiquinho** — Giraffas, Habib's, Vivenda do
+Camarão e Montana Grill entraram em 2026-09-12. E quem foi reprovado, com o motivo.
 
 ## A única leitura de API do repo
 
