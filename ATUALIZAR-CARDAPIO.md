@@ -207,6 +207,12 @@ endpoint que pede chave não diria nada a ninguém.
   available to select accounts"*. Sem eles a busca enxerga só o índice dos EUA — e a
   Milky Moo é marca brasileira, cadastrada no `fatsecret.com.br`.
 
+**Testado na conta real em 2026-09-13, e o resultado foi negativo:** busca por "Milky Moo"
+devolveu 1.000 resultados e **zero** com `brand_name` igual (vieram Milka, Friendly Farms,
+Nestlé, Mars). "Xonada" devolve Posada e Canada Dry; "Milkymoo" devolve 0. E `region=BR`
+**não dá erro — é aceito e ignorado**, devolvendo o mesmo índice dos EUA, o que é pior que
+recusar. O script avisa disso. Detalhe completo no item 2c de `PENDENCIAS.md`.
+
 A segunda é a que decide. **Se a busca sem `region` não achar a marca, este caminho
 está fechado no plano gratuito**, e não há ajuste de código que resolva. O script diz
 isso com todas as letras em vez de falhar com mensagem genérica, e se recusa a gravar

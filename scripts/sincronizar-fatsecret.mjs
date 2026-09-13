@@ -213,9 +213,17 @@ async function busca(token, expressao) {
     return { foods: achaFoods(JSON.parse(fs.readFileSync(fixture, 'utf8'))) ?? [], versao: 'fixture' };
   }
 
+  // Medido em 2026-09-13 no plano basic: `region=BR` NÃO dá erro — é aceito e
+  // ignorado, devolvendo o mesmo índice dos EUA. Isso é pior que recusar, porque
+  // quem passa a variável acredita estar buscando no Brasil. O aviso existe para
+  // essa pessoa não concluir que a marca "sumiu do FatSecret".
   const regiao = process.env.FATSECRET_REGIAO
     ? { region: process.env.FATSECRET_REGIAO, language: process.env.FATSECRET_IDIOMA || 'pt' }
     : {};
+  if (Object.keys(regiao).length) {
+    console.log(`  ⚠ region=${regiao.region} enviado — se a conta nao tiver o scope localization,`);
+    console.log('    a API aceita e IGNORA o parametro, devolvendo o indice dos EUA sem avisar.');
+  }
 
   for (const [base, versao] of [[BUSCA_V3, 'v3'], [BUSCA_V1, 'v1']]) {
     const todos = [];

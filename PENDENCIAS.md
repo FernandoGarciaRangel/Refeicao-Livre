@@ -7,7 +7,7 @@ o que já foi testado, o que falhou e com que evidência, e qual é o próximo p
 No fim há a **varredura de candidatas**: as redes que publicam tabela oficial e ainda não
 entraram, com a fonte conferida, e as que foram reprovadas, com o motivo.
 
-Última revisão: 2026-09-12. Estado do app nessa data: 1.079 itens, 11 redes, validador exit 0
+Última revisão: 2026-09-13. Estado do app nessa data: 1.079 itens, 11 redes, validador exit 0
 (22 avisos, todos anteriores), smoke 22/22.
 
 ---
@@ -157,6 +157,28 @@ rede não publicou. Foi decisão explícita de quem mantém o app, depois de o p
 - **Não bate com o outro agregador:** o dieta.ai publica Malhada a 238 kcal/120 ml (≈595 por
   300 ml) contra os 802 por 300 ml do FatSecret. O artigo do dieta.ai é de março/2025, anterior
   à correção, sem citar fonte — por isso o FatSecret foi o escolhido, não porque esteja certo.
+
+### A Platform API foi tentada e NÃO serve no plano gratuito (medido em 2026-09-13)
+
+Não refaça este teste. Conta criada, IP na whitelist, token emitindo normalmente — e ainda
+assim o caminho está fechado, por duas razões que não são de código:
+
+- `foods/search/v3` responde `Missing scope: scope 'premier'`. A v1 responde, mas resume os
+  nutrientes numa frase (`food_description`): os **mesmos quatro campos** que a raspagem já
+  dava. Nenhum ganho de dado.
+- **O índice do plano gratuito é só dos EUA, e a Milky Moo não está nele.** Busca por
+  "Milky Moo": 1.000 resultados, **zero** com `brand_name` igual — vieram Milka, Friendly
+  Farms, Nestlé, Mars, P.F. Chang's. Busca por sabores brasileiros: "Xonada" devolve Posada e
+  Canada Dry; "Dengosa" devolve Casa Mendosa; "Milkymoo" devolve **0**.
+
+E a armadilha: **`region=BR` não dá erro — é aceito e ignorado**, devolvendo o mesmo índice
+dos EUA. A documentação diz que localização é premium ("Localization is a premium feature only
+made available to select accounts"), mas a API não recusa; ela mente por omissão. Quem passar
+esse parâmetro vai achar que buscou no Brasil. O `sincronizar-fatsecret.mjs` avisa disso.
+
+**O script fica.** Está testado por fixture nos dois degraus e funciona no dia em que a conta
+virar Premier — ou para outra rede que esteja no índice dos EUA. Hoje ele está dormente, e o
+dado do app continua sendo o que foi raspado do site.
 
 **Próximo passo:** quando a Milky Moo publicar a tabela, troque o arquivo inteiro pela oficial e
 **remova o `fonte.oficial: false`** — o rótulo de aviso some junto. Enquanto isso, nenhuma outra
