@@ -32,7 +32,15 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import dns from 'node:dns';
 import { fileURLToPath } from 'node:url';
+
+// A whitelist do FatSecret guarda o IPv4 desta máquina. Numa rede de pilha dupla o
+// Node pode resolver o host da API para IPv6 e sair pelo endereço v6 — que não está
+// cadastrado, e o token volta 401 sem nada de errado na chave. Cadastrar o v6 não
+// resolveria: o endereço temporário de privacidade rotaciona sozinho. Forçar a
+// resolução para v4 resolve, e é inócuo em rede que só tem v4.
+dns.setDefaultResultOrder('ipv4first');
 
 const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DATA = path.join(RAIZ, 'data');
