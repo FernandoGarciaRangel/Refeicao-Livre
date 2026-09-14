@@ -6,7 +6,7 @@ organizado por rede → tipo de alimento. Estático: `index.html` + `tokens.css`
 
 Uma exceção, e só uma: a **Milky Moo** não publica tabela e entrou com dado de
 agregador, marcada `fonte.oficial: false` — ver a regra 5 abaixo e o item 2c de
-`PENDENCIAS.md`. As outras dez continuam sendo número publicado pela própria rede.
+`PENDENCIAS.md`. As outras onze continuam sendo número publicado pela própria rede.
 
 Deploy: Vercel, projeto estático, root = `index.html`. Sem variáveis de ambiente.
 Dev: `npx serve . -l 8082` (porta fixa — ver `README.md`).
@@ -78,7 +78,7 @@ repo.
    dizer de onde veio o número e quando foi conferido — e o que torna auditável
    um dado que vai envelhecer.
 5. **`fonte.oficial: false` rotula a exceção, não abre exceção.** Ausente = oficial,
-   que é o caso de dez das onze redes. Com `false`, o rodapé para de dizer "tabela
+   que é o caso de onze das doze redes. Com `false`, o rodapé para de dizer "tabela
    oficial do X · atualizada pela rede" e passa a avisar que o número não é oficial —
    porque a frase padrão afirmaria duas coisas falsas sobre um dado de saúde. O
    validador exige booleano de verdade (`"false"` é truthy e a tela mentiria calada).
@@ -97,7 +97,9 @@ que entrou mas continua pendente de troca pela tabela oficial. Cada item registr
 que já foi testado e falhou, com a evidência, para a próxima tentativa não recomeçar
 do zero. No fim dele está a **varredura de candidatas** de 2026-08-29: quem publica tabela
 oficial e ainda não entrou. Dela só resta o **Chiquinho** — Giraffas, Habib's, Vivenda do
-Camarão e Montana Grill entraram em 2026-09-12. E quem foi reprovado, com o motivo.
+Camarão e Montana Grill entraram em 2026-09-12. E quem foi reprovado, com o motivo. O
+**Ragazzo** entrou em 2026-09-13 por fora dela, e a **China in Box** foi reconferida na mesma
+data e segue reprovada.
 
 ## A única leitura de API do repo
 
@@ -206,6 +208,20 @@ Estão em `observacoes` de cada rede, mas vale saber que existem antes de
   acompanhamento. E traz uma anotação interna, "Rever calculo", ao lado do Mini
   Pastel de Queijo. Os itens em que as calorias não fecham com os próprios macros
   levam o campo `alerta`, que a UI mostra no detalhe.
+- **Ragazzo**: a fonte é do mesmo grupo e do mesmo gerador que a do Habib's, e o
+  `%VD` dela **é** confiável — fecha em 130 dos 135 itens, e foram as cinco
+  exceções que revelaram tudo o que segue. Um **dígito perdido**: o `Sorvete
+  Velosa Morango` sai com 11 kcal numa porção cujos macros dão 112, cuja coluna de
+  100 g traz 186 e cujo `%VD` de 6% aponta 120. Ficou como publicado, com `alerta`
+  — e repare que o validador **não** pega esse: Atwater só roda acima de 40 kcal,
+  então um valor errado *para baixo* passa calado. O `Café com Chantilly` repete
+  aqui, número por número, o mesmo defeito que já tem na tabela do Habib's. E o
+  ponto decimal: ele aparece **uma única vez** no documento inteiro (`1.159` mg de
+  sódio no couvert) e ali é separador de milhar — no resto, o decimal é vírgula.
+  Nos sucos a rede imprime duas tabelas por sabor, e a segunda declara "Porção:
+  500 ml (2/5 de copo)" enquanto publica os valores de **200 ml**, que é o que 2/5
+  de um copo de 500 ml dão; quatro rotulam a coluna "200 ml" e entraram, duas
+  rotulam "500 ml" sem que os valores batam com nada e ficaram de fora.
 
 Não silencie esses avisos. São informação sobre a fonte, não sujeira nossa.
 

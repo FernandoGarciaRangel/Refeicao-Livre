@@ -7,8 +7,8 @@ o que já foi testado, o que falhou e com que evidência, e qual é o próximo p
 No fim há a **varredura de candidatas**: as redes que publicam tabela oficial e ainda não
 entraram, com a fonte conferida, e as que foram reprovadas, com o motivo.
 
-Última revisão: 2026-09-13. Estado do app nessa data: 1.079 itens, 11 redes, validador exit 0
-(22 avisos, todos anteriores), smoke 22/22.
+Última revisão: 2026-09-13. Estado do app nessa data: 1.212 itens, 12 redes, validador exit 0
+(29 avisos, 7 deles do Ragazzo e explicados nas `observacoes` dele), smoke 22/22.
 
 ---
 
@@ -301,6 +301,17 @@ O que cada uma exige, além do que já está em `ATUALIZAR-CARDAPIO.md`:
 - **Montana Grill.** `/tabelanutricional` é rota, não arquivo: responde **308** para o PDF.
   As linhas trazem peso e kcal (Picanha 220 g / 479 kcal), o que faz a checagem de massa do
   validador valer desde o primeiro dia.
+- **Ragazzo Express** — o resto do Ragazzo, que entrou em 2026-09-13.
+  `https://www1.deliveryragazzo.com.br/storage/pdf/tb_nutri_rex.pdf`, 9 páginas, 53 tabelas,
+  **abril de 2026**. Dessas, 41 são produtos que não estão no PDF principal: sobretudo casquinhas
+  recheadas, cascões e milk-shakes do formato Express. Extrai com o mesmo parser do principal, sem
+  ajuste (rodei: 53 tabelas, zero rótulo desconhecido). **O que falta decidir não é técnico:** são
+  dois documentos com datas diferentes e `data/<rede>.json` guarda **uma** `fonte` por rede, então
+  mesclar seria misturar fontes — o que o `adicionar-rede` proíbe. Os 12 produtos que aparecem nos
+  dois trazem valores **idênticos**, exceto o `Suco de Laranja` (46 contra 48 kcal por 100 ml), o
+  que mostra que os dois documentos não se contradizem de fato. As saídas seriam ou uma rede
+  separada ("Ragazzo Express") com a sua própria `fonte`, ou um campo de fonte por categoria —
+  e o segundo mexe no formato do item, que é o que o repo evita.
 - **Chiquinho Sorvetes.** **Confira a cobertura antes de extrair:** o nome do arquivo diz
   `linha_proteica`, e não ficou claro se ele cobre o cardápio inteiro ou só essa linha. Se cobrir
   só parte, é o caso do Bob's — entra pela metade, e quem pediu precisa saber antes.
@@ -330,12 +341,19 @@ O que cada uma exige, além do que já está em `ATUALIZAR-CARDAPIO.md`:
 - **Popeyes** (reconferido, ver item 2). Continua sem publicar, e o `plk-cms` é o mesmo bucket
   S3 sem listagem. A esperança de "a Zamp publica para BK e Subway, então um dia publica para
   este" segue de pé, mas não há atalho por enumeração.
+- **China in Box** (reconferida em 2026-09-13, continua reprovada). O site é casca
+  Ionic/Cordova em Angular: baixei o `main-*.js` e os 26 `chunk-*.js` e **`nutri` não aparece
+  em nenhum**, nem `caloria`, `sodio` ou `.pdf`. O cardápio vem da API `cib.alphacode.com.br/api/`,
+  cujos produtos não têm campo nutricional. O `qrcode.chinainbox.com.br` que o buscador indexa
+  (cardápio oficial de 2021) **não resolve mais** — DNS morto, não é 404. Tudo o que existe é de
+  terceiro: Scribd, FatSecret, blogs e um PDF de 2016 no silo.tips. A pergunta 1 do portão reprova
+  os quatro.
 - **Sem nada encontrado** (home, `/cardapio`, bundles e, onde é WordPress, a API de mídia):
-  China in Box, Casa do Pão de Queijo, Taco Bell, Divino Fogão, Mania de Churrasco, Coco Bambu,
+  Casa do Pão de Queijo, Taco Bell, Divino Fogão, Mania de Churrasco, Coco Bambu,
   Rei do Mate, Croasonho, Gendai, Mr. Cheney, Sodiê Doces, Nutty Bavarian, Baked Potato,
   Temakeria & Cia, Jin Jin, Sbarro.
 
-### Duas técnicas que a varredura rendeu
+### Três técnicas que a varredura rendeu
 
 Valem para a próxima rede, e teriam poupado tempo aqui:
 
@@ -346,6 +364,11 @@ Valem para a próxima rede, e teriam poupado tempo aqui:
    lista os arquivos por nome e devolve o `source_url` pronto — foi assim que Vivenda e Bacio
    apareceram, e foi assim que se **provou** que o Cabana não tem nada (a busca volta `[]`).
    `wp-json/wp/v2/search?search=nutricional` faz o mesmo para páginas.
+3. **O domínio óbvio pode não ser o da rede — confira o `<title>` antes de concluir "não publica".**
+   `ragazzo.com.br` é a *Ragazzo Model Management*, uma agência de modelos em Wix; a lanchonete
+   publica em `deliveryragazzo.com.br`. Uma varredura automática que só procure `nutri` no HTML
+   reprova a rede errada e ninguém revisita. O mesmo vale ao contrário: `habibs.com.br/ragazzo`
+   responde 200 e serve o site do Habib's, não uma seção do Ragazzo.
 
 E a de sempre, que apanhou três candidatas de uma vez: **um PDF indexado pelo Google não é um
 PDF que existe.** Spoleto, Domino's e o link antigo do Jerônimo respondem 200 com HTML. Confira o
