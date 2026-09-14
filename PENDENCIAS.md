@@ -7,8 +7,8 @@ o que já foi testado, o que falhou e com que evidência, e qual é o próximo p
 No fim há a **varredura de candidatas**: as redes que publicam tabela oficial e ainda não
 entraram, com a fonte conferida, e as que foram reprovadas, com o motivo.
 
-Última revisão: 2026-09-13. Estado do app nessa data: 1.079 itens, 11 redes, validador exit 0
-(22 avisos, todos anteriores), smoke 22/22.
+Última revisão: 2026-09-13. Estado do app nessa data: 1.212 itens, 12 redes, validador exit 0
+(29 avisos, 7 deles do Ragazzo e explicados nas `observacoes` dele), smoke 22/22.
 
 ---
 
